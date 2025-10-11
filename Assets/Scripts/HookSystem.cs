@@ -14,6 +14,8 @@ public class HookSystem : MonoBehaviour
 
     public float hookForce;
     public float playerAttractionForce;
+    public float limitedSpeed;
+    public float breakForce;
 
     Vector3 hookTargetPos;
     void Start()
@@ -62,8 +64,30 @@ public class HookSystem : MonoBehaviour
 
     void MovePlayer()
     {
+        float attractionForce;
+        float maxVelocity;
+        switch (player.GetComponent<Player>().onTrack)
+        {
+            case true:
+                attractionForce = playerAttractionForce;
+                maxVelocity = float.MaxValue;
+                break;
+            case false:
+                attractionForce = playerAttractionForce / 2;
+                maxVelocity = limitedSpeed;
+                break;
+   
+           
+        }
         Vector2 playerMoveVector = (tmpHookPoint.transform.position - player.transform.position).normalized;
-        playerRb.AddForce(playerMoveVector * playerAttractionForce, ForceMode2D.Force);
+        playerRb.AddForce(playerMoveVector * attractionForce, ForceMode2D.Force);
+        if (playerRb.linearVelocity.magnitude > maxVelocity)
+        {
+            float currentVelocity = playerRb.linearVelocity.magnitude;
+            playerRb.linearVelocity = playerRb.linearVelocity.normalized * Mathf.MoveTowards(currentVelocity, maxVelocity, Time.deltaTime * breakForce);
+        }
+
+        Debug.Log(playerRb.linearVelocity.magnitude);
     }
 
 
