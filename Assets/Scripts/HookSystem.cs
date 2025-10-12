@@ -87,7 +87,6 @@ public class HookSystem : MonoBehaviour
             playerRb.linearVelocity = playerRb.linearVelocity.normalized * Mathf.MoveTowards(currentVelocity, maxVelocity, Time.deltaTime * breakForce);
         }
 
-        Debug.Log(playerRb.linearVelocity.magnitude);
     }
 
 

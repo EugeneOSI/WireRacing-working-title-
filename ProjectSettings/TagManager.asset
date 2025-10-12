@@ -5,17 +5,16 @@ TagManager:
   serializedVersion: 3
   tags:
   - Barier
-  - Wall
-  - SideWall
   - track
+  - sand
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Sand
   - Water
   - UI
-  - 
+  - Track
   - 
   - 
   - 
