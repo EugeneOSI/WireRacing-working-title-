@@ -364,7 +364,7 @@ MonoBehaviour:
   offsetValue: 60
   defaultCamSize: 10
   sizeReduce: 1
-  smoothSize: 0.2
+  smoothSize: 0.01
 --- !u!1 &530973723
 GameObject:
   m_ObjectHideFlags: 0
