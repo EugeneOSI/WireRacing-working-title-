@@ -359,9 +359,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0766c33b9c9345446b8b23e44f9c86b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowCamera
-  target: {fileID: 2098356184}
-  smoothSpeed: 0.09
-  offset: {x: 0, y: 0, z: -10}
+  target: {fileID: 2098356180}
+  smoothSpeed: 0.03
+  offsetValue: 60
+  defaultCamSize: 10
+  sizeReduce: 1
+  smoothSize: 0.2
 --- !u!1 &530973723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,7 +1728,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -1986,11 +1989,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4318070494888430978, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
   m_PrefabInstance: {fileID: 2961960768137620433}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2098356184 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6121096133615569708, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
-  m_PrefabInstance: {fileID: 2961960768137620433}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2108217318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2060,11 +2058,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121096133615569708, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 116.6
+      value: 3.3
       objectReference: {fileID: 0}
     - target: {fileID: 6121096133615569708, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -227.9
+      value: 2.2
       objectReference: {fileID: 0}
     - target: {fileID: 6121096133615569708, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_LocalPosition.z

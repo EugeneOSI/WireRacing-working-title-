@@ -50,11 +50,11 @@ public class Player : MonoBehaviour
             {
                 case "track":
                     onTrack = true;
-                    Debug.Log("On Track");
+                    //Debug.Log("On Track");
                     break;
                 case "sand":
                     onTrack = false;
-                    Debug.Log("On Sand");
+                    //Debug.Log("On Sand");
                     break;
             }
         }
