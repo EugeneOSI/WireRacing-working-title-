@@ -12,19 +12,22 @@ public class Player : MonoBehaviour
     public LayerMask surfaceLayer;
     Rigidbody2D rb;
 
+    TrackGenarator trackGenarator;
+
     void Start()
     {
         isAlive = true;
         rb = GetComponent<Rigidbody2D>();
         timerSlider = GameObject.Find("Slider").GetComponent<Slider>();
         timerSlider.value = health;
+        trackGenarator = GameObject.Find("TrackGenerator").GetComponent<TrackGenarator>();
 
     }
 
     void Update()
     {
 
-        if (rb.linearVelocity.magnitude < 5f)
+        /*if (rb.linearVelocity.magnitude < 5f)
         {
             health = Mathf.MoveTowards(health, 0, Time.deltaTime * 2);
             timerSlider.value = health;
@@ -33,7 +36,8 @@ public class Player : MonoBehaviour
         if (rb.linearVelocity.magnitude >= 5f)
         {
             health = Mathf.MoveTowards(health, 5, Time.deltaTime * 1);
-        }
+            timerSlider.value = health;
+        }*/
         
         if (health <= 0)
         {
@@ -60,11 +64,20 @@ public class Player : MonoBehaviour
                     Debug.Log("On Sand");
                     break;
                 default:
-                onTrack = false;
-                Debug.Log("No Surface");
-                break;
+                    onTrack = true;
+                    Debug.Log("No Surface");
+                    break;
             }
 
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("SegmentCheckPoint"))
+        {
+            trackGenarator.GenerateSegment();
+            trackGenarator.RemovePrevSegment();
         }
     }
 

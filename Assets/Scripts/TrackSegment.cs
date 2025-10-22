@@ -23,7 +23,7 @@ public class TrackSegment : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            trackGenarator.GenerateSegment(2);
+            trackGenarator.GenerateSegment();
             StartCoroutine(DestroyThisSegment());
         }
     }
