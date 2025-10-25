@@ -8,6 +8,7 @@ TagManager:
   - sand
   - segment
   - SegmentCheckPoint
+  - StartRaceZone
   layers:
   - Default
   - TransparentFX

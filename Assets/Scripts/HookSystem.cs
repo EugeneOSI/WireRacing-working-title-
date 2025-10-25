@@ -4,14 +4,9 @@ public class HookSystem : MonoBehaviour
 {
     public GameObject player;
     public GameObject hookPoint;
-
-
     Rigidbody2D playerRb;
-
     GameObject tmpHookPoint;
-
     public bool hookIsMoving = true;
-
     public float hookForce;
     public float playerAttractionForce;
     public float limitedSpeed;
