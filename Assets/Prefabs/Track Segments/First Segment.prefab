@@ -44,6 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2493447749952196387}
   - component: {fileID: 6022841453513021434}
+  - component: {fileID: 5086457534425010547}
   m_Layer: 3
   m_Name: Sand
   m_TagString: sand
@@ -60,8 +61,8 @@ Transform:
   m_GameObject: {fileID: 3944470346684149458}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0.9, y: 50.1, z: 0.002}
-  m_LocalScale: {x: 99.66875, y: 99.96146, z: 1}
+  m_LocalPosition: {x: 0.9, y: 50.1, z: 0.1}
+  m_LocalScale: {x: 100, y: 101, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4443728078120227138}
@@ -112,7 +113,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.8000001, g: 0.654902, b: 0, a: 1}
   m_FlipX: 0
@@ -124,6 +125,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!61 &5086457534425010547
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944470346684149458}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &5315416598570296823
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,8 +182,8 @@ GameObject:
   - component: {fileID: 1612798850897387251}
   - component: {fileID: 7021266901560302607}
   - component: {fileID: 7839820665962871351}
-  - component: {fileID: 3172344788306086573}
-  m_Layer: 7
+  - component: {fileID: 3475716512733852793}
+  m_Layer: 6
   m_Name: Track
   m_TagString: track
   m_Icon: {fileID: 0}
@@ -205,7 +252,7 @@ SpriteShapeRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Color: {r: 0.43137258, g: 0.43137258, b: 0.43137258, a: 1}
   m_MaskInteraction: 0
   m_ShapeTexture: {fileID: 2800000, guid: b281b91a70a624a0da1c43adc1c30c7b, type: 3}
@@ -303,7 +350,7 @@ MonoBehaviour:
   - {x: -38.273056, y: 4.8422728}
   - {x: -38.52305, y: 5.0924635}
   m_ShadowSegment: []
---- !u!60 &3172344788306086573
+--- !u!60 &3475716512733852793
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -386,7 +433,7 @@ Transform:
   m_GameObject: {fileID: 7401909818584433841}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 100.1, z: 0}
+  m_LocalPosition: {x: -0.01, y: 99.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
 
     TrackGenarator trackGenarator;
+    Collider2D hit;
 
     void Start()
     {
@@ -38,22 +39,41 @@ public class Player : MonoBehaviour
             health = Mathf.MoveTowards(health, 5, Time.deltaTime * 1);
             timerSlider.value = health;
         }*/
-        
+
         if (health <= 0)
         {
             isAlive = false;
             Debug.Log("You Died");
         }
+
+    }
+    
+    void FixedUpdate()
+    {
         GetSurfaceBehavior();
     }
 
 
     void GetSurfaceBehavior()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1f, surfaceLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.5f, surfaceLayer);
         if (hit.collider != null)
         {
             switch (hit.collider.tag)
+            {
+                case "track":
+                    onTrack = true;
+                    //Debug.Log("On Track");
+                    break;
+                case "sand":
+                    onTrack = false;
+                    //Debug.Log("On Sand");
+                    break;
+            }
+        }
+        /*{
+            RaycastHit2D nearest = hits.OrderBy(h => h.distance).First();
+            switch (nearest.collider.tag)
             {
                 case "track":
                     onTrack = true;
@@ -63,23 +83,34 @@ public class Player : MonoBehaviour
                     onTrack = false;
                     Debug.Log("On Sand");
                     break;
-                default:
-                    onTrack = true;
-                    Debug.Log("No Surface");
-                    break;
             }
 
-        }
+        }*/
+
+        /*hit = Physics2D.OverlapPoint(transform.position, surfaceLayer);
+                    switch (hit.tag)
+            {
+                case "track":
+                    onTrack = true;
+                    //Debug.Log("On Track");
+                    break;
+                case "sand":
+                    onTrack = false;
+                    //Debug.Log("On Sand");
+                    break;
+            }*/
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("SegmentCheckPoint"))
         {
-            trackGenarator.GenerateSegment();
             trackGenarator.RemovePrevSegment();
+            trackGenarator.GenerateSegment();
         }
     }
+
+
 
 
 }
