@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
         startRace = false;
         isAlive = true;
         rb = GetComponent<Rigidbody2D>();
-        timerSlider = GameObject.Find("Slider").GetComponent<Slider>();
         timerSlider.value = health;
         trackGenarator = GameObject.Find("TrackGenerator").GetComponent<TrackGenarator>();
 
@@ -53,6 +52,7 @@ public class Player : MonoBehaviour
                     break;
                 case "sand":
                     onTrack = false;
+                    health = 0;
                     break;
             }
         }

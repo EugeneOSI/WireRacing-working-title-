@@ -7,9 +7,6 @@ public class HookPoint : MonoBehaviour
     float force;
     Vector2 targPos;
 
-    public float minDistance;
-    public float maxDistance;
-
     public float lifeTime;
     bool onMove = true;
     void Awake()
