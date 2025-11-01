@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using System.Collections;
 public class Player : MonoBehaviour
 {
     [Header("Game Objects")]
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     public bool onTrack;
     private bool startRace;
     private bool hookIsMoving;
+    private bool hitObstacle;
 
     [Header("Parameters")]
     public float health;
@@ -23,6 +25,7 @@ public class Player : MonoBehaviour
     public float maxHooksAmount;
     private float currentHooksAmount;
     private float maxCheckDistance = 10;
+    private float maxVelocity;
 
     [Header("Sliders")]
     public Slider timerSlider;
@@ -51,11 +54,12 @@ public class Player : MonoBehaviour
         contactFilter.useTriggers = true;
         
         timerSlider.value = health;
-        currentHooksAmount = 0;
+        //currentHooksAmount = 0;
         
         hookIsMoving = false;
         startRace = false;
         isAlive = true;
+        hitObstacle = false;
 
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -67,9 +71,9 @@ public class Player : MonoBehaviour
 
         CheckDistance();
         CheckCurrentSpeed();
-        HookCooldown();
+        //HookCooldown();
 
-        if (Input.GetMouseButtonDown(0) && currentHooksAmount < maxHooksAmount)
+        if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -169,15 +173,24 @@ public class Player : MonoBehaviour
 
     void Move()
     {
-        float maxVelocity = 1000;
         float newAttractionForce = attractionForce;
-        switch (drivingSurface)
+        if (!hitObstacle)
         {
-            case Surface.SurfaceType.Sand:
-                newAttractionForce = attractionForce / 2;
-                maxVelocity = limitedSpeed;
-                health = 0;
-                break;
+            switch (drivingSurface)
+            {
+                case Surface.SurfaceType.Sand:
+                    newAttractionForce = attractionForce / 2;
+                    maxVelocity = limitedSpeed;
+                    health = 0;
+                    break;
+                case Surface.SurfaceType.Road:
+                    maxVelocity = 1000;
+                    break;
+            }
+        }
+        if (hitObstacle)
+        {
+            maxVelocity = limitedSpeed;
         }
         Vector2 playerMoveVector = (tmpHookPoint.transform.position - transform.position).normalized;
         playerRb.AddForce(playerMoveVector * newAttractionForce, ForceMode2D.Force);
@@ -220,18 +233,6 @@ public class Player : MonoBehaviour
             drivingSurface = Surface.SurfaceType.Road;
         }
 
-        /*switch (drivingSurface)
-        {
-            case Surface.SurfaceType.Road:
-                onTrack = true;
-                Debug.Log("On Track");
-                break;
-            case Surface.SurfaceType.Sand:
-                onTrack = false;
-                Debug.Log("On Sand");
-                break;
-        }*/
-
     }
 
     void CheckCurrentSpeed()
@@ -255,9 +256,17 @@ public class Player : MonoBehaviour
         {
             startRace = true;
         }
+
         if (collision.CompareTag("Obstacle"))
         {
-           health = 0; 
+            StartCoroutine(HitObstacle());
         }
+    }
+
+    IEnumerator HitObstacle()
+    {
+        hitObstacle = true;
+        yield return new WaitForSeconds(2);
+        hitObstacle = false;
     }
 }

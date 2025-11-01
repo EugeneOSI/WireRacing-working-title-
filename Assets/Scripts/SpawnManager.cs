@@ -8,8 +8,14 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject[] obstacles;
     public LayerMask layerMask;
+
+    [Header("Track")]
     public float trackWidth = 2.5f;
+
+    [Header("Obstacles")]
     public int obstacleCount = 5;
+    public float minOffsetFromCenter;
+    public bool allowBothSides = true;
 
     List<GameObject> obstaclesInstances = new List<GameObject>();
 
@@ -23,10 +29,15 @@ public class SpawnManager : MonoBehaviour
         }
 
         Spline spline = splineContainer.Spline;
+        float step = 1f / obstacleCount;
         
         for (int i = 0; i < obstacleCount; i++)
         {
-            float t = UnityEngine.Random.value;
+            float t = i * step;
+
+            // добавляем небольшой случайный сдвиг (чтобы не идеально ровно)
+            t += UnityEngine.Random.Range(-step * 0.25f, step * 0.25f);
+            t = Mathf.Clamp01(t); // не выходим за пределы 0..1
 
             // --- LOCAL space ---
             float3 posL = spline.EvaluatePosition(t);
@@ -38,10 +49,12 @@ public class SpawnManager : MonoBehaviour
 
             // 2D-нормаль в мире (перпендикуляр к направлению)
             Vector3 normalW = new Vector3(-tanW.y, tanW.x, 0f).normalized;
-
-            // случайное смещение внутрь ширины (чуть меньше половины)
-            float offset = UnityEngine.Random.Range(-trackWidth * 0.45f, trackWidth * 0.45f);
+            // ---------------------------------------------
+            // Контролируемое смещение от центра
+            float sideSign = allowBothSides ? (UnityEngine.Random.value < 0.5f ? -1f : 1f) : 1f;
+            float offset = sideSign * UnityEngine.Random.Range(minOffsetFromCenter, trackWidth * 0.5f);
             Vector3 spawnPos = posW + normalW * offset;
+            // ---------------------------------------------
 
             //if (!Physics2D.OverlapPoint(spawnPos, layerMask)) { i--; continue; }
 
