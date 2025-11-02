@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1819702158679440254}
   - component: {fileID: 9124373403019906610}
   - component: {fileID: 4851344142712122964}
+  - component: {fileID: 5944209087053222262}
   m_Layer: 8
   m_Name: Isometric Diamond
   m_TagString: Obstacle
@@ -142,3 +143,16 @@ PolygonCollider2D:
       - {x: 0, y: -0.25}
       - {x: 0.5, y: 0}
   m_UseDelaunayMesh: 0
+--- !u!114 &5944209087053222262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731462164988736879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb76ad3665784c4fa610cb09f3267a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Obstacles
+  particles: {fileID: 5186500994298718272, guid: b92175a8f7668614e8752b528f642961, type: 3}

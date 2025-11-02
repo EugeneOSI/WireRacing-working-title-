@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private float currentHooksAmount;
     private float maxCheckDistance = 10;
     private float maxVelocity;
+    private float currentSpeed;
 
     [Header("Sliders")]
     public Slider timerSlider;
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour
     private Collider2D playerCol;
     private ContactFilter2D contactFilter;
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
+    private FollowCamera mainCamera;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
     
@@ -64,6 +66,7 @@ public class Player : MonoBehaviour
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         playerCol = GetComponent<Collider2D>(); 
+        mainCamera = GameObject.Find("Main Camera").GetComponent<FollowCamera>();
     }
 
     void Update()
@@ -181,7 +184,7 @@ public class Player : MonoBehaviour
                 case Surface.SurfaceType.Sand:
                     newAttractionForce = attractionForce / 2;
                     maxVelocity = limitedSpeed;
-                    health = 0;
+                    //health = 0;
                     break;
                 case Surface.SurfaceType.Road:
                     maxVelocity = 1000;
@@ -237,13 +240,15 @@ public class Player : MonoBehaviour
 
     void CheckCurrentSpeed()
     {
-        if (playerRb.linearVelocity.magnitude < minSpeed && startRace)
+
+        currentSpeed = playerRb.linearVelocity.magnitude;
+        if (currentSpeed < minSpeed && startRace)
         {
             health = Mathf.MoveTowards(health, 0, Time.deltaTime * 2);
             timerSlider.value = health;
         }
 
-        if (playerRb.linearVelocity.magnitude >= minSpeed && startRace)
+        if (currentSpeed >= minSpeed && startRace)
         {
             health = Mathf.MoveTowards(health, 5, Time.deltaTime * 1);
             timerSlider.value = health;
@@ -256,13 +261,26 @@ public class Player : MonoBehaviour
         {
             startRace = true;
         }
-
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.CompareTag("Obstacle"))
         {
             StartCoroutine(HitObstacle());
         }
+        if (collision.CompareTag("sand"))
+        {
+            mainCamera.Shake(1f, 0.05f);
+        }
     }
 
+    public float GetCurrentSpeed
+    {
+        get
+        {
+            return currentSpeed;
+        }
+    }
     IEnumerator HitObstacle()
     {
         hitObstacle = true;

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2783573861280830202}
   - component: {fileID: 8809992794804397835}
   - component: {fileID: 3418864273247443687}
+  - component: {fileID: 1082163812157925739}
   m_Layer: 8
   m_Name: Square
   m_TagString: Obstacle
@@ -137,3 +138,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1082163812157925739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 344280905728346487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb76ad3665784c4fa610cb09f3267a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Obstacles
+  particles: {fileID: 5186500994298718272, guid: b92175a8f7668614e8752b528f642961, type: 3}

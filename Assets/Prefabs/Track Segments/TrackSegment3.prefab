@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 2474017862035769158}
   m_Layer: 6
   m_Name: OuterSurfac
-  m_TagString: Untagged
+  m_TagString: sand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1699,7 +1699,7 @@ GameObject:
   - component: {fileID: 3429300961122644882}
   m_Layer: 6
   m_Name: OuterSurfac
-  m_TagString: Untagged
+  m_TagString: sand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
