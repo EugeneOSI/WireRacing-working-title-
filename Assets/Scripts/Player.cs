@@ -24,17 +24,14 @@ public class Player : MonoBehaviour
     public float breakForce;
     public float maxHooksAmount;
     private float currentHooksAmount;
-    private float maxCheckDistance = 10;
     private float maxVelocity;
     private float currentSpeed;
 
     [Header("Sliders")]
     public Slider timerSlider;
-    public Slider hookSlider;
 
     [Header("Surfaces")]
     public LayerMask surfaceLayer;
-    public LayerMask roadEdgeMask;
 
     [Header("Components")]
     private Rigidbody2D playerRb;
@@ -71,8 +68,6 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
-        CheckDistance();
         CheckCurrentSpeed();
         //HookCooldown();
 
@@ -105,52 +100,6 @@ public class Player : MonoBehaviour
             Move();
         }
     }
-
-    void CheckDistance()
-    {
-        RaycastHit2D upHit = Physics2D.Raycast(transform.position, Vector2.up, maxCheckDistance, roadEdgeMask);
-        RaycastHit2D downHit = Physics2D.Raycast(transform.position, Vector2.down, maxCheckDistance, roadEdgeMask);
-
-        RaycastHit2D rightHit = Physics2D.Raycast(transform.position, Vector2.right, maxCheckDistance, roadEdgeMask);
-        RaycastHit2D leftHit = Physics2D.Raycast(transform.position, Vector2.left, maxCheckDistance, roadEdgeMask);
-
-        RaycastHit2D upRightHit = Physics2D.Raycast(transform.position, new Vector2(1, 1).normalized, maxCheckDistance, roadEdgeMask);
-        RaycastHit2D upLeftHit = Physics2D.Raycast(transform.position, new Vector2(-1, 1).normalized, maxCheckDistance, roadEdgeMask);
-
-        RaycastHit2D downRightHit = Physics2D.Raycast(transform.position, new Vector2(1, -1).normalized, maxCheckDistance, roadEdgeMask);
-        RaycastHit2D downLeftHit = Physics2D.Raycast(transform.position, new Vector2 (-1,-1).normalized, maxCheckDistance, roadEdgeMask);
-
-
-        float upDist = upHit.collider ? upHit.distance : maxCheckDistance;
-        float downDist = downHit.collider ? downHit.distance : maxCheckDistance;
-
-        float rightDist = rightHit.collider ? rightHit.distance : maxCheckDistance;
-        float leftDist = leftHit.collider ? leftHit.distance : maxCheckDistance;
-
-        float upRightDist = upRightHit.collider ? upRightHit.distance : maxCheckDistance;
-        float upLeftDist = upLeftHit.collider ? upLeftHit.distance : maxCheckDistance;
-
-        float downRightDist = downRightHit.collider ? downRightHit.distance : maxCheckDistance;
-        float downLeftDist = downLeftHit.collider ? downLeftHit.distance : maxCheckDistance;
-
-
-        Debug.DrawRay(transform.position, Vector2.up * upDist, Color.red);
-        Debug.DrawRay(transform.position, Vector2.down * downDist, Color.red);
-
-        Debug.DrawRay(transform.position, Vector2.right * rightDist, Color.red);
-        Debug.DrawRay(transform.position, Vector2.left * leftDist, Color.red);
-
-        Debug.DrawRay(transform.position, new Vector2(1, 1).normalized * upRightDist, Color.red);
-        Debug.DrawRay(transform.position, new Vector2(-1, 1).normalized * upLeftDist, Color.red);
-
-        Debug.DrawRay(transform.position, new Vector2(1, -1).normalized * downRightDist, Color.red);
-        Debug.DrawRay(transform.position, new Vector2 (-1,-1).normalized * downLeftDist, Color.red);
-
-        if (leftDist <= 1 || rightDist <= 1 || rightDist <=1 || leftDist <= 1 || upRightDist <=1 || upLeftDist <= 1 || downRightDist <= 1 || downLeftDist <=1)
-        {
-            Debug.Log("По краю!");
-        }
-    }
     void ThrowHookPoint()
     {
         Vector3 hookTargetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -165,14 +114,14 @@ public class Player : MonoBehaviour
         hookIsMoving = true;
         currentHooksAmount++;
     }
-    void HookCooldown()
+    /*void HookCooldown()
     {
         hookSlider.value = currentHooksAmount;
         if (currentHooksAmount > 0)
         {
             currentHooksAmount-= Time.deltaTime;
         }
-    }
+    }*/
 
     void Move()
     {

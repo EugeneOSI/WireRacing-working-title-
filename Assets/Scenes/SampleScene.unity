@@ -119,6 +119,28 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &164947879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8751765038587983473, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
+  m_PrefabInstance: {fileID: 2961960768137620433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &276079705 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8943935011570138899, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
+  m_PrefabInstance: {fileID: 2961960768137620433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &302920170 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5315416598570296823, guid: 51d6cd9ab62b81847a2f4bb0da307384, type: 3}
@@ -163,7 +185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &445949590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5485,7 +5507,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a98ad66619f15443bb962e52051da32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 1771628743}
+  bonusScoreText: {fileID: 276079705}
+  bonusScoreDescText: {fileID: 164947879}
 --- !u!4 &1102973417
 Transform:
   m_ObjectHideFlags: 0
@@ -5641,8 +5665,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Score: '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 991a169ce81d9d841ad42ac972655eb3, type: 2}
+  m_sharedMaterial: {fileID: -3707685768612036278, guid: 991a169ce81d9d841ad42ac972655eb3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5775,6 +5799,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3322790848195303207, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3497859903976428501, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5786,10 +5814,6 @@ PrefabInstance:
     - target: {fileID: 4318070494888430978, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269380510926453070, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6121096133615569708, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5829,30 +5853,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6121096133615569708, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7747969993449492195, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.0687561
-      objectReference: {fileID: 0}
-    - target: {fileID: 7814060562328998449, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
-      propertyPath: minSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7814060562328998449, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
-      propertyPath: hookPoint
-      value: 
-      objectReference: {fileID: 4142603748008144238, guid: 1d5ab0dbd195f4149886c2e3e66542c0, type: 3}
-    - target: {fileID: 7814060562328998449, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
-      propertyPath: roadEdgeMask.m_Bits
-      value: 320
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530803312441245200, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8530803312441245200, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
-      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
