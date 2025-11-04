@@ -4,13 +4,13 @@ using UnityEngine;
 public class ScoreHander : MonoBehaviour
 {
     public LayerMask roadEdgeMask;
-    private float maxCheckDistance = 1;
+    private float maxCheckDistance = 2f;
 
     Rigidbody2D playerRb;
     float distance;
 
-    bool nearSand;
-    bool nearObstacle;
+    public bool nearSand;
+    public bool nearObstacle;
 
 
 
@@ -28,7 +28,7 @@ public class ScoreHander : MonoBehaviour
     void Update()
     {
         WatchDistance();
-        distance += playerRb.linearVelocity.magnitude * Time.deltaTime;
+        //distance += playerRb.linearVelocity.magnitude * Time.deltaTime;
     }
 
     void WatchDistance()
@@ -46,27 +46,26 @@ public class ScoreHander : MonoBehaviour
             Physics2D.Raycast(transform.position, new Vector2(-1, -1).normalized, maxCheckDistance, roadEdgeMask),
         };
 
+        bool sandDetected = false;
+        bool obstacleDetected = false;
+
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider != null)
+            if (hit.collider == null) continue;
+
+            if (hit.collider.tag == "sand")
             {
-                switch (hit.collider.tag)
-                {
-                    case "sand":
-                        nearSand = true;
-                        Debug.Log("NearSand");
-                        break;
-                    case "obstacle":
-                        nearObstacle = true;
-                        Debug.Log("NearObstacle");
-                        break;
-                    default:
-                        nearSand = false;
-                        nearObstacle = false;
-                        break;
-                }
+                sandDetected = true;
+                Debug.Log("NearSand");
+            }
+            else if (hit.collider.tag == "obstacle")
+            {
+                obstacleDetected = true;
+                Debug.Log("NearObstacle");
             }
         }
+        nearSand = sandDetected;
+        nearObstacle = obstacleDetected;
 
 
         Debug.DrawRay(transform.position, Vector2.up * maxCheckDistance, Color.red);

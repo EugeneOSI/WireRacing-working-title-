@@ -128,14 +128,16 @@ public class Player : MonoBehaviour
         float newAttractionForce = attractionForce;
         if (!hitObstacle)
         {
-            switch (drivingSurface)
+            switch (onTrack)
             {
-                case Surface.SurfaceType.Sand:
+                case false:
                     newAttractionForce = attractionForce / 2;
                     maxVelocity = limitedSpeed;
+                    
                     //health = 0;
                     break;
-                case Surface.SurfaceType.Road:
+                case true:
+                    onTrack = true;
                     maxVelocity = 1000;
                     break;
             }
@@ -185,6 +187,16 @@ public class Player : MonoBehaviour
             drivingSurface = Surface.SurfaceType.Road;
         }
 
+        switch (drivingSurface)
+        {
+            case Surface.SurfaceType.Sand:
+                onTrack = false;
+                break;
+            case Surface.SurfaceType.Road:
+                onTrack = true;
+                break;
+        }
+
     }
 
     void CheckCurrentSpeed()
@@ -229,6 +241,11 @@ public class Player : MonoBehaviour
         {
             return currentSpeed;
         }
+    }
+
+    public bool OnTrack
+    {
+        get{ return onTrack; }
     }
     IEnumerator HitObstacle()
     {

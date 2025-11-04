@@ -70,8 +70,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.8219986, y: -0.3380009}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 4.0312, y: -0.17}
+  m_SizeDelta: {x: 347.2791, y: 83.3832}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5396650314777838132
 CanvasRenderer:
@@ -271,6 +271,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1596852728816843541}
+  - component: {fileID: 7506310987789068614}
   m_Layer: 0
   m_Name: BonusScore
   m_TagString: Untagged
@@ -287,7 +288,7 @@ Transform:
   m_GameObject: {fileID: 3322790848195303207}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0009206435, y: -14.89974, z: 0}
+  m_LocalPosition: {x: 71.51841, y: -84.13841, z: 0}
   m_LocalScale: {x: 33.333336, y: 33.333336, z: 33.333336}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -295,6 +296,28 @@ Transform:
   - {fileID: 7347692881203867061}
   m_Father: {fileID: 5064290123064839668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &7506310987789068614
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3322790848195303207}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0824fe8ed0908074f8063aadcada4b24, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4318070494888430978
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,6 +518,8 @@ MonoBehaviour:
   roadEdgeMask:
     serializedVersion: 2
     m_Bits: 320
+  nearSand: 0
+  nearObstacle: 0
 --- !u!120 &7747969993449492195
 LineRenderer:
   serializedVersion: 2
@@ -892,7 +917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.61, y: -0.11}
+  m_AnchoredPosition: {x: -1.88, y: -0.11}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6307998886200333461
@@ -957,7 +982,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
