@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -11,68 +12,75 @@ public class ScoreManager : MonoBehaviour
 
     private bool bonusScoreIsActive;
 
-    public GameObject bonusScoreOffset;
+    [Header("Позиции линий")]
+    Vector2 defaultLinePos;
+    Vector2 secondLinePos;
+    Vector2 thirdLinePos;
+    Vector2 forthLinePos;
+    Vector2 fivthLonePos;
 
+    [SerializeField] GameObject bonusScoreprefab;
     private Player player;
-    private Rigidbody2D playerRb;
     private ScoreHander scoreHander;
     public TextMeshProUGUI scoreText;
-    public GameObject bonusScoreObj;
-    public Animator animator;
+
+    List<GameObject> lines;
 
     void Start()
     {
         mainScore = 0;
         player = GameObject.Find("Player").GetComponent<Player>();
         scoreHander = GameObject.Find("Player").GetComponent<ScoreHander>();
-        playerRb = GameObject.Find("Player").GetComponent<Rigidbody2D>();
   
 
     }
 
     void Update()
     {
-        mainScore += playerRb.linearVelocity.magnitude * Time.deltaTime;
-        scoreText.text = "Score: " + (int)mainScore;
+        UpdateLinesPositions();
+        UpdateMainScore();
         CheckEvents();
     }
 
     void CheckEvents()
     {
+        
         if (scoreHander.NearSand && player.OnTrack)
         {
-            timerIn -= Time.deltaTime;
-            if (timerIn <= 0)
+            if (!bonusScoreIsActive)
             {
                 bonusScoreIsActive = true;
-                animator.SetBool("nearSand", true);
-                bonusScore += playerRb.linearVelocity.magnitude * Time.deltaTime * 2;
-                bonusScoreObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "" + (int)bonusScore;
-                bonusScoreObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "ON THE EDGE!";
+                GameObject bonusScoreInstance = Instantiate(bonusScoreprefab, defaultLinePos, Quaternion.identity);
+                bonusScoreInstance.transform.SetParent(player.transform);
+
             }
-            timerOut = 0.5f;
-        }
-        if (!scoreHander.NearSand && player.OnTrack)
-        {
-            timerOut -= Time.deltaTime;
-            if (timerOut <= 0)
+            if (bonusScoreIsActive)
             {
-                animator.SetBool("nearSand", false);
-                animator.SetBool("mistake", false);
-                bonusScoreIsActive = false;
-                mainScore += bonusScore;
-                bonusScore = 0;
+
             }
-            timerIn = 0.2f;
+
         }
-        if (scoreHander.NearSand && bonusScoreIsActive && !player.OnTrack)
+        if ((!scoreHander.NearSand && player.OnTrack) || !player.OnTrack)
         {
-            animator.SetBool("mistake", true);
+            bonusScoreIsActive = false;
         }
-        
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            bonusScoreOffset.transform.position = new Vector2 (bonusScoreObj.transform.position.x, bonusScoreObj.transform.position.y + 10);
-        }
+
+
     }
+    
+    void UpdateMainScore()
+    {
+        mainScore += player.Velocity * Time.deltaTime;
+        scoreText.text = "Score: " + (int)mainScore;
+    }
+    void UpdateLinesPositions()
+    {
+        defaultLinePos = player.transform.position;
+        secondLinePos = player.transform.position + new Vector3 (0f, 1.38f,0f);
+        thirdLinePos = player.transform.position + new Vector3 (0f, 2.76f,0f);;
+        forthLinePos = player.transform.position + new Vector3 (0f, 4.14f,0f);;
+        fivthLonePos = player.transform.position + new Vector3 (0f, 5.52f,0f);;
+        
+    }
+
 }

@@ -12,6 +12,8 @@ public class ScoreHander : MonoBehaviour
     public bool nearSand;
     public bool nearObstacle;
 
+    public bool highSpeed;
+
 
 
 
@@ -28,6 +30,9 @@ public class ScoreHander : MonoBehaviour
     void Update()
     {
         WatchDistance();
+        if (playerRb.linearVelocity.magnitude >= 10) highSpeed = true;
+        else highSpeed = false;
+
         //distance += playerRb.linearVelocity.magnitude * Time.deltaTime;
     }
 
@@ -95,5 +100,10 @@ public class ScoreHander : MonoBehaviour
     public bool NearObstacle
     {
         get { return nearObstacle; }
+    }
+
+    public bool HighSpeed
+    {
+        get { return highSpeed; }
     }
 }

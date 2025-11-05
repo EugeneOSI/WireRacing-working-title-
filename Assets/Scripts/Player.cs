@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
     private float currentSpeed;
 
     [Header("Sliders")]
-    public Slider timerSlider;
+    //public Slider timerSlider;
 
     [Header("Surfaces")]
     public LayerMask surfaceLayer;
@@ -42,8 +42,8 @@ public class Player : MonoBehaviour
     private FollowCamera mainCamera;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
-    
-    
+
+
 
     void Start()
     {
@@ -51,10 +51,10 @@ public class Player : MonoBehaviour
         contactFilter.layerMask = surfaceLayer;
         contactFilter.useLayerMask = true;
         contactFilter.useTriggers = true;
-        
-        timerSlider.value = health;
+
+        //timerSlider.value = health;
         //currentHooksAmount = 0;
-        
+
         hookIsMoving = false;
         startRace = false;
         isAlive = true;
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
 
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
-        playerCol = GetComponent<Collider2D>(); 
+        playerCol = GetComponent<Collider2D>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<FollowCamera>();
     }
 
@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
                 case false:
                     newAttractionForce = attractionForce / 2;
                     maxVelocity = limitedSpeed;
-                    
+
                     //health = 0;
                     break;
                 case true:
@@ -155,7 +155,7 @@ public class Player : MonoBehaviour
         }
 
     }
-    
+
     void ResetWirePosition()
     {
         lineRenderer.SetPosition(0, transform.position);
@@ -206,13 +206,13 @@ public class Player : MonoBehaviour
         if (currentSpeed < minSpeed && startRace)
         {
             health = Mathf.MoveTowards(health, 0, Time.deltaTime * 2);
-            timerSlider.value = health;
+            //timerSlider.value = health;
         }
 
         if (currentSpeed >= minSpeed && startRace)
         {
             health = Mathf.MoveTowards(health, 5, Time.deltaTime * 1);
-            timerSlider.value = health;
+            //timerSlider.value = health;
         }
     }
 
@@ -245,7 +245,7 @@ public class Player : MonoBehaviour
 
     public bool OnTrack
     {
-        get{ return onTrack; }
+        get { return onTrack; }
     }
     IEnumerator HitObstacle()
     {
@@ -253,4 +253,10 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(2);
         hitObstacle = false;
     }
+
+    public float Velocity
+    {
+        get{ return playerRb.linearVelocity.magnitude; }
+    }
 }
+
