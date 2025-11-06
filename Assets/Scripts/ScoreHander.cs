@@ -30,7 +30,7 @@ public class ScoreHander : MonoBehaviour
     void Update()
     {
         WatchDistance();
-        if (playerRb.linearVelocity.magnitude >= 10) highSpeed = true;
+        if (playerRb.linearVelocity.magnitude >= 20) highSpeed = true;
         else highSpeed = false;
 
         //distance += playerRb.linearVelocity.magnitude * Time.deltaTime;
@@ -61,12 +61,12 @@ public class ScoreHander : MonoBehaviour
             if (hit.collider.tag == "sand")
             {
                 sandDetected = true;
-                Debug.Log("NearSand");
+                //Debug.Log("NearSand");
             }
-            else if (hit.collider.tag == "obstacle")
+            else if (hit.collider.tag == "Obstacle")
             {
                 obstacleDetected = true;
-                Debug.Log("NearObstacle");
+                //Debug.Log("NearObstacle");
             }
         }
         nearSand = sandDetected;

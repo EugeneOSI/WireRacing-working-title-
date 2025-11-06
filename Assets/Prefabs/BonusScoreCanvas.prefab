@@ -257,7 +257,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3554131325547593000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,9 +287,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a676e3377c109bd408fee60780435cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BonusScoreUI
+  bonusType: 0
   animator: {fileID: 6255024182692063502}
   amount: {fileID: 4646299409829921010}
   description: {fileID: 5829024562575711095}
+  player: {fileID: 0}
 --- !u!1 &8725562635789888681
 GameObject:
   m_ObjectHideFlags: 0
