@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
     private ContactFilter2D contactFilter;
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     private FollowCamera mainCamera;
+    private ScoreHander scoreHander;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
 
@@ -60,6 +61,7 @@ public class Player : MonoBehaviour
         isAlive = true;
         hitObstacle = false;
 
+        scoreHander = GetComponent<ScoreHander>();
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         playerCol = GetComponent<Collider2D>();
@@ -228,6 +230,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Obstacle"))
         {
             StartCoroutine(HitObstacle());
+            scoreHander.NotifyObstacleHit();
         }
         if (collision.CompareTag("sand"))
         {

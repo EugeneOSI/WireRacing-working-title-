@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 2644617285778901850}
   - component: {fileID: 3554131325547593000}
   - component: {fileID: -1034070796220883860}
+  - component: {fileID: 5678970629973698018}
   m_Layer: 5
   m_Name: BonusScoreCanvas
   m_TagString: Untagged
@@ -291,7 +292,20 @@ MonoBehaviour:
   animator: {fileID: 6255024182692063502}
   amount: {fileID: 4646299409829921010}
   description: {fileID: 5829024562575711095}
-  player: {fileID: 0}
+--- !u!114 &5678970629973698018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7968232128316563923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a4ebe8d7ef23b2418a9527e84a40c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LineMover
+  moveSpeed: 5
+  targetY: 0
 --- !u!1 &8725562635789888681
 GameObject:
   m_ObjectHideFlags: 0

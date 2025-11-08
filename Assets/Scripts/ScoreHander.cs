@@ -14,6 +14,13 @@ public class ScoreHander : MonoBehaviour
 
     public bool highSpeed;
 
+    public System.Action OnNearObstaclePulse;     // проезд мимо препятствия (одноразовый)
+    public System.Action OnLeftRoad;              // вылет с трассы (сброс непрерывных)
+    public System.Action OnObstacleHit;           // удар о препятствие
+
+    bool prevNearObstacle = false;
+    bool hadCollisionWhileNearObstacle = false;
+
 
 
 
@@ -32,6 +39,14 @@ public class ScoreHander : MonoBehaviour
         WatchDistance();
         if (playerRb.linearVelocity.magnitude >= 20) highSpeed = true;
         else highSpeed = false;
+
+        if (prevNearObstacle && !nearObstacle)
+    {
+        if (!hadCollisionWhileNearObstacle)
+            OnNearObstaclePulse?.Invoke();
+        hadCollisionWhileNearObstacle = false;
+    }
+    prevNearObstacle = nearObstacle;
 
         //distance += playerRb.linearVelocity.magnitude * Time.deltaTime;
     }
@@ -60,6 +75,7 @@ public class ScoreHander : MonoBehaviour
 
             if (hit.collider.tag == "sand")
             {
+                NotifyLeftRoad();
                 sandDetected = true;
                 //Debug.Log("NearSand");
             }
@@ -87,6 +103,18 @@ public class ScoreHander : MonoBehaviour
 
     }
     
+    // вызови это из OnCollisionEnter2D/OnTriggerEnter2D (там где у тебя фиксируется удар):
+       public void NotifyObstacleHit()
+{
+    OnObstacleHit?.Invoke();
+    if (nearObstacle) hadCollisionWhileNearObstacle = true;
+}
+
+// вызови это, когда фиксируешь «вылет с трассы» (например, ray’и вообще не находят дорогу или твой собственный флаг offRoad):
+       public void NotifyLeftRoad()
+{
+    OnLeftRoad?.Invoke();
+}
     public float Distance
     {
         get { return distance; }
