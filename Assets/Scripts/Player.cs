@@ -230,7 +230,6 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Obstacle"))
         {
             StartCoroutine(HitObstacle());
-            scoreHander.NotifyObstacleHit();
         }
         if (collision.CompareTag("sand"))
         {

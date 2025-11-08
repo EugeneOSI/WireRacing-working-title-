@@ -649,7 +649,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a98ad66619f15443bb962e52051da32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  bonusScorePrefab: {fileID: 7968232128316563923, guid: 5f6add9e868748149ad78702b8c76938, type: 3}
+  lineSpeed: 0
+  nearSandTimerInDefault: 0.2
+  nearSandTimerOutDefault: 0.3
+  hightSpeedTimerInDefault: 0.1
+  hightSpeedTimerOutDefault: 0.5
+  nearObstacleTimerInDefault: 0.05
+  nearObstacleTimerOutDefault: 1
+  bonusScoreprefab: {fileID: 7968232128316563923, guid: 5f6add9e868748149ad78702b8c76938, type: 3}
   scoreText: {fileID: 1771628743}
 --- !u!4 &1102973417
 Transform:
