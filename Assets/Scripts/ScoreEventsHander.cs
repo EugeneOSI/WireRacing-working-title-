@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreHander : MonoBehaviour
+public class ScoreEventsHander : MonoBehaviour
 {
     public LayerMask roadEdgeMask;
     private float maxCheckDistance = 2f;

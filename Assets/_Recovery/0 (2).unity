@@ -652,9 +652,8 @@ MonoBehaviour:
   nearSand: 0
   nearObstacle: 0
   highSpeed: 0
-  UICanvas: {fileID: 445949589}
+  nearSandTimerInDefault: 0.2
   bonusScoreprefab: {fileID: 7968232128316563923, guid: 5f6add9e868748149ad78702b8c76938, type: 3}
-  addedScorePrefab: {fileID: 2994915577105842066, guid: 294f7cd6710a09648ad9903ec35b7972, type: 3}
   scoreText: {fileID: 1771628743}
   lines: []
 --- !u!4 &1102973417
@@ -810,7 +809,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:  2350'
+  m_text: 'Score: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 991a169ce81d9d841ad42ac972655eb3, type: 2}
   m_sharedMaterial: {fileID: -3707685768612036278, guid: 991a169ce81d9d841ad42ac972655eb3, type: 2}

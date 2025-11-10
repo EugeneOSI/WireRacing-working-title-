@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public bool onTrack;
     private bool startRace;
     private bool hookIsMoving;
-    private bool hitObstacle;
+    public bool hitObstacle;
 
     [Header("Parameters")]
     public float health;
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     private ContactFilter2D contactFilter;
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     private FollowCamera mainCamera;
-    private ScoreHander scoreHander;
+    private ScoreEventsHander scoreEventsHander;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
 
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour
         isAlive = true;
         hitObstacle = false;
 
-        scoreHander = GetComponent<ScoreHander>();
+        scoreEventsHander = GetComponent<ScoreEventsHander>();
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         playerCol = GetComponent<Collider2D>();
@@ -135,8 +135,7 @@ public class Player : MonoBehaviour
                 case false:
                     newAttractionForce = attractionForce / 2;
                     maxVelocity = limitedSpeed;
-
-                    //health = 0;
+                    onTrack = false;
                     break;
                 case true:
                     onTrack = true;

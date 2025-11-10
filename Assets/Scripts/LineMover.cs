@@ -14,6 +14,7 @@ public class LineMover : MonoBehaviour
     }
     void Update()
     {
+
         if (!isActive) return;
 
         Vector3 pos = rt.anchoredPosition;
@@ -22,21 +23,15 @@ public class LineMover : MonoBehaviour
         rt.anchoredPosition = new Vector3(0f, newY, 0f);
 
         if (Mathf.Abs(newY - targetY) < 0.01f)
+        {
             rt.anchoredPosition = new Vector3(0f, targetY, 0f);
+            //StopMove();
+        }
     }
 
-    public void StartMove(string direction)
+    public void StartMove(float target)
     {
-        switch (direction)
-        {
-            case "up":
-                targetY++;
-                break;
-            case "down":
-                targetY--;
-                break;
-        }
-        //targetY = newTargetY;
+        targetY = target;
         isActive = true;
     }
 
