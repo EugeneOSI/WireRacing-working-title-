@@ -4,11 +4,8 @@ using System.Collections;
 
 public class HookPoint : MonoBehaviour
 {
-    float force;
+    float speed;
     Vector2 targPos;
-
-    public float minDistance;
-    public float maxDistance;
 
     public float lifeTime;
     bool onMove = true;
@@ -18,7 +15,7 @@ public class HookPoint : MonoBehaviour
     }
     private void Update()
     {
-        transform.position = Vector2.Lerp(transform.position, targPos, force*Time.deltaTime);
+        transform.position = Vector2.Lerp(transform.position, targPos, speed*Time.deltaTime);
         Vector2 currentPos = new Vector2 (transform.position.x, transform.position.y);
         if ((currentPos - targPos).magnitude<0.01) onMove = false;
     }
@@ -48,11 +45,11 @@ public class HookPoint : MonoBehaviour
         }
     }
 
-    public float flyingForce
+    public float flyingSpeed
     {
         set
         {
-            force = value;
+            speed = value;
         }
     }
     IEnumerator LifeTime()

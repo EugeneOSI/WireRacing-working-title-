@@ -9,16 +9,17 @@ TagManager:
   - segment
   - SegmentCheckPoint
   - StartRaceZone
+  - Obstacle
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Sand
+  - 
   - Water
   - UI
+  - Surface
   - Track
-  - TrackSegment
-  - 
+  - Obstacle
   - 
   - 
   - 
