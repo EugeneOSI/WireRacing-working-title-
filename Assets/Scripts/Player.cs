@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     [Header("Game Objects")]
     public GameObject hookPoint;
     private GameObject tmpHookPoint;
+    [SerializeField] private GameObject powerUp;
 
     [Header("States")]
     public bool isAlive;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private bool startRace;
     private bool hookIsMoving;
     public bool hitObstacle;
+    [SerializeField] private bool withPowerUp;
 
     [Header("Parameters")]
     public float health;
@@ -60,6 +62,9 @@ public class Player : MonoBehaviour
         startRace = false;
         isAlive = true;
         hitObstacle = false;
+        withPowerUp = false;
+
+        powerUp.SetActive(false);
 
         scoreEventsHander = GetComponent<ScoreEventsHander>();
         playerRb = GetComponent<Rigidbody2D>();
@@ -70,7 +75,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        CheckCurrentSpeed();
+        //CheckCurrentSpeed();
         //HookCooldown();
 
         if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
@@ -130,6 +135,12 @@ public class Player : MonoBehaviour
         float newAttractionForce = attractionForce;
         if (!hitObstacle)
         {
+            if (withPowerUp)
+            {
+                    maxVelocity = 1000;
+            }
+            else
+            {
             switch (onTrack)
             {
                 case false:
@@ -142,8 +153,9 @@ public class Player : MonoBehaviour
                     maxVelocity = 1000;
                     break;
             }
+            }
         }
-        if (hitObstacle)
+        if (hitObstacle&&!withPowerUp)
         {
             maxVelocity = limitedSpeed;
         }
@@ -234,6 +246,13 @@ public class Player : MonoBehaviour
         {
             mainCamera.Shake(1f, 0.05f);
         }
+        if (collision.CompareTag("Enemy")){
+            health = 0;
+        }
+        if (collision.CompareTag("PowerUp")){
+            Destroy(collision.gameObject);
+            StartCoroutine(WithPowerUp());
+        }
     }
 
     public float GetCurrentSpeed
@@ -253,6 +272,14 @@ public class Player : MonoBehaviour
         hitObstacle = true;
         yield return new WaitForSeconds(2);
         hitObstacle = false;
+    }
+    IEnumerator WithPowerUp()
+    {
+        withPowerUp = true;
+        powerUp.SetActive(true);
+        yield return new WaitForSeconds(5);
+        withPowerUp = false;
+        powerUp.SetActive(false);
     }
 
     public float Velocity

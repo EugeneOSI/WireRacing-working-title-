@@ -7,6 +7,7 @@ public class TrackGenarator : MonoBehaviour
 {
     [SerializeField] private GameObject[] trackSegments;
     [SerializeField] private GameObject firstSegmentInstance;
+    
     private GameObject currentSegment;
     private GameObject prevSegment;
 
@@ -52,6 +53,13 @@ public class TrackGenarator : MonoBehaviour
         get
         {
             return currentSegment;
+        }
+    }
+        public GameObject GetPrevSegment
+    {
+        get
+        {
+            return prevSegment;
         }
     }
 
