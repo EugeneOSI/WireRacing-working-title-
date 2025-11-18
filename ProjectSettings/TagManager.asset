@@ -14,6 +14,7 @@ TagManager:
   - SegmentIn
   - Enemy
   - PowerUp
+  - Barier
   layers:
   - Default
   - TransparentFX

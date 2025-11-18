@@ -20,6 +20,7 @@ public class TrackSegmentHander : MonoBehaviour
         {
             trackGenarator.RemovePrevSegment();
             trackGenarator.GenerateSegment();
+            Destroy(this.gameObject);
         }
     }
 

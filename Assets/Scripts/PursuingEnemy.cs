@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.Splines;
+using System.Collections;
+
 
 public class PursuingEnemy : MonoBehaviour
 {
@@ -8,12 +10,19 @@ public class PursuingEnemy : MonoBehaviour
     [SerializeField] private TrackGenarator trackGenarator;
     [SerializeField] private SplineContainer firstSplineContainer;
     private Spline _spline;
-    public float speed = 5f;
+    public float defaultSpeed;
+    float currentSpeed;
     private float _t;
     private float _splineLength;
 
+    bool freezed;
+
+    [SerializeField] private Player player;
+    GameManager gameManager;
+
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         splineContainer = firstSplineContainer;
         _spline = splineContainer.Spline;
         CalculateSplineLength();
@@ -22,6 +31,8 @@ public class PursuingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckConditions();
+
     if (splineContainer==null){
         SetSplineContainer(trackGenarator.GetPrevSegment.transform.GetChild(1).GetComponent<SplineContainer>());
         _t = 0f;
@@ -30,7 +41,7 @@ public class PursuingEnemy : MonoBehaviour
 
     if (splineContainer != null&&_splineLength>0f)
    {
-    _t += (speed * Time.deltaTime) / _splineLength;
+    _t += (currentSpeed * Time.deltaTime) / _splineLength;
     if (_t >= 1f) _t = 0f;
     
     Vector3 localPos = _spline.EvaluatePosition(_t);
@@ -41,7 +52,7 @@ public class PursuingEnemy : MonoBehaviour
     
 
     float angle = Mathf.Atan2(worldTangent.y, worldTangent.x) * Mathf.Rad2Deg;
-    transform.rotation = Quaternion.Euler(0, 0, angle-90);
+    transform.rotation = Quaternion.Euler(0, 0, angle);
    }
     }
 
@@ -78,4 +89,27 @@ public class PursuingEnemy : MonoBehaviour
             _t = 0f;
         }
     }
+
+    void CheckConditions(){
+        if (player.Velocity<5&&gameManager.GameStarted){
+            currentSpeed = defaultSpeed+10;
+        }
+        if (player.Velocity>=5&&gameManager.GameStarted)
+        {
+            currentSpeed = defaultSpeed;
+        }
+        if (!gameManager.GameStarted||freezed)
+        {
+            currentSpeed = 0;
+        }
+    }
+public void Freeze(){
+    freezed = true;
+    StartCoroutine(FreezeTimer());
+}
+
+IEnumerator FreezeTimer(){
+    yield return new WaitForSeconds(3);
+    freezed = false;
+}
 }
