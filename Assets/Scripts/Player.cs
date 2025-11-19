@@ -87,7 +87,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         CheckCurrentSpeed();
-
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg);
+        
         if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
         {
             ResetWirePosition();
@@ -223,7 +224,7 @@ public class Player : MonoBehaviour
 
         if (Velocity >= 10 && startRace)
         {
-            health = Mathf.MoveTowards(health, 4, Time.deltaTime * 1);
+            health += Mathf.MoveTowards(health, 4, Time.deltaTime * 1);
             //timerSlider.value = health;
         }
     }
@@ -298,6 +299,10 @@ public class Player : MonoBehaviour
     {
         withPowerUp = true;
         powerUp.SetActive(true);
+        if (health < 5)
+        {
+            health++;
+        }
         yield return new WaitForSeconds(5);
         withPowerUp = false;
         powerUp.SetActive(false);

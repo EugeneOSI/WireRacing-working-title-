@@ -1529,6 +1529,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: First Segment
       objectReference: {fileID: 0}
+    - target: {fileID: 2144480378112431308, guid: 51d6cd9ab62b81847a2f4bb0da307384, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790773967100013932, guid: 51d6cd9ab62b81847a2f4bb0da307384, type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4443728078120227138, guid: 51d6cd9ab62b81847a2f4bb0da307384, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24
@@ -1568,6 +1576,10 @@ PrefabInstance:
     - target: {fileID: 4443728078120227138, guid: 51d6cd9ab62b81847a2f4bb0da307384, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165170683562009436, guid: 51d6cd9ab62b81847a2f4bb0da307384, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

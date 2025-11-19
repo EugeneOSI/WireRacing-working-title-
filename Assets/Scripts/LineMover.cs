@@ -8,6 +8,7 @@ public class LineMover : MonoBehaviour
     private bool isActive = false;
     RectTransform rt;
 
+
     void Awake()
     {
         rt = GetComponent<RectTransform>();
