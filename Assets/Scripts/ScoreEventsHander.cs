@@ -4,7 +4,7 @@ using UnityEngine;
 public class ScoreEventsHander : MonoBehaviour
 {
     public LayerMask roadEdgeMask;
-    private float maxCheckDistance = 2f;
+    private float maxCheckDistance = 3f;
 
     Rigidbody2D playerRb;
     float distance;
@@ -14,7 +14,7 @@ public class ScoreEventsHander : MonoBehaviour
 
     public bool highSpeed;
     bool prevNearObstacle = false;
-    bool hadCollisionWhileNearObstacle = false;
+    bool hadCollisionWhileNearObstacle = false; 
 
 
 

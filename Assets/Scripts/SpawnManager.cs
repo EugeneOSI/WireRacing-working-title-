@@ -17,6 +17,8 @@ public class SpawnManager : MonoBehaviour
     public float minOffsetFromCenter;
     public bool allowBothSides = true;
 
+    int powerUpCount = 0;
+
     List<GameObject> obstaclesInstances = new List<GameObject>();
 
 
@@ -63,6 +65,13 @@ public class SpawnManager : MonoBehaviour
 
             var prefab = obstacles[UnityEngine.Random.Range(0, obstacles.Length)];
 
+            if (prefab.CompareTag("PowerUp")){
+                powerUpCount++;
+                if (powerUpCount > 2){
+                    continue;
+                }
+            }
+
             GameObject instance = Instantiate(prefab, spawnPos, rot);
             obstaclesInstances.Add(instance);
             
@@ -79,6 +88,7 @@ public class SpawnManager : MonoBehaviour
                 Destroy(obstaclesInstances[0]);
                 obstaclesInstances.RemoveAt(0);
             }
+            powerUpCount = 0;
         }
 
     } 

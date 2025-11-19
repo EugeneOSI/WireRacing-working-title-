@@ -10,6 +10,11 @@ TagManager:
   - SegmentCheckPoint
   - StartRaceZone
   - Obstacle
+  - SegmentOut
+  - SegmentIn
+  - Enemy
+  - PowerUp
+  - Barier
   layers:
   - Default
   - TransparentFX

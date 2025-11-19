@@ -2,11 +2,20 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.Splines;
 public class Player : MonoBehaviour
 {
     [Header("Game Objects")]
     public GameObject hookPoint;
     private GameObject tmpHookPoint;
+    [SerializeField] private GameObject powerUp;
+
+    [Header("Splines")]
+    [SerializeField] private SplineContainer firstSplineContainer;
+    private SplineContainer splineContainer;
+    private Spline _spline;
+    private float previousT;
+    private float currentT;
 
     [Header("States")]
     public bool isAlive;
@@ -14,6 +23,7 @@ public class Player : MonoBehaviour
     private bool startRace;
     private bool hookIsMoving;
     public bool hitObstacle;
+    public bool withPowerUp;
 
     [Header("Parameters")]
     public float health;
@@ -23,7 +33,6 @@ public class Player : MonoBehaviour
     public float minSpeed;
     public float breakForce;
     public float maxHooksAmount;
-    private float currentHooksAmount;
     private float maxVelocity;
     private float currentSpeed;
 
@@ -41,6 +50,8 @@ public class Player : MonoBehaviour
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     private FollowCamera mainCamera;
     private ScoreEventsHander scoreEventsHander;
+
+    private GameManager gameManager;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
 
@@ -60,8 +71,13 @@ public class Player : MonoBehaviour
         startRace = false;
         isAlive = true;
         hitObstacle = false;
+        withPowerUp = false;
+
+        powerUp.SetActive(false);
+        SetSplineContainer(firstSplineContainer);
 
         scoreEventsHander = GetComponent<ScoreEventsHander>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         playerCol = GetComponent<Collider2D>();
@@ -71,8 +87,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         CheckCurrentSpeed();
-        //HookCooldown();
-
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg);
+        
         if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
         {
             ResetWirePosition();
@@ -102,6 +118,13 @@ public class Player : MonoBehaviour
             Move();
         }
     }
+
+    public void SetSplineContainer(SplineContainer splineContainer){
+
+            this.splineContainer = splineContainer;
+            _spline = this.splineContainer.Spline;
+            }
+
     void ThrowHookPoint()
     {
         Vector3 hookTargetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -114,22 +137,19 @@ public class Player : MonoBehaviour
         hookPointSetting.flyingSpeed = hookSpeed;
 
         hookIsMoving = true;
-        currentHooksAmount++;
     }
-    /*void HookCooldown()
-    {
-        hookSlider.value = currentHooksAmount;
-        if (currentHooksAmount > 0)
-        {
-            currentHooksAmount-= Time.deltaTime;
-        }
-    }*/
 
     void Move()
     {
         float newAttractionForce = attractionForce;
         if (!hitObstacle)
         {
+            if (withPowerUp)
+            {
+                    maxVelocity = 1000;
+            }
+            else
+            {
             switch (onTrack)
             {
                 case false:
@@ -142,8 +162,9 @@ public class Player : MonoBehaviour
                     maxVelocity = 1000;
                     break;
             }
+            }
         }
-        if (hitObstacle)
+        if (hitObstacle&&!withPowerUp)
         {
             maxVelocity = limitedSpeed;
         }
@@ -156,7 +177,6 @@ public class Player : MonoBehaviour
         }
 
     }
-
     void ResetWirePosition()
     {
         lineRenderer.SetPosition(0, transform.position);
@@ -167,7 +187,6 @@ public class Player : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, tmpHookPoint.transform.position);
     }
-
     void GetSurfaceBehavior()
     {
         int numberOfHits = Physics2D.OverlapCollider(playerCol, contactFilter, surfaceCollidersHit);
@@ -199,20 +218,13 @@ public class Player : MonoBehaviour
         }
 
     }
-
     void CheckCurrentSpeed()
     {
 
-        currentSpeed = playerRb.linearVelocity.magnitude;
-        if (currentSpeed < minSpeed && startRace)
-        {
-            health = Mathf.MoveTowards(health, 0, Time.deltaTime * 2);
-            //timerSlider.value = health;
-        }
 
-        if (currentSpeed >= minSpeed && startRace)
+        if (Velocity >= 10 && startRace)
         {
-            health = Mathf.MoveTowards(health, 5, Time.deltaTime * 1);
+            health += Mathf.MoveTowards(health, 4, Time.deltaTime * 1);
             //timerSlider.value = health;
         }
     }
@@ -221,7 +233,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("StartRaceZone"))
         {
-            startRace = true;
+            gameManager.GameStarted = true;
         }
     }
     void OnTriggerEnter2D(Collider2D collision)
@@ -234,6 +246,34 @@ public class Player : MonoBehaviour
         {
             mainCamera.Shake(1f, 0.05f);
         }
+        if (collision.CompareTag("Enemy")){
+            if (withPowerUp){
+                collision.gameObject.GetComponent<PursuingEnemy>().Freeze();
+            }
+            else{
+                health = 0;
+            }
+        }
+        if (collision.CompareTag("PowerUp")){
+            Destroy(collision.gameObject);
+            StartCoroutine(WithPowerUp());
+        }
+                if (collision.CompareTag("SegmentIn")){
+
+            SetSplineContainer(collision.transform.parent.GetChild(1).GetComponent<SplineContainer>());
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Barier"))
+        {
+            Destroy(tmpHookPoint);
+            Vector2 closestPoint = collision.contacts[0].point;
+            playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 10, ForceMode2D.Impulse);
+            if (!withPowerUp){
+            health--;}
+        }
     }
 
     public float GetCurrentSpeed
@@ -243,21 +283,40 @@ public class Player : MonoBehaviour
             return currentSpeed;
         }
     }
-
     public bool OnTrack
     {
         get { return onTrack; }
     }
     IEnumerator HitObstacle()
     {
+        if (!withPowerUp){
+        health--;
         hitObstacle = true;
         yield return new WaitForSeconds(2);
-        hitObstacle = false;
+        hitObstacle = false;}
+    }
+    IEnumerator WithPowerUp()
+    {
+        withPowerUp = true;
+        powerUp.SetActive(true);
+        if (health < 5)
+        {
+            health++;
+        }
+        yield return new WaitForSeconds(5);
+        withPowerUp = false;
+        powerUp.SetActive(false);
     }
 
     public float Velocity
     {
         get{ return playerRb.linearVelocity.magnitude; }
     }
+
+    public float Health
+    {
+        get{ return health; }
+    }
+    
 }
 

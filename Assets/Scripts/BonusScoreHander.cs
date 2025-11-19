@@ -18,6 +18,8 @@ public class BonusScoreUI : MonoBehaviour
     float score = 0;
     float outTimer = 2f;
 
+    Vector2 offset;
+
     void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -102,6 +104,9 @@ public class BonusScoreUI : MonoBehaviour
                 break;
         }
         amount.text = "" + (int)score;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        //transform.position = player.transform.position;
+    
     }
     
     IEnumerator TimerAndRemoveLine(float delay, string mode)
@@ -119,7 +124,7 @@ public class BonusScoreUI : MonoBehaviour
         scoreManager.lines.Remove(gameObject);
         for (int i =0; i<scoreManager.lines.Count; i++)
         {
-            scoreManager.lines[i].GetComponent<LineMover>().StartMove(i);
+            scoreManager.lines[i].GetComponent<LineMover>().StartMove(i+1);
         }
         Destroy(gameObject);
     }
