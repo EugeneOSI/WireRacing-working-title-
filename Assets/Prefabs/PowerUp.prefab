@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f251e8a2d9c7e94ea294a5b372f3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUp
-  attractionForce: 20
+  attractionForce: 40
 --- !u!58 &9216734476314047173
 CircleCollider2D:
   m_ObjectHideFlags: 0

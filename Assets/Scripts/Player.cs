@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     private FollowCamera mainCamera;
     private ScoreEventsHander scoreEventsHander;
+    private ScoreManager scoreManager;
 
     private GameManager gameManager;
 
@@ -77,6 +78,7 @@ public class Player : MonoBehaviour
         SetSplineContainer(firstSplineContainer);
 
         scoreEventsHander = GetComponent<ScoreEventsHander>();
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
@@ -258,9 +260,17 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             StartCoroutine(WithPowerUp());
         }
-                if (collision.CompareTag("SegmentIn")){
+        if (collision.CompareTag("SegmentIn")){
 
             SetSplineContainer(collision.transform.parent.GetChild(1).GetComponent<SplineContainer>());
+        }
+        if (collision.CompareTag("Coin")){
+            Destroy(collision.gameObject);
+            if (withPowerUp){
+                scoreManager.AddBonusToMainScore(10);
+            }
+            else{
+            scoreManager.AddBonusToMainScore(5);}
         }
     }
 

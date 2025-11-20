@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - PowerUp
   - Barier
+  - Coin
   layers:
   - Default
   - TransparentFX

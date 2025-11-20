@@ -135,7 +135,7 @@ public class ScoreManager : MonoBehaviour
     }
     void UpdateMainScore()
     {
-        mainScore += player.Velocity * Time.deltaTime;
+        //mainScore += player.Velocity * Time.deltaTime;
         scoreText.text = "Score: " + (int)mainScore;
     }
 
