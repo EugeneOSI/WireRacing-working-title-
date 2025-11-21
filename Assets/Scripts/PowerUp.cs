@@ -3,7 +3,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     Player player;
-    Rigidbody2D powerUpRb;
+    [SerializeField] Transform powerUpTransform;
 
     public float attractionForce;
 
@@ -12,7 +12,6 @@ public class PowerUp : MonoBehaviour
     void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
-        powerUpRb = transform.parent.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -34,8 +33,6 @@ public class PowerUp : MonoBehaviour
 
     void AttractToPlayer(){
         Vector2 playerPos = player.transform.position;
-        Vector2 powerUpPos = transform.position;
-        Vector2 direction = (playerPos - powerUpPos).normalized;
-        powerUpRb.AddForce(direction * attractionForce);
+        powerUpTransform.position = Vector2.MoveTowards(powerUpTransform.position, playerPos, attractionForce * Time.deltaTime);
     }
 }

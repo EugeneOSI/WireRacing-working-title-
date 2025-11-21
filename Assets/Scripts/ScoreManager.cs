@@ -8,29 +8,31 @@ using Unity.VisualScripting;
 
 public class ScoreManager : MonoBehaviour
 {
+    [Header("Счет")]
     float mainScore;
-
 
     [Header("События")]
     public bool nearSand;
     public bool nearObstacle;
     public bool highSpeed;
 
-
+    [Header("Корутины")]
     Coroutine nearSandInCoroutine;
     Coroutine nearSandOutCoroutine;
     Coroutine highSpeedOutCoroutine;
     Coroutine nearObstacleInCoroutine;
 
-
+    [Header("UI")]
     [SerializeField] GameObject UICanvas;
     [SerializeField] GameObject bonusScoreprefab;
     [SerializeField] GameObject addedScorePrefab;
-    GameObject addedScoreInstance;
+
+    [Header("Компоненты")]
     private Player player;
     private ScoreEventsHander scoreEventsHander;
     public TextMeshProUGUI scoreText;
 
+    [Header("Линии")]
     public List<GameObject> lines;
 
     void Start()
@@ -42,8 +44,6 @@ public class ScoreManager : MonoBehaviour
         mainScore = 0;
         player = GameObject.Find("Player").GetComponent<Player>();
         scoreEventsHander = GameObject.Find("Player").GetComponent<ScoreEventsHander>();
-  
-
     }
 
     void Update()
@@ -59,18 +59,15 @@ public class ScoreManager : MonoBehaviour
         {
             nearSandInCoroutine = StartCoroutine(NearSandTimerIn(0.3f));
         }
-
         if (!scoreEventsHander.NearSand && !nearSand && nearSandInCoroutine != null)
         {
             StopCoroutine(nearSandInCoroutine);
             nearSandInCoroutine = null;
         }
-
         if (!scoreEventsHander.NearSand && nearSand && nearSandOutCoroutine == null)
         {
             nearSandOutCoroutine = StartCoroutine(NearSandTimerOut(2f));
         }
-
         if (scoreEventsHander.NearSand && nearSandOutCoroutine != null)
         {
             StopCoroutine(nearSandOutCoroutine);
@@ -94,7 +91,6 @@ public class ScoreManager : MonoBehaviour
             highSpeed = true;
             CreateLine("speed");
         }
-
         if (!scoreEventsHander.HighSpeed && highSpeed && highSpeedOutCoroutine == null)
         {
             highSpeedOutCoroutine = StartCoroutine(HighSpeedTimerOut(2f));
@@ -103,6 +99,14 @@ public class ScoreManager : MonoBehaviour
         {
             StopCoroutine(highSpeedOutCoroutine);
             highSpeedOutCoroutine = null;
+        }
+        if (player.hitObstacle||!player.OnTrack){
+            if (highSpeedOutCoroutine != null)
+            {
+                StopCoroutine(highSpeedOutCoroutine);
+                highSpeedOutCoroutine = null;
+            }
+            highSpeed = false;
         }
 
 
@@ -113,24 +117,24 @@ public class ScoreManager : MonoBehaviour
         GameObject bonusScoreInstance = Instantiate(bonusScoreprefab);
         bonusScoreInstance.transform.position = player.transform.position;
         bonusScoreInstance.transform.SetParent(player.transform);
-        bonusScoreInstance.GetComponent<BonusScoreUI>().animator.SetBool("event", true);
+        bonusScoreInstance.GetComponent<BonusScoreHander>().animator.SetBool("event", true);
         switch (name)
         {
             case "sand":
-                bonusScoreInstance.GetComponent<BonusScoreUI>().bonusType = BonusType.nearSand;
+                bonusScoreInstance.GetComponent<BonusScoreHander>().bonusType = BonusType.nearSand;
                 break;
             case "obstacle":
-                bonusScoreInstance.GetComponent<BonusScoreUI>().bonusType = BonusType.nearObstacle;
+                bonusScoreInstance.GetComponent<BonusScoreHander>().bonusType = BonusType.nearObstacle;
                 break;
             case "speed":
-                bonusScoreInstance.GetComponent<BonusScoreUI>().bonusType = BonusType.highSpeed;
+                bonusScoreInstance.GetComponent<BonusScoreHander>().bonusType = BonusType.highSpeed;
                 break;
         }
 
     }
     
     public void AddBonusToMainScore(float bonusScore)
-    {;
+    {
         mainScore += bonusScore;
     }
     void UpdateMainScore()

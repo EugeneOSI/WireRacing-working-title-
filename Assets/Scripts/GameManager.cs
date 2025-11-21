@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Rigidbody2D playerRb;
     [SerializeField] private TextMeshProUGUI healthAlert;
     float time;
-    const float difficultyK = 0.0025f;
+    const float difficultyK = 0.0010f;
 
     bool gameStarted;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //time = Time.timeSinceLevelLoad;
-        //SetDifficulty();
+        time = Time.timeSinceLevelLoad;
+        SetDifficulty();
         if (player.Health < 2){
             healthAlert.gameObject.SetActive(true);
         }
@@ -44,10 +44,8 @@ public class GameManager : MonoBehaviour
 }
 
 void SetDifficulty(){
-    player.attractionForce = GetDifficulty(time, 18, 25, difficultyK);
-    playerRb.linearDamping = GetDifficulty(time, 0.3f, 0.6f, difficultyK);
-    spawnManager.obstacleCount = (int)GetDifficulty(time, 5, 20, difficultyK);
-    pursuingEnemy.defaultSpeed = GetDifficulty(time, 12, 18, difficultyK);
+    spawnManager.obstacleCount = (int)GetDifficulty(time, 6, 9, difficultyK);
+    pursuingEnemy.defaultSpeed = GetDifficulty(time, 13, 15, difficultyK);
 }
 
     IEnumerator DifficultyIncrease()

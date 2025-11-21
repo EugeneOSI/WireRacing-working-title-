@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public GameObject hookPoint;
     private GameObject tmpHookPoint;
     [SerializeField] private GameObject powerUp;
+    [SerializeField] private GameObject playerSprite;
 
     [Header("Splines")]
     [SerializeField] private SplineContainer firstSplineContainer;
@@ -89,7 +90,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         CheckCurrentSpeed();
-        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        playerSprite.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg);
         
         if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
         {

@@ -4,21 +4,31 @@ using System;
 using System.Collections;
 
 public enum BonusType {nearSand, nearObstacle, highSpeed};
-public class BonusScoreUI : MonoBehaviour
+public class BonusScoreHander : MonoBehaviour
 {
+    
+    [Header("Тип бонуса")]
     public BonusType bonusType;
 
+    [Header("Аниматор")]
     public Animator animator;
+
+    [Header("UI")]
     [SerializeField] TextMeshProUGUI amount;
     [SerializeField] TextMeshProUGUI description;
+
+    [Header("Компоненты")]
     Player player;
     ScoreEventsHander scoreEventsHander;
     ScoreManager scoreManager;
+
+    [Header("Корутины")]
     Coroutine outTimerCoroutine;
+
+    [Header("Счет")]
     float score = 0;
     float outTimer = 2f;
-
-    Vector2 offset;
+    
 
     void Awake()
     {
@@ -105,7 +115,6 @@ public class BonusScoreUI : MonoBehaviour
         }
         amount.text = "" + (int)score;
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        //transform.position = player.transform.position;
     
     }
     

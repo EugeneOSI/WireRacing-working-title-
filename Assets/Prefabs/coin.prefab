@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f251e8a2d9c7e94ea294a5b372f3f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PowerUp
-  attractionForce: 40
+  powerUpTransform: {fileID: 4654770046860017706}
+  attractionForce: 20
 --- !u!58 &9122766010520835950
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -81,7 +82,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.8
 --- !u!1 &9043555016211579042
 GameObject:
   m_ObjectHideFlags: 0

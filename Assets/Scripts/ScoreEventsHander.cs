@@ -11,14 +11,7 @@ public class ScoreEventsHander : MonoBehaviour
 
     public bool nearSand;
     public bool nearObstacle;
-
     public bool highSpeed;
-    bool prevNearObstacle = false;
-    bool hadCollisionWhileNearObstacle = false; 
-
-
-
-
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
