@@ -11,20 +11,14 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject powerUp;
     [SerializeField] private GameObject playerSprite;
 
-    [Header("Splines")]
-    [SerializeField] private SplineContainer firstSplineContainer;
-    private SplineContainer splineContainer;
-    private Spline _spline;
-    private float previousT;
-    private float currentT;
-
     [Header("States")]
     public bool isAlive;
     public bool onTrack;
     private bool startRace;
     private bool hookIsMoving;
-    public bool hitObstacle;
-    public bool withPowerUp;
+    public bool hitObstacle { get; private set; }
+    public bool withPowerUp{ get; private set; }
+    public bool smashObstacle{ get; private set; }
 
     [Header("Parameters")]
     public float health;
@@ -76,7 +70,6 @@ public class Player : MonoBehaviour
         withPowerUp = false;
 
         powerUp.SetActive(false);
-        SetSplineContainer(firstSplineContainer);
 
         scoreEventsHander = GetComponent<ScoreEventsHander>();
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
@@ -123,11 +116,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SetSplineContainer(SplineContainer splineContainer){
-
-            this.splineContainer = splineContainer;
-            _spline = this.splineContainer.Spline;
-            }
 
     void ThrowHookPoint()
     {
@@ -248,7 +236,10 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("sand"))
         {
-            mainCamera.Shake(1f, 0.05f);
+            if (!withPowerUp)
+            {
+                mainCamera.Shake(1f, 0.05f);
+            }
         }
         if (collision.CompareTag("Enemy")){
             if (withPowerUp){
@@ -262,18 +253,6 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             StartCoroutine(WithPowerUp());
         }
-        if (collision.CompareTag("SegmentIn")){
-
-            SetSplineContainer(collision.transform.parent.GetChild(1).GetComponent<SplineContainer>());
-        }
-        if (collision.CompareTag("Coin")){
-            Destroy(collision.gameObject);
-            if (withPowerUp){
-                scoreManager.AddBonusToMainScore(10);
-            }
-            else{
-            scoreManager.AddBonusToMainScore(5);}
-        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -281,6 +260,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Barier"))
         {
             Destroy(tmpHookPoint);
+            mainCamera.Shake(0.5f, 0.3f);
             Vector2 closestPoint = collision.contacts[0].point;
             playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 10, ForceMode2D.Impulse);
             if (!withPowerUp){
@@ -302,10 +282,17 @@ public class Player : MonoBehaviour
     IEnumerator HitObstacle()
     {
         if (!withPowerUp){
+        mainCamera.Shake(0.5f, 0.3f);
         health--;
         hitObstacle = true;
         yield return new WaitForSeconds(2);
         hitObstacle = false;}
+        else{
+            mainCamera.Shake(0.2f, 0.1f);
+            smashObstacle = true;
+            yield return new WaitForSeconds(2);
+            smashObstacle = false;
+        }
     }
     IEnumerator WithPowerUp()
     {

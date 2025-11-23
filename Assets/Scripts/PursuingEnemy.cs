@@ -91,7 +91,7 @@ public class PursuingEnemy : MonoBehaviour
     }
 
     void CheckConditions(){
-        if (player.Velocity<5&&gameManager.GameStarted){
+        if (player.Velocity<9&&gameManager.GameStarted){
             currentSpeed = defaultSpeed+10;
         }
         if (player.Velocity>=5&&gameManager.GameStarted)
