@@ -17,7 +17,6 @@ public class FollowCamera : MonoBehaviour
     public float defaultCamSize;
     public float sizeReduce;
     public float smoothSize;
-    private Vector3 originalPos;
     private Coroutine shakeCoroutine;
 
     [Header("Shake Parameters")]
@@ -26,7 +25,7 @@ public class FollowCamera : MonoBehaviour
     public bool fadeOut = true;
     public bool useLocalPosition = true;
     private Vector3 shakeOffset = Vector3.zero;
-    private Vector3 basePosition; // последняя позиция камеры после следования
+    private Vector3 basePosition; 
 
     [Header("Transform")]
     private Vector3 offset;
@@ -40,10 +39,6 @@ public class FollowCamera : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Shake();
-        }
     }
 
     void FixedUpdate()
@@ -54,10 +49,9 @@ public class FollowCamera : MonoBehaviour
 
     void LateUpdate()
 {
-    // сохраняем позицию после FixedUpdate (MoveCamera уже отработал)
+
     basePosition = transform.position;
 
-    // применяем смещение тряски поверх готового движения
     if (shakeOffset != Vector3.zero)
         transform.position = basePosition + shakeOffset;
 }

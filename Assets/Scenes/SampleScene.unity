@@ -1273,14 +1273,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a98ad66619f15443bb962e52051da32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  nearSand: 0
-  nearObstacle: 0
-  highSpeed: 0
-  UICanvas: {fileID: 445949589}
-  bonusScoreprefab: {fileID: 7968232128316563923, guid: 5f6add9e868748149ad78702b8c76938, type: 3}
-  addedScorePrefab: {fileID: 2994915577105842066, guid: 294f7cd6710a09648ad9903ec35b7972, type: 3}
+  mainScore: 0
   scoreText: {fileID: 1771628743}
-  lines: []
+  player: {fileID: 2098356183}
+  scoreEventsHander: {fileID: 2098356189}
+  linesRoot: {fileID: 2098356186}
+  bonusScorePrefab: {fileID: 7968232128316563923, guid: 5f6add9e868748149ad78702b8c76938, type: 3}
+  lineHeight: -1.3
 --- !u!4 &1102973417
 Transform:
   m_ObjectHideFlags: 0
@@ -1334,7 +1333,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   trackWidth: 6
-  obstacleCount: 6
+  obstacleCount: 8
   minOffsetFromCenter: 2
   allowBothSides: 1
 --- !u!4 &1176226490
@@ -2097,6 +2096,22 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 4839979791116683672, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
   m_PrefabInstance: {fileID: 2961960768137620433}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &2098356186 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6121096133615569708, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
+  m_PrefabInstance: {fileID: 2961960768137620433}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2098356189 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3171164874278194512, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
+  m_PrefabInstance: {fileID: 2961960768137620433}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098356180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a060b67919536bf47ae75422ad56ef4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreHander
 --- !u!1001 &2961960768137620433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2105,6 +2120,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3171164874278194512, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2098356183}
     - target: {fileID: 4318070494888430978, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2119,7 +2138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839979791116683672, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_AngularDamping
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6121096133615569708, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2167,19 +2186,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7814060562328998449, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: minSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7814060562328998449, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: breakForce
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7814060562328998449, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: limitedSpeed
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7814060562328998449, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: attractionForce
-      value: 20
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 7814060562328998449, guid: 0d7d2d0a72efac849b0da1c1e36c9024, type: 3}
       propertyPath: firstSplineContainer

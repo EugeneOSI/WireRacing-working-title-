@@ -1,48 +1,50 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreEventsHander : MonoBehaviour
 {
+    [Header("Raycast settings")]
     public LayerMask roadEdgeMask;
-    private float maxCheckDistance = 3f;
+    [SerializeField] private float maxCheckDistance = 3f;
 
-    Rigidbody2D playerRb;
-    float distance;
+    [SerializeField] private Player player;
+    private Rigidbody2D _playerRb;
 
-    public bool nearSand;
-    public bool nearObstacle;
-    public bool highSpeed;
+    public bool NearSand { get; private set; }
+    public bool NearObstacle { get; private set; }
+    public bool HighSpeed { get; private set; }
+    public bool WithPowerUp { get; private set; }
+    public bool SmashObstacle { get; private set; }
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
-        playerRb = GetComponent<Rigidbody2D>();
-
+        _playerRb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         WatchDistance();
-        if (playerRb.linearVelocity.magnitude >= 15) highSpeed = true;
-        else highSpeed = false;
 
-        //distance += playerRb.linearVelocity.magnitude * Time.deltaTime;
+        // high speed
+        if (_playerRb != null)
+        {
+            HighSpeed = _playerRb.linearVelocity.magnitude >= 15f;
+        }
+        else
+        {
+            HighSpeed = false;
+        }
     }
 
-    void WatchDistance()
+    private void WatchDistance()
     {
-
-
         RaycastHit2D[] hits = {
-            Physics2D.Raycast(transform.position, Vector2.up, maxCheckDistance, roadEdgeMask),
-            Physics2D.Raycast(transform.position, Vector2.down, maxCheckDistance, roadEdgeMask),
+            Physics2D.Raycast(transform.position, Vector2.up,    maxCheckDistance, roadEdgeMask),
+            Physics2D.Raycast(transform.position, Vector2.down,  maxCheckDistance, roadEdgeMask),
             Physics2D.Raycast(transform.position, Vector2.right, maxCheckDistance, roadEdgeMask),
-            Physics2D.Raycast(transform.position, Vector2.left, maxCheckDistance, roadEdgeMask),
-            Physics2D.Raycast(transform.position, new Vector2(1, 1).normalized, maxCheckDistance, roadEdgeMask),
-            Physics2D.Raycast(transform.position, new Vector2(-1, 1).normalized, maxCheckDistance, roadEdgeMask),
-            Physics2D.Raycast(transform.position, new Vector2(1, -1).normalized, maxCheckDistance, roadEdgeMask),
+            Physics2D.Raycast(transform.position, Vector2.left,  maxCheckDistance, roadEdgeMask),
+            Physics2D.Raycast(transform.position, new Vector2( 1,  1).normalized, maxCheckDistance, roadEdgeMask),
+            Physics2D.Raycast(transform.position, new Vector2(-1,  1).normalized, maxCheckDistance, roadEdgeMask),
+            Physics2D.Raycast(transform.position, new Vector2( 1, -1).normalized, maxCheckDistance, roadEdgeMask),
             Physics2D.Raycast(transform.position, new Vector2(-1, -1).normalized, maxCheckDistance, roadEdgeMask),
         };
 
@@ -53,52 +55,31 @@ public class ScoreEventsHander : MonoBehaviour
         {
             if (hit.collider == null) continue;
 
-            if (hit.collider.tag == "sand")
-            {
-                sandDetected = true;
-                //Debug.Log("NearSand");
-            }
-            else if (hit.collider.tag == "Obstacle")
-            {
+            if (hit.collider.CompareTag("sand")){
+                sandDetected = true; Debug.Log("Sand Touched");}
+            else if (hit.collider.CompareTag("Obstacle"))
                 obstacleDetected = true;
-                //Debug.Log("NearObstacle");
-            }
         }
-        nearSand = sandDetected;
-        nearObstacle = obstacleDetected;
+        if (player.withPowerUp)
+            WithPowerUp = true;
+        else
+            WithPowerUp = false;
+        if (player.smashObstacle)
+            SmashObstacle = true;
+        else
+            SmashObstacle = false;
 
+        NearSand = sandDetected;
+        NearObstacle = obstacleDetected;
 
-        Debug.DrawRay(transform.position, Vector2.up * maxCheckDistance, Color.red);
-        Debug.DrawRay(transform.position, Vector2.down * maxCheckDistance, Color.red);
-
+        // дебаг-лучи оставил как были
+        Debug.DrawRay(transform.position, Vector2.up    * maxCheckDistance, Color.red);
+        Debug.DrawRay(transform.position, Vector2.down  * maxCheckDistance, Color.red);
         Debug.DrawRay(transform.position, Vector2.right * maxCheckDistance, Color.red);
-        Debug.DrawRay(transform.position, Vector2.left * maxCheckDistance, Color.red);
-
-        Debug.DrawRay(transform.position, new Vector2(1, 1).normalized * maxCheckDistance, Color.red);
-        Debug.DrawRay(transform.position, new Vector2(-1, 1).normalized * maxCheckDistance, Color.red);
-
-        Debug.DrawRay(transform.position, new Vector2(1, -1).normalized * maxCheckDistance, Color.red);
+        Debug.DrawRay(transform.position, Vector2.left  * maxCheckDistance, Color.red);
+        Debug.DrawRay(transform.position, new Vector2( 1,  1).normalized * maxCheckDistance, Color.red);
+        Debug.DrawRay(transform.position, new Vector2(-1,  1).normalized * maxCheckDistance, Color.red);
+        Debug.DrawRay(transform.position, new Vector2( 1, -1).normalized * maxCheckDistance, Color.red);
         Debug.DrawRay(transform.position, new Vector2(-1, -1).normalized * maxCheckDistance, Color.red);
-
-    }
-    
-    public float Distance
-    {
-        get { return distance; }
-    }
-
-    public bool NearSand
-    {
-        get { return nearSand; }
-    }
-
-    public bool NearObstacle
-    {
-        get { return nearObstacle; }
-    }
-
-    public bool HighSpeed
-    {
-        get { return highSpeed; }
     }
 }

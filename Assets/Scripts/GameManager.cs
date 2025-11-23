@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //StartCoroutine(DifficultyIncrease());
         healthAlert.gameObject.SetActive(false);
     }
 
@@ -44,19 +43,10 @@ public class GameManager : MonoBehaviour
 }
 
 void SetDifficulty(){
-    spawnManager.obstacleCount = (int)GetDifficulty(time, 6, 9, difficultyK);
+    spawnManager.obstacleCount = (int)GetDifficulty(time, 8, 12, difficultyK);
     pursuingEnemy.defaultSpeed = GetDifficulty(time, 13, 15, difficultyK);
 }
 
-    IEnumerator DifficultyIncrease()
-    {
-        while (true){
-        yield return new WaitForSeconds(difficultyIncreaseInterval);
-        player.attractionForce += 0.4f;
-        playerRb.linearDamping += 0.01f;
-        spawnManager.obstacleCount++;
-        pursuingEnemy.defaultSpeed += 0.3f;}
-    }
 
 public bool GameStarted{
     get {return gameStarted;}

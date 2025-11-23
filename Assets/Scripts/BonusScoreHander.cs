@@ -1,12 +1,11 @@
 using UnityEngine;
 using TMPro;
-using System;
 using System.Collections;
 
-public enum BonusType {nearSand, nearObstacle, highSpeed};
+public enum BonusType { nearSand, nearObstacle, highSpeed, tookPowerUp, smashObstacle }
+
 public class BonusScoreHander : MonoBehaviour
 {
-    
     [Header("Тип бонуса")]
     public BonusType bonusType;
 
@@ -14,129 +13,235 @@ public class BonusScoreHander : MonoBehaviour
     public Animator animator;
 
     [Header("UI")]
-    [SerializeField] TextMeshProUGUI amount;
-    [SerializeField] TextMeshProUGUI description;
+    [SerializeField] private TextMeshProUGUI amount;
+    [SerializeField] private TextMeshProUGUI description;
 
-    [Header("Компоненты")]
-    Player player;
-    ScoreEventsHander scoreEventsHander;
-    ScoreManager scoreManager;
+    private Player _player;
+    private ScoreEventsHander _events;
+    private ScoreManager _manager;
 
-    [Header("Корутины")]
-    Coroutine outTimerCoroutine;
+    private Coroutine _outTimerCoroutine;
 
-    [Header("Счет")]
-    float score = 0;
-    float outTimer = 2f;
-    
+    public float _score { get; private set; } = 0f;
+    private float _obstacleExtraTime = 2f;  
+    private float _powerUpExtraTime = 2f;   
+    private float _smashObstacleExtraTime = 2f;  
 
-    void Awake()
+    private bool _finished = false;
+
+    /// <summary>
+    /// Вызывается сразу после Instantiate из ScoreManager.
+    /// </summary>
+    public void Initialize(ScoreManager manager, ScoreEventsHander eventsHander, Player player, BonusType type)
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
-        scoreEventsHander = GameObject.Find("Player").GetComponent<ScoreEventsHander>();
-        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        scoreManager.lines.Add(gameObject);
-        for (int i =0; i<scoreManager.lines.Count; i++)
+        _manager = manager;
+        _events = eventsHander;
+        _player = player;
+        bonusType = type;
+
+        if (animator != null)
         {
-                scoreManager.lines[i].GetComponent<LineMover>().StartMove(i);
+            animator.SetBool("event", true);
         }
-        
-        
+
+        _manager.RegisterLine(this);
     }
-    void Update()
+
+    private void Update()
     {
+        if (_finished || _player == null || _events == null || _manager == null)
+            return;
+
         switch (bonusType)
         {
             case BonusType.nearSand:
-                description.text = "ON THE EDGE!";
-                if (scoreEventsHander.nearSand)
-                {
-                    score += player.Velocity * Time.deltaTime * 2;
-                }
-                if (!scoreManager.nearSand)
-                {
-                    animator.SetBool("event", false);
-                    outTimerCoroutine =StartCoroutine(TimerAndRemoveLine(0.3f, "collect"));
-                }
-                if (!player.OnTrack||player.hitObstacle)
-                {
-                    if (outTimerCoroutine != null)
-                    {
-                        StopCoroutine(outTimerCoroutine);
-                        outTimerCoroutine = null;
-                    }
-                    
-                    animator.SetBool("mistake", true);
-                    outTimerCoroutine = StartCoroutine(TimerAndRemoveLine(0.3f, ""));
-                }
+                HandleNearSand();
                 break;
 
-
             case BonusType.nearObstacle:
-                description.text = "CLOSE!";
-                if (score <= 30)
-                {
-                    score += Time.deltaTime * 40f;
-                }
-                if (!scoreManager.nearObstacle)
-                {
-                    outTimer -= Time.deltaTime;
-                    if (outTimer <= 0)
-                    {
-                        animator.SetBool("event", false);
-                        StartCoroutine(TimerAndRemoveLine(0.3f, "collect"));
-                    }
-                }
+                HandleNearObstacle();
                 break;
 
             case BonusType.highSpeed:
-                description.text = "HIGH SPEED!";
-                if (scoreEventsHander.highSpeed)
-                {
-                    score += player.Velocity * Time.deltaTime * 2;
-                }
-
-                if (!scoreManager.highSpeed)
-                {
-                    animator.SetBool("event", false);
-                    outTimerCoroutine = StartCoroutine(TimerAndRemoveLine(0.3f, "collect"));
-                }
-                if (!player.OnTrack||player.hitObstacle)
-                {
-                    if (outTimerCoroutine != null)
-                    {
-                        StopCoroutine(outTimerCoroutine);
-                        outTimerCoroutine = null;
-                    }
-                    animator.SetBool("mistake", true);
-                    outTimerCoroutine = StartCoroutine(TimerAndRemoveLine(0.3f, ""));
-                }
+                HandleHighSpeed();
+                break;
+            case BonusType.tookPowerUp:
+                HandleTookPowerUp();
+                break;
+            case BonusType.smashObstacle:
+                HandleSmashObstacle();
                 break;
         }
-        amount.text = "" + (int)score;
-        transform.rotation = Quaternion.Euler(0, 0, 0);
-    
+
+        if (amount != null)
+        {
+            amount.text = ((int)_score).ToString();
+        }
+
+        // фиксируем вращение
+        transform.rotation = Quaternion.identity;
     }
-    
-    IEnumerator TimerAndRemoveLine(float delay, string mode)
+
+    // --------- Конкретная логика событий ---------
+
+    private void HandleNearSand()
     {
+        if (description != null)
+            description.text = "ON THE EDGE!";
+
+        // пока реально рядом с кромкой — накапливаем очки
+        if (_events.NearSand)
+        {
+            _score += _player.Velocity * Time.deltaTime * 2f;
+        }
+
+        // ScoreManager сказал, что событие закончено (NearSandActive == false)
+        if (!_manager.NearSandActive)
+        {
+            StopOutTimerIfRunning();
+            _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
+        }
+
+        // Ошибка: съехал с трассы или ударился
+        if ((!_player.OnTrack || _player.hitObstacle)&&!_player.withPowerUp)
+        {
+            StopOutTimerIfRunning();
+
+            if (animator != null)
+            {
+                animator.SetBool("mistake", true);
+            }
+
+            _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: false));
+        }
+    }
+
+    private void HandleNearObstacle()
+    {
+        if (description != null)
+            description.text = "CLOSE!";
+
+        if (_score <= 30f)
+        {
+            _score += Time.deltaTime * 40f;
+        }
+
+        // пока событие активно — сбрасываем "хвост" времени
+        if (_manager.NearObstacleActive)
+        {
+            _obstacleExtraTime = 2f;
+        }
+        else
+        {
+            _obstacleExtraTime -= Time.deltaTime;
+            if (_obstacleExtraTime <= 0f)
+            {
+                StopOutTimerIfRunning();
+                _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
+            }
+        }
+    }
+
+    private void HandleHighSpeed()
+    {
+        if (description != null)
+            description.text = "HIGH SPEED!";
+
+        if (_events.HighSpeed)
+        {
+            _score += _player.Velocity * Time.deltaTime * 2f;
+        }
+
+        // как только ScoreManager решил, что "фаза хайспида" закончилась
+        if (!_manager.HighSpeedActive)
+        {
+            StopOutTimerIfRunning();
+            _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
+        }
+
+        // Ошибка: слетел с трассы или ударился
+        if ((!_player.OnTrack || _player.hitObstacle)&&!_player.withPowerUp)
+        {
+            StopOutTimerIfRunning();
+
+            if (animator != null)
+            {
+                animator.SetBool("mistake", true);
+            }
+
+            _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: false));
+        }
+    }
+
+    private void HandleTookPowerUp(){
+        if (description != null)
+            description.text = "POWER-UP";
+
+        if (_score <= 10f)
+        {
+            _score += Time.deltaTime * 40f;
+        }
+            _powerUpExtraTime -= Time.deltaTime;
+            if (_powerUpExtraTime <= 0f)
+            {
+                StopOutTimerIfRunning();
+                if (animator != null)
+                {
+                animator.SetBool("event", false);
+                }
+
+                _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
+            }
+        
+    }
+
+    private void HandleSmashObstacle(){
+        if (description != null)
+        description.text = "SMASH!";
+
+        if (_score <= 10f)
+        {
+            _score += Time.deltaTime * 40f;
+        }
+
+        _smashObstacleExtraTime -= Time.deltaTime;
+        if (_smashObstacleExtraTime <= 0f)
+        {
+            StopOutTimerIfRunning();
+            if (animator != null)
+            {
+                animator.SetBool("event", false);
+            }
+            _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
+        }
+        
+    }
+
+    // --------- Общие вспомогательные штуки ---------
+
+    private void StopOutTimerIfRunning()
+    {
+        if (_outTimerCoroutine != null)
+        {
+            StopCoroutine(_outTimerCoroutine);
+            _outTimerCoroutine = null;
+        }
+    }
+
+    private IEnumerator TimerAndFinish(float delay, bool collect)
+    {
+        _finished = true;
+
+        if (animator != null && collect)
+        {
+            animator.SetBool("event", false);
+        }
 
         yield return new WaitForSeconds(delay);
 
-        switch (mode)
+        if (_manager != null) // если сцену не сменили
         {
-            case "collect":
-                scoreManager.AddBonusToMainScore(score);
-                break;
+            _manager.OnLineFinished(this, _score, collect);
         }
-        
-        scoreManager.lines.Remove(gameObject);
-        for (int i =0; i<scoreManager.lines.Count; i++)
-        {
-            scoreManager.lines[i].GetComponent<LineMover>().StartMove(i+1);
-        }
-        Destroy(gameObject);
     }
-
-
 }
