@@ -1279,6 +1279,9 @@ MonoBehaviour:
   scoreEventsHander: {fileID: 2098356189}
   linesRoot: {fileID: 2098356186}
   bonusScorePrefab: {fileID: 7968232128316563923, guid: 5f6add9e868748149ad78702b8c76938, type: 3}
+  multiplayerScoreText: {fileID: 1460158867}
+  multiplayerAmountText: {fileID: 685158041}
+  multiplayerSlider: {fileID: 516583320}
   lineHeight: -1.3
 --- !u!4 &1102973417
 Transform:

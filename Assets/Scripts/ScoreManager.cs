@@ -34,6 +34,7 @@ public class ScoreManager : MonoBehaviour
     public bool WithPowerUpActive { get; private set; }
     public bool SmashObstacleActive { get; private set; }
     public bool MultiplayerActive { get; private set; }
+    public bool multiplayedScoreCollected { get; private set; }
 
     // корутины
     private Coroutine _nearSandInCoroutine;
@@ -100,10 +101,10 @@ public class ScoreManager : MonoBehaviour
 
     public void OnLineFinished(BonusScoreHander line, float bonusScore, bool collectToMainScore)
     {
-        /*if (collectToMainScore)
+        if (collectToMainScore)
         {
-            mainScore += bonusScore;
-        }*/
+            multiplayerScore += (int)bonusScore;
+        }
 
         UnregisterLine(line);
 
@@ -301,10 +302,11 @@ public class ScoreManager : MonoBehaviour
     private void UpdateMultiplayerScore()
     {
         multiplayerAmountText.text = "X" + multiplayerAmount;
-        multiplayerScore = (int)GetActiveLinesScore();
         multiplayerScoreText.text = "" + multiplayerScore;
         if (_activeLines.Count > 0){
-            MultiplayerActive = true;}
+            MultiplayerActive = true;
+            multiplayedScoreCollected = false;
+            }
 
         else {MultiplayerActive = false;}
         MultiplayerScoreHandler();
@@ -319,12 +321,15 @@ public class ScoreManager : MonoBehaviour
         }}
         if (!MultiplayerActive) {
             
-            if(multiplayerScore > 0){
-            mainScore += multiplayerScore*multiplayerAmount;
-            multiplayerAmount = 1;
-            multiplayerScore = 0;
-            multiplayerSlider.value = 0;
-            multiplayerSlider.maxValue = 1;}
+            if(!multiplayedScoreCollected){
+                
+                mainScore += multiplayerScore*multiplayerAmount;
+                multiplayerAmount = 1;
+                multiplayerScore = 0;
+                multiplayerSlider.value = 0;
+                multiplayerSlider.maxValue = 1;
+                multiplayedScoreCollected = true;
+            }
         }
 
     }
@@ -341,24 +346,5 @@ public class ScoreManager : MonoBehaviour
     {
         multiplayerSlider.value += 0.2f;
     }
-
-    public float GetActiveLinesScore()
-{
-    float total = 0f;
-
-    foreach (var go in _activeLines)
-    {
-        if (go == null) 
-            continue;
-
-        var handler = go.GetComponent<BonusScoreHander>();
-        if (handler == null) 
-            continue;
-
-        total += handler._score;
-    }
-
-    return total;
-}
 
 }

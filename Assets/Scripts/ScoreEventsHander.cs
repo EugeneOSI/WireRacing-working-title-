@@ -27,7 +27,7 @@ public class ScoreEventsHander : MonoBehaviour
         // high speed
         if (_playerRb != null)
         {
-            HighSpeed = _playerRb.linearVelocity.magnitude >= 15f;
+            HighSpeed = _playerRb.linearVelocity.magnitude >= 20f;
         }
         else
         {
