@@ -34,10 +34,11 @@ public class TimeTrialManager : MonoBehaviour
     public TMP_Text previousLapTimeText;
     public TMP_Text totalDeltaText;
     public TMP_Text sectorDeltaText;
+    public TMP_Text lapNumberText;
     public Image[] sectorImages;
 
     [Header("Game Objects")]
-    [SerializeField] private PlayerTimeTrial player;
+    private PlayerTimeTrial player;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class TimeTrialManager : MonoBehaviour
         }
         Instance = this;
 
+        player = GameObject.Find("Player").GetComponent<PlayerTimeTrial>();
         currentLapSectors  = new float[sectorCount];
         previousLapSectors = new float[sectorCount];
         ResetArray(previousLapSectors, -1f);
@@ -92,30 +94,30 @@ public class TimeTrialManager : MonoBehaviour
         lapValid   = true;
 
         currentLapIndex++;
+        lapNumberText.text = "Lap " + currentLapIndex.ToString();
         lapStartTime = Time.time;
         lastSectorTimeStamp = lapStartTime;
 
         currentLapSectors = new float[sectorCount];
         currentSectorIndex = -1;
-        StartCoroutine(ResetSectorsUI());
+        lapTimeText.color = Color.white;
+        StartCoroutine(ResetSectorsUI(2f));
     }
 
 void FinishLap()
 {
     float now = Time.time;
 
-    // --- ДОПИСЫВАЕМ ПОСЛЕДНИЙ СЕКТОР, ЕСЛИ ЕГО ЕЩЕ НЕТ ---
     int lastIndex = sectorCount - 1;
 
     if (currentLapSectors != null &&
         lastIndex >= 0 && lastIndex < sectorCount &&
-        currentLapSectors[lastIndex] <= 0f &&     // не записан
+        currentLapSectors[lastIndex] <= 0f &&  
         lastSectorTimeStamp > 0f)
     {
         float lastSectorTime = now - lastSectorTimeStamp;
         RegisterSector(lastIndex, lastSectorTime);
     }
-    // ---------------------------------------------------
 
     float lapTime = now - lapStartTime;
 
@@ -128,13 +130,13 @@ void FinishLap()
     previousLapTime = lapTime;
     currentLapSectors.CopyTo(previousLapSectors, 0);
 
-    if (bestLapTime < 0f || lapTime < bestLapTime)
+    if (lapValid&& (bestLapTime < 0f || lapTime < bestLapTime)){
         bestLapTime = lapTime;
+    bestLapTimeText.text = FormatTime(bestLapTime,"lap");}
 
     Debug.Log($"Lap {currentLapIndex} FINISHED: {FormatTime(lapTime,"lap")}   Best: {FormatTime(bestLapTime,"lap")}");
 
     lapTimeText.text = FormatTime(lapTime,"lap");
-    bestLapTimeText.text = FormatTime(bestLapTime,"lap");
     previousLapTimeText.text = FormatTime(previousLapTime,"lap");
 }
 
@@ -160,6 +162,8 @@ public void OnSectorCrossed(int sectorIndex)
 
         lapValid = false;
         Debug.Log($"Lap {currentLapIndex} INVALIDATED: {reason}");
+        lapTimeText.color = Color.red;
+        StartCoroutine(ResetSectorsUI(0.1f));
         // UI: показать сообщение, покрасить таймер в красный и т.п.
     }
 
@@ -189,14 +193,12 @@ void RegisterSector(int sectorIndex, float sectorTime)
 
     float totalDelta = hasPrevLap ? currentTotal - previousTotal : 0f;
 
-    // тут обновляешь UI сектора
-    // TimeTrialUI.Instance.UpdateSector(sectorIndex, sectorTime, sectorDelta, totalDelta);
-
     Debug.Log($"Sector {sectorIndex}: {sectorTime:F3}  ΔS={sectorDelta:F3}  ΔT={totalDelta:F3}");
-
+// UI
+    if(lapValid){
     sectorImages[sectorIndex].color = sectorDelta < 0f ? fasterColor : (sectorDelta > 0f ? slowerColor : neutralColor);
     sectorDeltaText.text = FormatTime(sectorDelta,"delta");
-    totalDeltaText.text = FormatTime(totalDelta,"delta");
+    totalDeltaText.text = FormatTime(totalDelta,"delta");}
 }
 
     public string FormatTime(float time, string type)
@@ -217,9 +219,9 @@ void RegisterSector(int sectorIndex, float sectorTime)
 
     }
 
-    IEnumerator ResetSectorsUI()
+    IEnumerator ResetSectorsUI(float delay)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(delay);
         for (int i = 0; i < sectorCount; i++)
         {
             sectorImages[i].color = neutralColor;

@@ -45,6 +45,7 @@ public class PlayerTimeTrial : MonoBehaviour
         contactFilter.useLayerMask = true;
         contactFilter.useTriggers = true;
         hookIsMoving = false;
+        mistake = false;
 
         
     }
@@ -197,7 +198,7 @@ public class PlayerTimeTrial : MonoBehaviour
     IEnumerator Mistake()
     {
         mistake = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.1f);
         mistake = false;
     }
 }
