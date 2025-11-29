@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
     {
         CheckCurrentSpeed();
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        playerSprite.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg);
+        playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
         if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
         {
@@ -209,6 +209,7 @@ public class Player : MonoBehaviour
 
         if (Velocity >= 10 && startRace)
         {
+            Debug.Log("Healing Player");
             health += Mathf.MoveTowards(health, 4, Time.deltaTime * 1);
             //timerSlider.value = health;
         }
@@ -255,7 +256,7 @@ public class Player : MonoBehaviour
             Destroy(tmpHookPoint);
             mainCamera.Shake(0.5f, 0.3f);
             Vector2 closestPoint = collision.contacts[0].point;
-            playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 10, ForceMode2D.Impulse);
+            playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 5, ForceMode2D.Impulse);
             if (!withPowerUp){
             health--;}
         }

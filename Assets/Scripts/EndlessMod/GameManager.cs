@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Rigidbody2D playerRb;
     [SerializeField] private TextMeshProUGUI healthAlert;
     float time;
-    const float difficultyK = 0.0010f;
+    const float difficultyK = 0.003f;
 
     bool gameStarted;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 void SetDifficulty(){
     spawnManager.obstacleCount = (int)GetDifficulty(time, 8, 12, difficultyK);
     pursuingEnemy.defaultSpeed = GetDifficulty(time, 13, 15, difficultyK);
+    player.attractionForce = GetDifficulty(time, 25, 30, difficultyK);
 }
 
 
