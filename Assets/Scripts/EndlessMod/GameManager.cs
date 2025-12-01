@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PursuingEnemy pursuingEnemy;
-    [SerializeField] private float difficultyIncreaseInterval = 10f;
-    [SerializeField] private Rigidbody2D playerRb;
     [SerializeField] private TextMeshProUGUI healthAlert;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject gameOverMenu;
+    public bool IsPaused {get; set;}
+    public bool GameOver {get; private set;}
     float time;
     const float difficultyK = 0.003f;
 
@@ -17,7 +19,11 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        GameOver = false;
+        Time.timeScale = 1;
         healthAlert.gameObject.SetActive(false);
+        gameOverMenu.SetActive(false);
+        IsPaused = false;
     }
 
     // Update is called once per frame
@@ -33,9 +39,23 @@ public class GameManager : MonoBehaviour
         switch (player.isAlive)
         {
             case false:
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                gameOverMenu.SetActive(true);
+                GameOver = true;
                 break;
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+            IsPaused = !IsPaused;
+            }
+        if (IsPaused){
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
+        else{
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+        }
+            
     }
     float GetDifficulty(float t, float start, float max, float k)
 {
@@ -44,7 +64,7 @@ public class GameManager : MonoBehaviour
 
 void SetDifficulty(){
     spawnManager.obstacleCount = (int)GetDifficulty(time, 8, 12, difficultyK);
-    pursuingEnemy.defaultSpeed = GetDifficulty(time, 13, 15, difficultyK);
+    pursuingEnemy.defaultSpeed = GetDifficulty(time, 15, 18, difficultyK);
     player.attractionForce = GetDifficulty(time, 25, 30, difficultyK);
 }
 
@@ -52,4 +72,10 @@ void SetDifficulty(){
 public bool GameStarted{
     get {return gameStarted;}
     set {gameStarted = value;}}
+
+public void RestartGame(){
+SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 }
+}
+
+

@@ -39,6 +39,8 @@ public class TimeTrialManager : MonoBehaviour
 
     [Header("Game Objects")]
     private PlayerTimeTrial player;
+    [SerializeField] private GameObject pauseMenu;
+    public bool IsPaused {get; set;}
 
     private void Awake()
     {
@@ -62,6 +64,18 @@ public class TimeTrialManager : MonoBehaviour
             InvalidateCurrentLap("Mistake");
         }
         lapTimeText.text = FormatTime(CurrentLapTime,"lap");
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+        IsPaused = !IsPaused;
+            }
+        if (IsPaused){
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
+        else{
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+        }
     }
 
     void ResetArray(float[] arr, float value)

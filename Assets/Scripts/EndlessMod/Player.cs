@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
-        if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
+        if (Input.GetMouseButtonDown(0) && !gameManager.IsPaused && !gameManager.GameOver)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -107,6 +107,12 @@ public class Player : MonoBehaviour
         {
             Move();
         }
+        if (gameManager.GameOver)
+        {
+            maxVelocity = 0.001f;
+            float currentVelocity = playerRb.linearVelocity.magnitude;
+            playerRb.linearVelocity = playerRb.linearVelocity.normalized * Mathf.MoveTowards(currentVelocity, maxVelocity, Time.deltaTime * breakForce);
+        }
     }
 
 
@@ -127,7 +133,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         float newAttractionForce = attractionForce;
-        if (!hitObstacle)
+        if (!hitObstacle&&!gameManager.GameOver)
         {
             if (withPowerUp)
             {
