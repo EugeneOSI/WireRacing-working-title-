@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     [Header("Main score")]
-    [SerializeField] private float mainScore;
+    public float mainScore { get; private set;}
     [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header("References")]

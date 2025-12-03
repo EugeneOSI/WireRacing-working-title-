@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         if (health <= 0)
         {
             isAlive = false;
-            Debug.Log("You Died");
+            //Debug.Log("You Died");
         }
 
         if (tmpHookPoint != null)

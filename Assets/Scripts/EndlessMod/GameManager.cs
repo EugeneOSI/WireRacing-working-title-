@@ -2,28 +2,38 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
+using Dan.Main;
+using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PursuingEnemy pursuingEnemy;
-    [SerializeField] private TextMeshProUGUI healthAlert;
-    [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject gameOverMenu;
+    [SerializeField] private UICOntroller uiController;
+    [SerializeField] private ScoreManager scoreManager;
+    
     public bool IsPaused {get; set;}
     public bool GameOver {get; private set;}
     float time;
     const float difficultyK = 0.003f;
 
     bool gameStarted;
+
+    [SerializeField] private LeaderboarManager leaderboarManager;
+
+
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        leaderboarManager.EntriesLoading = false;
         GameOver = false;
-        Time.timeScale = 1;
-        healthAlert.gameObject.SetActive(false);
-        gameOverMenu.SetActive(false);
         IsPaused = false;
+        Time.timeScale = 1;
+        uiController.ActivateUI("ScoreUI", true);
+        uiController.ActivateUI("healthAlert", false);
+        uiController.ActivateUI("gameOverMenu", false); 
     }
 
     // Update is called once per frame
@@ -32,16 +42,22 @@ public class GameManager : MonoBehaviour
         time = Time.timeSinceLevelLoad;
         SetDifficulty();
         if (player.Health < 2){
-            healthAlert.gameObject.SetActive(true);
+            uiController.ActivateUI("healthAlert", true);
         }
-        else{healthAlert.gameObject.SetActive(false);}
+        else{uiController.ActivateUI("healthAlert", false);}
         
-        switch (player.isAlive)
+        if (!player.isAlive)
         {
-            case false:
-                gameOverMenu.SetActive(true);
-                GameOver = true;
-                break;
+            uiController.ActivateUI("ScoreUI", false);
+            uiController.ActivateUI("gameOverMenu", true);
+            GameOver = true;
+            float currentScore = scoreManager.mainScore;
+            uiController.currentScore.text = currentScore.ToString();
+            uiController.bestScore.text = currentScore.ToString();
+            if (leaderboarManager.EntriesLoading == false){
+                leaderboarManager.LoadEntries();
+                leaderboarManager.EntriesLoading = true;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)){
@@ -49,14 +65,15 @@ public class GameManager : MonoBehaviour
             }
         if (IsPaused){
             Time.timeScale = 0;
-            pauseMenu.SetActive(true);
+            uiController.ActivateUI("pauseMenu", true);
         }
         else{
             Time.timeScale = 1;
-            pauseMenu.SetActive(false);
+            uiController.ActivateUI("pauseMenu", false);
         }
             
     }
+
     float GetDifficulty(float t, float start, float max, float k)
 {
     return start + (max - start) * (1f - Mathf.Exp(-k * t));
@@ -76,6 +93,10 @@ public bool GameStarted{
 public void RestartGame(){
 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 }
+
 }
+
+
+    
 
 
