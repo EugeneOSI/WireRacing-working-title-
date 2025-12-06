@@ -11,9 +11,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PursuingEnemy pursuingEnemy;
     [SerializeField] private UICOntroller uiController;
     [SerializeField] private ScoreManager scoreManager;
+    [SerializeField] private PrefsManager prefsManager;
     
     public bool IsPaused {get; set;}
     public bool GameOver {get; private set;}
+    bool gameOverSequenceStarted = false;
     float time;
     const float difficultyK = 0.003f;
 
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
         leaderboarManager.EntriesLoading = false;
         GameOver = false;
         IsPaused = false;
+        gameOverSequenceStarted = false;
         Time.timeScale = 1;
         uiController.ActivateUI("ScoreUI", true);
         uiController.ActivateUI("healthAlert", false);
@@ -46,18 +49,11 @@ public class GameManager : MonoBehaviour
         }
         else{uiController.ActivateUI("healthAlert", false);}
         
-        if (!player.isAlive)
+        if (!player.isAlive && gameOverSequenceStarted == false)
         {
-            uiController.ActivateUI("ScoreUI", false);
-            uiController.ActivateUI("gameOverMenu", true);
             GameOver = true;
-            float currentScore = scoreManager.mainScore;
-            uiController.currentScore.text = currentScore.ToString();
-            uiController.bestScore.text = currentScore.ToString();
-            if (leaderboarManager.EntriesLoading == false){
-                leaderboarManager.LoadEntries();
-                leaderboarManager.EntriesLoading = true;
-            }
+            gameOverSequenceStarted = true;
+            GameOverSequence();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)){
@@ -92,6 +88,33 @@ public bool GameStarted{
 
 public void RestartGame(){
 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+}
+
+private void GameOverSequence(){
+
+            uiController.ActivateUI("ScoreUI", false);
+            uiController.ActivateUI("gameOverMenu", true);
+            float currentScore = scoreManager.mainScore;
+            uiController.currentScore.text = currentScore.ToString();
+            if (currentScore > prefsManager.bestScore){
+                prefsManager.SaveBestScore(currentScore);
+                uiController.bestScore.text = prefsManager.bestScore.ToString();
+            }
+            else{
+                uiController.bestScore.text = prefsManager.bestScore.ToString();
+            }
+            if (prefsManager.playerEntryUploaded == 0){
+                uiController.ActivateUI("UnderBoardInformation", false);
+                leaderboarManager.LoadEntries();
+            }
+            else{
+                if (currentScore > prefsManager.bestScore){
+                leaderboarManager.UpdatePlayerEntry();}
+                leaderboarManager.LoadEntries();
+                uiController.ActivateUI("InputField", false);
+                uiController.playerName.text = prefsManager.playerName;
+                uiController.playerPosition.text = "#" + leaderboarManager.playerPosition;
+            }
 }
 
 }

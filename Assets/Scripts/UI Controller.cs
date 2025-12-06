@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 public class UICOntroller : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -8,11 +9,18 @@ public class UICOntroller : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private GameObject ScoreUI;
+    [SerializeField] private GameObject UnderBoardInformation; 
+    [SerializeField] private GameObject InputField; 
     [SerializeField] public TextMeshProUGUI currentScore;
     [SerializeField] public TextMeshProUGUI bestScore;
+    [SerializeField] public TextMeshProUGUI enptyFieldAlert;
+    [SerializeField] public TextMeshProUGUI textfieldDescription;
+    [SerializeField] public TextMeshProUGUI playerName;
+    [SerializeField] public TextMeshProUGUI playerPosition;
+
+    
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -38,9 +46,34 @@ public class UICOntroller : MonoBehaviour
             case "ScoreUI":
                 ScoreUI.gameObject.SetActive(activate);
                 break;
+            case "enptyFieldAlert":
+                enptyFieldAlert.gameObject.SetActive(activate);
+                break;
+            case "textfieldDescription":
+                textfieldDescription.gameObject.SetActive(activate);
+                break;
+            case "UnderBoardInformation":
+                UnderBoardInformation.gameObject.SetActive(activate);
+                break;
+            case "InputField":
+                InputField.gameObject.SetActive(activate);
+                break;
             default:
                 Debug.LogError("UI not found: " + uiName);
                 break;
+                
         }
      }
+
+    public void ActivateEmptyFieldAlert(){
+        StartCoroutine(WaitForSeconds(2));
+    }
+    
+    public IEnumerator WaitForSeconds(float seconds){
+        ActivateUI("enptyFieldAlert", true);
+        ActivateUI("textfieldDescription", false);
+        yield return new WaitForSeconds(seconds);
+        ActivateUI("enptyFieldAlert", false);
+        ActivateUI("textfieldDescription", true);
+    }
 }
