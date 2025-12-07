@@ -49,6 +49,7 @@ public class PrefsManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R)){
             ResetPrefs();
+            Debug.Log("Prefs reset");
         }
     }
 
@@ -76,10 +77,13 @@ public class PrefsManager : MonoBehaviour
 
     //debuging methods
     public void ResetPrefs(){
-        PlayerPrefs.DeleteAll();
         playerName = "Player";
+        PlayerPrefs.SetString("PlayerName", playerName);
         bestScore = 0;
+        PlayerPrefs.SetFloat("BestScore", bestScore);
         bestMonzaTime = 0;
+        PlayerPrefs.SetFloat("BestMonzaTime", bestMonzaTime);
         playerEntryUploaded = 0;
+        PlayerPrefs.SetInt("PlayerEntryUploaded", playerEntryUploaded);
     }
 }

@@ -35,10 +35,7 @@ public class LeaderboarManager : MonoBehaviour
     public void LoadEntries()
 {
     if (entryObjects != null && entryObjects.Count > 0){
-    foreach (GameObject entryObject in entryObjects){
-            Destroy(entryObject);
-            }
-                entryObjects.Clear();
+        ClearLeaderBoard();
             }
     Leaderboards.WireRacer.GetEntries(OnEntriesLoaded, (error) => {
         Debug.LogError(error);
@@ -91,8 +88,16 @@ public void UpdatePlayerEntry(){
     Leaderboards.WireRacer.UploadNewEntry(prefsManager.playerName, (int)scoreManager.mainScore, (success) => {
         if (success){
             Debug.Log("Entry updated");
+            LoadEntries();
         }
     }, HandleLeaderboardError);
+}
+
+private void ClearLeaderBoard(){
+    foreach (GameObject entryObject in entryObjects){
+            Destroy(entryObject);
+            }
+                entryObjects.Clear();
 }
 
 private void HandleLeaderboardError(string error)

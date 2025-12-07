@@ -321,7 +321,7 @@ public class ScoreManager : MonoBehaviour
         }}
         if (!MultiplayerActive) {
             
-            if(!multiplayedScoreCollected){
+            if(!multiplayedScoreCollected&&player.isAlive){
                 
                 mainScore += multiplayerScore*multiplayerAmount;
                 multiplayerAmount = 1;

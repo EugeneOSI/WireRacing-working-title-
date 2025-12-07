@@ -96,25 +96,26 @@ private void GameOverSequence(){
             uiController.ActivateUI("gameOverMenu", true);
             float currentScore = scoreManager.mainScore;
             uiController.currentScore.text = currentScore.ToString();
-            if (currentScore > prefsManager.bestScore){
-                prefsManager.SaveBestScore(currentScore);
-                uiController.bestScore.text = prefsManager.bestScore.ToString();
-            }
-            else{
-                uiController.bestScore.text = prefsManager.bestScore.ToString();
-            }
-            if (prefsManager.playerEntryUploaded == 0){
+            if (currentScore > prefsManager.bestScore&&prefsManager.playerEntryUploaded == 0){
+                prefsManager.SaveBestScore(currentScore); 
                 uiController.ActivateUI("UnderBoardInformation", false);
                 leaderboarManager.LoadEntries();
             }
-            else{
-                if (currentScore > prefsManager.bestScore){
-                leaderboarManager.UpdatePlayerEntry();}
+            if (currentScore<prefsManager.bestScore&&prefsManager.playerEntryUploaded == 0){
+                uiController.ActivateUI("UnderBoardInformation", false);
                 leaderboarManager.LoadEntries();
-                uiController.ActivateUI("InputField", false);
-                uiController.playerName.text = prefsManager.playerName;
-                uiController.playerPosition.text = "#" + leaderboarManager.playerPosition;
+                
             }
+            if (currentScore > prefsManager.bestScore&&prefsManager.playerEntryUploaded == 1){
+                prefsManager.SaveBestScore(currentScore);
+                uiController.ActivateUI("InputField", false);
+                leaderboarManager.UpdatePlayerEntry();
+            }
+            if (currentScore<prefsManager.bestScore&&prefsManager.playerEntryUploaded == 1){
+                uiController.ActivateUI("InputField", false);
+                leaderboarManager.LoadEntries();
+            }
+            uiController.bestScore.text = prefsManager.bestScore.ToString();
 }
 
 }
