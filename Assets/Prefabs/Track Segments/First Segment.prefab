@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 2144480378112431308}
   - component: {fileID: 8179097213846360853}
   - component: {fileID: 5059211030110918686}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barier (1)
   m_TagString: Barier
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 2790773967100013932}
   - component: {fileID: 1184127421631881325}
   - component: {fileID: 3572595837872425075}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barier
   m_TagString: Barier
   m_Icon: {fileID: 0}
@@ -1137,7 +1137,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

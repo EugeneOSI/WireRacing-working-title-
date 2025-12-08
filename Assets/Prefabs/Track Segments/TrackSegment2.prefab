@@ -933,7 +933,7 @@ GameObject:
   - component: {fileID: 2421565488825748323}
   - component: {fileID: 3941648973947625062}
   - component: {fileID: 7087376199876831359}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barier
   m_TagString: Barier
   m_Icon: {fileID: 0}
@@ -1627,7 +1627,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -2570,7 +2570,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -2612,7 +2612,7 @@ GameObject:
   - component: {fileID: 1686232179997471835}
   - component: {fileID: 7852257990414164750}
   - component: {fileID: 3822692202601731793}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Barier
   m_TagString: Barier
   m_Icon: {fileID: 0}

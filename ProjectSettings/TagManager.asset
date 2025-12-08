@@ -16,6 +16,7 @@ TagManager:
   - PowerUp
   - Barier
   - Coin
+  - DeadZone
   layers:
   - Default
   - TransparentFX
@@ -26,8 +27,8 @@ TagManager:
   - Surface
   - Track
   - Obstacle
-  - 
-  - 
+  - Barier
+  - EnemyCollider
   - 
   - 
   - 

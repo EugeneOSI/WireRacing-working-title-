@@ -98,21 +98,14 @@ private void GameOverSequence(){
             uiController.currentScore.text = currentScore.ToString();
             if (currentScore > prefsManager.bestScore&&prefsManager.playerEntryUploaded == 0){
                 prefsManager.SaveBestScore(currentScore); 
-                uiController.ActivateUI("UnderBoardInformation", false);
                 leaderboarManager.LoadEntries();
             }
-            if (currentScore<prefsManager.bestScore&&prefsManager.playerEntryUploaded == 0){
-                uiController.ActivateUI("UnderBoardInformation", false);
-                leaderboarManager.LoadEntries();
-                
-            }
-            if (currentScore > prefsManager.bestScore&&prefsManager.playerEntryUploaded == 1){
+
+            else if (currentScore > prefsManager.bestScore&&prefsManager.playerEntryUploaded == 1){
                 prefsManager.SaveBestScore(currentScore);
-                uiController.ActivateUI("InputField", false);
                 leaderboarManager.UpdatePlayerEntry();
             }
-            if (currentScore<prefsManager.bestScore&&prefsManager.playerEntryUploaded == 1){
-                uiController.ActivateUI("InputField", false);
+            else{
                 leaderboarManager.LoadEntries();
             }
             uiController.bestScore.text = prefsManager.bestScore.ToString();

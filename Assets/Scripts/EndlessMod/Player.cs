@@ -221,6 +221,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    void DisableHook(){
+        if (tmpHookPoint != null){
+            Destroy(tmpHookPoint);
+            lineRenderer.enabled = false;
+        }
+    }
+
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("StartRaceZone"))
@@ -247,11 +254,16 @@ public class Player : MonoBehaviour
             }
             else{
                 health = 0;
+                DisableHook();
             }
         }
         if (collision.CompareTag("PowerUp")){
             Destroy(collision.gameObject);
             StartCoroutine(WithPowerUp());
+        }
+        if (collision.CompareTag("DeadZone")){
+            DisableHook();
+            health = 0;
         }
     }
 

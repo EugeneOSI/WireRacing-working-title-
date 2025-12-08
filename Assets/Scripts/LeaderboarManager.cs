@@ -34,6 +34,7 @@ public class LeaderboarManager : MonoBehaviour
     
     public void LoadEntries()
 {
+    uiController.ActivateUI("loadingPanel", true);
     if (entryObjects != null && entryObjects.Count > 0){
         ClearLeaderBoard();
             }
@@ -61,8 +62,17 @@ private void OnEntriesLoaded(Dan.Models.Entry[] entries)
         }
     }
     uiController.playerPosition.text = "#" + playerPosition;
+    uiController.playerName.text = prefsManager.playerName;
     Canvas.ForceUpdateCanvases();
     scrollRect.normalizedPosition = new Vector2(0, 1);
+    uiController.ActivateUI("loadingPanel", false);
+
+    if (prefsManager.playerEntryUploaded == 0){
+        uiController.ActivateUI("InputField", true);
+    }
+    else{
+        uiController.ActivateUI("UnderBoardInformation", true);
+    }
 }
 
 public void UploadPlayerEntry(){
@@ -100,6 +110,17 @@ private void ClearLeaderBoard(){
                 entryObjects.Clear();
 }
 
+public void DeletePlayerEntry(){
+    Leaderboards.WireRacer.DeleteEntry((success) => {
+        if (success){
+            Debug.Log("Entry deleted");
+            LoadEntries();
+            uiController.StartCoroutine(uiController.showDeleteEntryText());
+            uiController.ActivateUI("InputField", false);
+            uiController.ActivateUI("UnderBoardInformation", false);
+        }
+    }, HandleLeaderboardError);
+}
 private void HandleLeaderboardError(string error)
 {
     Debug.LogError(error);
