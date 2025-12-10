@@ -1,2 +1,29 @@
 fileFormatVersion: 2
 guid: 7abda7d7512c6754e83fb0479962af46
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - pauseMenu: {fileID: 4769959074213136844, guid: 78d0c9aac03208d4eaefce3655a5184d, type: 3}
+  - gameOverMenu: {fileID: 426906625343812363, guid: 1e29ede827ad7444f9fb7aa1e7e0bb88, type: 3}
+  - optionsMenu: {fileID: 6469807844046520614, guid: cbca5fe71f727844fb1f432f0af3b3c1, type: 3}
+  - gameModeMenu: {fileID: 1208508884138512422, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
+  - timeTrialMenu: {fileID: 1738351173463010602, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
+  - ScoreUI: {fileID: 5813901048056134060, guid: e565ceafa3fbd3a4096c3c9a9b82e365, type: 3}
+  - underBoardInformation: {fileID: 3431284129925833708, guid: 7aa7c5be08bab8c409d7cb865c6d8560, type: 3}
+  - inputField: {fileID: 972470804515688968, guid: 129d6cd5d72c27844b9316389edc70cb, type: 3}
+  - loadingPanel: {fileID: 3111422666138224971, guid: b0cab70a547e3b24d8eff822d6c5be51, type: 3}
+  - healthAlert: {instanceID: 0}
+  - currentScore: {instanceID: 0}
+  - bestScore: {instanceID: 0}
+  - fieldAlert: {instanceID: 0}
+  - textFieldDescription: {instanceID: 0}
+  - playerName: {instanceID: 0}
+  - playerPosition: {instanceID: 0}
+  - deleteEntryText: {instanceID: 0}
+  - submitScoreButton: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

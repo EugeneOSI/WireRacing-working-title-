@@ -12,9 +12,7 @@ public class TimeTrialMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            gameObject.SetActive(false);
-        }
+
     }
         public void LoadScene(string sceneName){
         SceneManager.LoadScene(sceneName);

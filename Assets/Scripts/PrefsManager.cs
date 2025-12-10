@@ -47,10 +47,10 @@ public class PrefsManager : MonoBehaviour
             Debug.Log("Best Monza Time: " + bestMonzaTime);
             Debug.Log("Player Entry Uploaded: " + playerEntryUploaded);
         }
-        if (Input.GetKeyDown(KeyCode.R)){
+        /*if (Input.GetKeyDown(KeyCode.R)){
             ResetPrefs();
             Debug.Log("Prefs reset");
-        }
+        }*/
     }
 
     public void SaveBestScore(float score){

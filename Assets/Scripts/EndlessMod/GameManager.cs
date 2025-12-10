@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        leaderboarManager.EntriesLoading = false;
         GameOver = false;
         IsPaused = false;
         gameOverSequenceStarted = false;
@@ -57,20 +56,26 @@ public class GameManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Escape)){
-            IsPaused = !IsPaused;
-            }
-        if (IsPaused){
-            Time.timeScale = 0;
-            uiController.ActivateUI("pauseMenu", true);
+            PauseGame();
         }
-        else{
-            Time.timeScale = 1;
-            uiController.ActivateUI("pauseMenu", false);
-        }
-            
     }
 
-    float GetDifficulty(float t, float start, float max, float k)
+public void PauseGame(){
+                if(!IsPaused){
+                uiController.ActivateMenu("pauseMenu");
+                IsPaused = true;
+                Time.timeScale = 0;
+            }
+            else if(IsPaused&&uiController.activeMenus.Count < 2){
+                uiController.DeactivateActiveMenu();
+                IsPaused = false;
+                Time.timeScale = 1;
+            
+            }
+            else if (IsPaused&&uiController.activeMenus.Count >= 2){
+                uiController.DeactivateActiveMenu();
+            } }
+float GetDifficulty(float t, float start, float max, float k)
 {
     return start + (max - start) * (1f - Mathf.Exp(-k * t));
 }

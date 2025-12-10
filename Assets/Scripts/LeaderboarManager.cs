@@ -14,7 +14,6 @@ public class LeaderboarManager : MonoBehaviour
     [SerializeField] private UICOntroller uiController;
     [SerializeField] private PrefsManager prefsManager;
     public int playerPosition {get; private set;}
-    public bool EntriesLoading {get; set;}
     [SerializeField] private TMP_InputField playerNameInput;
 
     public StatusCode statusCode;
@@ -35,13 +34,13 @@ public class LeaderboarManager : MonoBehaviour
     public void LoadEntries()
 {
     uiController.ActivateUI("loadingPanel", true);
+    uiController.SwitchButtonInteractable(uiController.submitScoreButton);
     if (entryObjects != null && entryObjects.Count > 0){
         ClearLeaderBoard();
             }
-    Leaderboards.WireRacer.GetEntries(OnEntriesLoaded, (error) => {
-        Debug.LogError(error);
-    });
-    
+        Leaderboards.WireRacer.GetEntries(OnEntriesLoaded, (error) => {
+            Debug.LogError(error);
+        });
 }
 
 private void OnEntriesLoaded(Dan.Models.Entry[] entries)
@@ -56,7 +55,6 @@ private void OnEntriesLoaded(Dan.Models.Entry[] entries)
         
         if (isMine)
         {
-            Debug.Log("My entry: " + entry.Rank);
             playerPosition = entry.Rank;
             entryObject.GetComponent<Image>().color = Color.green;
         }
@@ -69,6 +67,7 @@ private void OnEntriesLoaded(Dan.Models.Entry[] entries)
 
     if (prefsManager.playerEntryUploaded == 0){
         uiController.ActivateUI("InputField", true);
+        uiController.SwitchButtonInteractable(uiController.submitScoreButton);
     }
     else{
         uiController.ActivateUI("UnderBoardInformation", true);
@@ -76,6 +75,7 @@ private void OnEntriesLoaded(Dan.Models.Entry[] entries)
 }
 
 public void UploadPlayerEntry(){
+    uiController.SwitchButtonInteractable(uiController.submitScoreButton);
     string name = playerNameInput.text;
     Leaderboards.WireRacer.UploadNewEntry(name, (int)scoreManager.mainScore, (success) => {
         if (success){
@@ -85,12 +85,12 @@ public void UploadPlayerEntry(){
             uiController.ActivateUI("UnderBoardInformation", true);
             uiController.playerName.text = prefsManager.playerName;
             LoadEntries();
-        }},
-        HandleLeaderboardError);
+        }}, HandleLeaderboardError);
 
     if (playerNameInput.text == ""){
-        if (!uiController.enptyFieldAlert.gameObject.activeSelf){
+        if (!uiController.fieldAlert.gameObject.activeSelf){
             uiController.ActivateEmptyFieldAlert();
+            uiController.StartCoroutine(uiController.ActivateButtonForSeconds(uiController.submitScoreButton, 2));
         }
     }
 }
@@ -124,7 +124,7 @@ public void DeletePlayerEntry(){
 private void HandleLeaderboardError(string error)
 {
     Debug.LogError(error);
-
+    uiController.SwitchButtonInteractable(uiController.submitScoreButton);
     if (string.IsNullOrEmpty(error))
         return;
 
@@ -140,31 +140,31 @@ private void HandleLeaderboardError(string error)
         {
             case StatusCode.Conflict:       // 409
                 Debug.LogError(409);
-                uiController.enptyFieldAlert.text = "Username already exists";
+                uiController.fieldAlert.text = "Username already exists";
                 uiController.ActivateEmptyFieldAlert(); 
                 break;
 
             case StatusCode.Forbidden:      // 403
                 Debug.LogError(403);
-                uiController.enptyFieldAlert.text = "Forbidden name";
+                uiController.fieldAlert.text = "Forbidden name";
                 uiController.ActivateEmptyFieldAlert();
                 break;
 
             case StatusCode.FailedToConnect: // 0
                 Debug.LogError(0);
-                uiController.enptyFieldAlert.text = "Failed to connect";
+                uiController.fieldAlert.text = "Failed to connect";
                 uiController.ActivateEmptyFieldAlert();
                 break;
 
             case StatusCode.ServiceUnavailable: // 503
                 Debug.LogError(503);
-                uiController.enptyFieldAlert.text = "Service unavailable";
+                uiController.fieldAlert.text = "Service unavailable";
                 uiController.ActivateEmptyFieldAlert();
                 break;
 
             case StatusCode.InternalServerError: // 500
                 Debug.LogError(500);
-                uiController.enptyFieldAlert.text = "Internal server error";
+                uiController.fieldAlert.text = "Internal server error";
                 uiController.ActivateEmptyFieldAlert();
                 uiController.ActivateEmptyFieldAlert();
                 break;

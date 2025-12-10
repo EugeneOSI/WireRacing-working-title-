@@ -42,6 +42,8 @@ public class TimeTrialManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     public bool IsPaused {get; set;}
 
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
