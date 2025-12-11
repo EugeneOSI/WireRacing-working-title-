@@ -11,8 +11,8 @@ public class LeaderboarManager : MonoBehaviour
     [SerializeField] private Transform entryParent;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private ScoreManager scoreManager;
-    [SerializeField] private UICOntroller uiController;
-    [SerializeField] private PrefsManager prefsManager;
+    [SerializeField] private EM_UIController uiController;
+
     public int playerPosition {get; private set;}
     [SerializeField] private TMP_InputField playerNameInput;
 
@@ -33,7 +33,7 @@ public class LeaderboarManager : MonoBehaviour
     
     public void LoadEntries()
 {
-    uiController.ActivateUI("loadingPanel", true);
+    uiController.ActivateUI(uiController.loadingPanel, true);
     uiController.SwitchButtonInteractable(uiController.submitScoreButton);
     if (entryObjects != null && entryObjects.Count > 0){
         ClearLeaderBoard();
@@ -59,43 +59,43 @@ private void OnEntriesLoaded(Dan.Models.Entry[] entries)
             entryObject.GetComponent<Image>().color = Color.green;
         }
     }
-    uiController.playerPosition.text = "#" + playerPosition;
-    uiController.playerName.text = prefsManager.playerName;
+    uiController.SetText(uiController.playerPosition, "#" + playerPosition);
+    uiController.SetText(uiController.playerName, PrefsManager.Instance.playerName);
     Canvas.ForceUpdateCanvases();
     scrollRect.normalizedPosition = new Vector2(0, 1);
-    uiController.ActivateUI("loadingPanel", false);
+    uiController.ActivateUI(uiController.loadingPanel, false);
 
-    if (prefsManager.playerEntryUploaded == 0){
-        uiController.ActivateUI("InputField", true);
+    if (PrefsManager.Instance.playerEntryUploaded == 0){
+        uiController.ActivateUI(uiController.inputField, true);
         uiController.SwitchButtonInteractable(uiController.submitScoreButton);
     }
     else{
-        uiController.ActivateUI("UnderBoardInformation", true);
+        uiController.ActivateUI(uiController.underBoardInformation, true);
     }
 }
 
 public void UploadPlayerEntry(){
     uiController.SwitchButtonInteractable(uiController.submitScoreButton);
     string name = playerNameInput.text;
-    Leaderboards.WireRacer.UploadNewEntry(name, (int)scoreManager.mainScore, (success) => {
+    Leaderboards.WireRacer.UploadNewEntry(name, (int)PrefsManager.Instance.bestScore, (success) => {
         if (success){
-            prefsManager.SetPlayerEntryUploaded(1);
-            prefsManager.SetPlayerName(name);
-            uiController.ActivateUI("InputField", false);
-            uiController.ActivateUI("UnderBoardInformation", true);
-            uiController.playerName.text = prefsManager.playerName;
+            PrefsManager.Instance.SetPlayerEntryUploaded(1);
+            PrefsManager.Instance.SetPlayerName(name);
+            uiController.ActivateUI(uiController.inputField, false);
+            uiController.ActivateUI(uiController.underBoardInformation, true);
+            uiController.SetText(uiController.playerName, PrefsManager.Instance.playerName);
             LoadEntries();
         }}, HandleLeaderboardError);
 
     if (playerNameInput.text == ""){
         if (!uiController.fieldAlert.gameObject.activeSelf){
-            uiController.ActivateEmptyFieldAlert();
-            uiController.StartCoroutine(uiController.ActivateButtonForSeconds(uiController.submitScoreButton, 2));
+            uiController.ActivateUI(uiController.fieldAlert, true);
+            uiController.StartCoroutine(uiController.SwitchButtonInteractableForSeconds(uiController.submitScoreButton, 2));
         }
     }
 }
 public void UpdatePlayerEntry(){
-    Leaderboards.WireRacer.UploadNewEntry(prefsManager.playerName, (int)scoreManager.mainScore, (success) => {
+    Leaderboards.WireRacer.UploadNewEntry(PrefsManager.Instance.playerName, (int)scoreManager.mainScore, (success) => {
         if (success){
             Debug.Log("Entry updated");
             LoadEntries();
@@ -115,9 +115,9 @@ public void DeletePlayerEntry(){
         if (success){
             Debug.Log("Entry deleted");
             LoadEntries();
-            uiController.StartCoroutine(uiController.showDeleteEntryText());
-            uiController.ActivateUI("InputField", false);
-            uiController.ActivateUI("UnderBoardInformation", false);
+            uiController.StartCoroutine(uiController.SwitchUIForSeconds(uiController.deleteEntryText, 2));
+            uiController.ActivateUI(uiController.inputField, false);
+            uiController.ActivateUI(uiController.underBoardInformation, false);
         }
     }, HandleLeaderboardError);
 }
@@ -140,37 +140,35 @@ private void HandleLeaderboardError(string error)
         {
             case StatusCode.Conflict:       // 409
                 Debug.LogError(409);
-                uiController.fieldAlert.text = "Username already exists";
-                uiController.ActivateEmptyFieldAlert(); 
+                uiController.SetText(uiController.fieldAlert, "Username already exists");
+                uiController.StartCoroutine(uiController.SwitchUIForSeconds(uiController.fieldAlert, 2)); 
                 break;
 
             case StatusCode.Forbidden:      // 403
                 Debug.LogError(403);
-                uiController.fieldAlert.text = "Forbidden name";
-                uiController.ActivateEmptyFieldAlert();
+                uiController.SetText(uiController.fieldAlert, "Forbidden name");
+                uiController.StartCoroutine(uiController.SwitchUIForSeconds(uiController.fieldAlert, 2));
                 break;
 
             case StatusCode.FailedToConnect: // 0
                 Debug.LogError(0);
-                uiController.fieldAlert.text = "Failed to connect";
-                uiController.ActivateEmptyFieldAlert();
+                uiController.SetText(uiController.fieldAlert, "Failed to connect");
+                uiController.StartCoroutine(uiController.SwitchUIForSeconds(uiController.fieldAlert, 2));
                 break;
 
             case StatusCode.ServiceUnavailable: // 503
                 Debug.LogError(503);
-                uiController.fieldAlert.text = "Service unavailable";
-                uiController.ActivateEmptyFieldAlert();
+                uiController.SetText(uiController.fieldAlert, "Service unavailable");
+                uiController.StartCoroutine(uiController.SwitchUIForSeconds(uiController.fieldAlert, 2));
                 break;
 
             case StatusCode.InternalServerError: // 500
                 Debug.LogError(500);
-                uiController.fieldAlert.text = "Internal server error";
-                uiController.ActivateEmptyFieldAlert();
-                uiController.ActivateEmptyFieldAlert();
+                uiController.SetText(uiController.fieldAlert, "Internal server error");
+                uiController.StartCoroutine(uiController.SwitchUIForSeconds(uiController.fieldAlert, 2));
                 break;
 
             default:
-                // На все остальные пока просто лог
                 break;
         }
     }

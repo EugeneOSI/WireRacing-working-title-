@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     private FollowCamera mainCamera;
 
-    private GameManager gameManager;
+    private GameManagerEM gameManager;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
 
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
         powerUp.SetActive(false);
 
 
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerEM>();
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         playerCol = GetComponent<Collider2D>();

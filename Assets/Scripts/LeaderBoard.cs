@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+public class LeaderBoard : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,14 +13,4 @@ public class MainMenu : MonoBehaviour
     {
         
     }
-
-    public void SetScreen(string screenName, bool state){
-        GameObject.Find(screenName).SetActive(state);
-    }
-    
-    public void QuitGame(){
-        Application.Quit();
-    }
-
-
 }

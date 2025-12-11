@@ -9,13 +9,13 @@ public class ScoreManager : MonoBehaviour
 {
     [Header("Main score")]
     public float mainScore { get; private set;}
-    [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private ScoreEventsHander scoreEventsHander;
     [SerializeField] private Transform linesRoot;      // контейнер для строк (панель/вертикальный layout)
     [SerializeField] private GameObject bonusScorePrefab;
+    [SerializeField] private EM_UIController uiController;
 
     [Header("Multiplayer")]
     public int multiplayerScore { get; set; }
@@ -293,9 +293,9 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateMainScore()
     {
-        if (scoreText != null)
+        if (uiController.scoreText != null)
         {
-            scoreText.text = "Score: " + (int)mainScore;
+            uiController.SetText(uiController.scoreText, "Score: " + (int)mainScore);
         }
     }
 

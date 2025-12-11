@@ -18,11 +18,11 @@ public class PursuingEnemy : MonoBehaviour
     bool freezed;
 
     [SerializeField] private Player player;
-    GameManager gameManager;
+    GameManagerEM gameManager;
 
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerEM>();
         splineContainer = firstSplineContainer;
         _spline = splineContainer.Spline;
         CalculateSplineLength();

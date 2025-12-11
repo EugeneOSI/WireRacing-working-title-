@@ -4,14 +4,13 @@ using System.Collections;
 using TMPro;
 using Dan.Main;
 using UnityEngine.UI;
-public class GameManager : MonoBehaviour
+public class GameManagerEM : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PursuingEnemy pursuingEnemy;
-    [SerializeField] private UICOntroller uiController;
+    [SerializeField] private EM_UIController uiController;
     [SerializeField] private ScoreManager scoreManager;
-    [SerializeField] private PrefsManager prefsManager;
     
     public bool IsPaused {get; set;}
     public bool GameOver {get; private set;}
@@ -33,9 +32,9 @@ public class GameManager : MonoBehaviour
         IsPaused = false;
         gameOverSequenceStarted = false;
         Time.timeScale = 1;
-        uiController.ActivateUI("ScoreUI", true);
-        uiController.ActivateUI("healthAlert", false);
-        uiController.ActivateUI("gameOverMenu", false); 
+        uiController.ActivateUI(uiController.ScoreUI, true);
+        uiController.ActivateUI(uiController.healthAlert, false);
+        uiController.ActivateUI(uiController.gameOverMenu, false); 
     }
 
     // Update is called once per frame
@@ -44,9 +43,9 @@ public class GameManager : MonoBehaviour
         time = Time.timeSinceLevelLoad;
         SetDifficulty();
         if (player.Health < 2){
-            uiController.ActivateUI("healthAlert", true);
+            uiController.ActivateUI(uiController.healthAlert, true);
         }
-        else{uiController.ActivateUI("healthAlert", false);}
+        else{uiController.ActivateUI(uiController.healthAlert, false);}
         
         if (!player.isAlive && gameOverSequenceStarted == false)
         {
@@ -62,18 +61,18 @@ public class GameManager : MonoBehaviour
 
 public void PauseGame(){
                 if(!IsPaused){
-                uiController.ActivateMenu("pauseMenu");
+                uiController.SwitchScreenActive(uiController.pauseMenu);
                 IsPaused = true;
                 Time.timeScale = 0;
             }
-            else if(IsPaused&&uiController.activeMenus.Count < 2){
-                uiController.DeactivateActiveMenu();
+            else if(IsPaused&&uiController.activeScreens.Count < 2){
+                uiController.DeactivateActiveScreen();
                 IsPaused = false;
                 Time.timeScale = 1;
             
             }
-            else if (IsPaused&&uiController.activeMenus.Count >= 2){
-                uiController.DeactivateActiveMenu();
+            else if (IsPaused&&uiController.activeScreens.Count >= 2){
+                uiController.DeactivateActiveScreen();
             } }
 float GetDifficulty(float t, float start, float max, float k)
 {
@@ -97,23 +96,22 @@ SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
 private void GameOverSequence(){
 
-            uiController.ActivateUI("ScoreUI", false);
-            uiController.ActivateUI("gameOverMenu", true);
+            uiController.SwitchScreenActive(uiController.ScoreUI);
+            uiController.SwitchScreenActive(uiController.gameOverMenu);
             float currentScore = scoreManager.mainScore;
-            uiController.currentScore.text = currentScore.ToString();
-            if (currentScore > prefsManager.bestScore&&prefsManager.playerEntryUploaded == 0){
-                prefsManager.SaveBestScore(currentScore); 
+            uiController.SetText(uiController.currentScore, currentScore.ToString());
+            if (currentScore > PrefsManager.Instance.bestScore&&PrefsManager.Instance.playerEntryUploaded == 0){
+                PrefsManager.Instance.SaveBestScore(currentScore); 
                 leaderboarManager.LoadEntries();
             }
-
-            else if (currentScore > prefsManager.bestScore&&prefsManager.playerEntryUploaded == 1){
-                prefsManager.SaveBestScore(currentScore);
+            else if (currentScore > PrefsManager.Instance.bestScore&&PrefsManager.Instance.playerEntryUploaded == 1){
+                PrefsManager.Instance.SaveBestScore(currentScore);
                 leaderboarManager.UpdatePlayerEntry();
             }
             else{
                 leaderboarManager.LoadEntries();
             }
-            uiController.bestScore.text = prefsManager.bestScore.ToString();
+            uiController.SetText(uiController.bestScore, PrefsManager.Instance.bestScore.ToString());
 }
 
 }

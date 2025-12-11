@@ -59,6 +59,13 @@ public class TimeTrialManager : MonoBehaviour
         ResetArray(previousLapSectors, -1f);
     }
 
+private void Start()
+{
+    if (PrefsManager.Instance.bestMonzaTime > 0f){
+        bestLapTime = PrefsManager.Instance.bestMonzaTime;
+        bestLapTimeText.text = FormatTime(bestLapTime,"lap");
+    }
+}
     void Update()
     {
         if (player.mistake)
@@ -123,6 +130,8 @@ public class TimeTrialManager : MonoBehaviour
 void FinishLap()
 {
     float now = Time.time;
+    PrefsManager.Instance.SaveLapsAmount("Monza", PrefsManager.Instance.monzaLaps + 1);
+
 
     int lastIndex = sectorCount - 1;
 
@@ -148,7 +157,10 @@ void FinishLap()
 
     if (lapValid&& (bestLapTime < 0f || lapTime < bestLapTime)){
         bestLapTime = lapTime;
-    bestLapTimeText.text = FormatTime(bestLapTime,"lap");}
+    bestLapTimeText.text = FormatTime(bestLapTime,"lap");
+    
+    PrefsManager.Instance.SaveBestTime(bestLapTime, "Monza");
+    }
 
     Debug.Log($"Lap {currentLapIndex} FINISHED: {FormatTime(lapTime,"lap")}   Best: {FormatTime(bestLapTime,"lap")}");
 

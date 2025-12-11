@@ -2,11 +2,30 @@ using UnityEngine;
 
 public class PrefsManager : MonoBehaviour
 {
+    public static PrefsManager Instance {get; private set;}
     public string playerName {get; private set;}
+    public string monzaPlayerName {get; private set;}
     public float bestScore {get; private set;}
     public float bestMonzaTime {get; private set;}
     public int playerEntryUploaded {get; private set;}
+    public int bestMonzaTimeUploaded {get; private set;}
+    public int monzaLaps {get; private set;}
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
+
+        void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else{
+            Instance = this;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         if (PlayerPrefs.HasKey("PlayerName")){
@@ -35,6 +54,12 @@ public class PrefsManager : MonoBehaviour
         }
         else{
             playerEntryUploaded = 0;
+        }
+        if (PlayerPrefs.HasKey("BestMonzaTimeUploaded")){
+            bestMonzaTimeUploaded = PlayerPrefs.GetInt("BestMonzaTimeUploaded");
+        }
+        else{
+            bestMonzaTimeUploaded = 0;
         }
     }
 
@@ -66,9 +91,21 @@ public class PrefsManager : MonoBehaviour
                 break;
         }
     }
+    public void SaveLapsAmount (string circuitName, int laps){
+        switch(circuitName){
+            case "Monza":
+                monzaLaps = laps;
+                PlayerPrefs.SetInt("MonzaLaps", laps);
+                break;
+        }
+    }
     public void SetPlayerEntryUploaded(int uploaded){
         playerEntryUploaded = uploaded;
         PlayerPrefs.SetInt("PlayerEntryUploaded", playerEntryUploaded);
+    }
+    public void SetBestMonzaTimeUploaded(int uploaded){
+        bestMonzaTimeUploaded = uploaded;
+        PlayerPrefs.SetInt("BestMonzaTimeUploaded", bestMonzaTimeUploaded);
     }
     public void SetPlayerName(string name){
         playerName = name;
@@ -85,5 +122,16 @@ public class PrefsManager : MonoBehaviour
         PlayerPrefs.SetFloat("BestMonzaTime", bestMonzaTime);
         playerEntryUploaded = 0;
         PlayerPrefs.SetInt("PlayerEntryUploaded", playerEntryUploaded);
+    }
+
+    public void ResetMonzaPrefs(){
+        bestMonzaTime = 0;
+        PlayerPrefs.SetFloat("BestMonzaTime", bestMonzaTime);
+        monzaPlayerName = "Player";
+        PlayerPrefs.SetString("MonzaPlayerName", monzaPlayerName);
+        bestMonzaTimeUploaded = 0;
+        PlayerPrefs.SetInt("BestMonzaTimeUploaded", bestMonzaTimeUploaded);
+        monzaLaps = 0;
+        PlayerPrefs.SetInt("MonzaLaps", monzaLaps);
     }
 }
