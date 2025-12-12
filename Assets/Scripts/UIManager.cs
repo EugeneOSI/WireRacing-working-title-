@@ -68,5 +68,22 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         SwitchButtonInteractable(button);
     }
+    public string FormatTime(float time, string type)
+    {
+        int minutes = (int)(time / 60f);
+        float seconds = time - minutes * 60f;
+        string result = "";
+        switch (type){
+            case "lap":
+                if (time <= 0f) return "--:--.---";
+               result = string.Format("{0:00}:{1:00.000}", minutes, seconds);
+               break;
+            case "delta":
+            result = string.Format("{0:0.000}", time);
+             break;
+        }
+        return result;
+
+    }
 }
 

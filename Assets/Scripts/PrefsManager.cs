@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PrefsManager : MonoBehaviour
@@ -7,9 +8,9 @@ public class PrefsManager : MonoBehaviour
     public string monzaPlayerName {get; private set;}
     public float bestScore {get; private set;}
     public float bestMonzaTime {get; private set;}
-    public int playerEntryUploaded {get; private set;}
-    public int bestMonzaTimeUploaded {get; private set;}
     public int monzaLaps {get; private set;}
+    public bool monzaTimeUploaded {get; private set;}
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
 
@@ -29,53 +30,31 @@ public class PrefsManager : MonoBehaviour
     void Start()
     {
         if (PlayerPrefs.HasKey("PlayerName")){
-        playerName = PlayerPrefs.GetString("PlayerName");
-        }
-        else{
-            playerName = "Player";
+            playerName = PlayerPrefs.GetString("PlayerName");
         }
 
-        if (PlayerPrefs.HasKey("BestScore")){
-            bestScore = PlayerPrefs.GetFloat("BestScore");
-        }
-        else{
-            bestScore = 0;
-        }
-
-        if (PlayerPrefs.HasKey("BestMonzaTime")){
-            bestMonzaTime = PlayerPrefs.GetFloat("BestMonzaTime");
-        }
-        else{
-            bestMonzaTime = 0;
-        }
-
-        if (PlayerPrefs.HasKey("PlayerEntryUploaded")){
-            playerEntryUploaded = PlayerPrefs.GetInt("PlayerEntryUploaded");
-        }
-        else{
-            playerEntryUploaded = 0;
-        }
-        if (PlayerPrefs.HasKey("BestMonzaTimeUploaded")){
-            bestMonzaTimeUploaded = PlayerPrefs.GetInt("BestMonzaTimeUploaded");
-        }
-        else{
-            bestMonzaTimeUploaded = 0;
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-            if (Input.GetKeyDown(KeyCode.I)){
+            if (Input.GetKeyDown(KeyCode.M)){
             Debug.Log("Player Name: " + playerName);
             Debug.Log("Best Score: " + bestScore);
             Debug.Log("Best Monza Time: " + bestMonzaTime);
-            Debug.Log("Player Entry Uploaded: " + playerEntryUploaded);
         }
-        /*if (Input.GetKeyDown(KeyCode.R)){
-            ResetPrefs();
-            Debug.Log("Prefs reset");
-        }*/
+        if (Input.GetKeyDown(KeyCode.I)){
+            DeleteNamePrefs();
+        }
+        if (Input.GetKeyDown(KeyCode.O)){
+            DeleteMonzaPrefs();
+        }
+        if (Input.GetKeyDown(KeyCode.S)){
+            Debug.Log("PlayerName: " + GetPlayerName());
+        }
+        if (Input.GetKeyDown(KeyCode.Space)){
+            SaveBestTime(10, "Monza");
+        }
     }
 
     public void SaveBestScore(float score){
@@ -94,44 +73,97 @@ public class PrefsManager : MonoBehaviour
     public void SaveLapsAmount (string circuitName, int laps){
         switch(circuitName){
             case "Monza":
-                monzaLaps = laps;
                 PlayerPrefs.SetInt("MonzaLaps", laps);
                 break;
         }
     }
-    public void SetPlayerEntryUploaded(int uploaded){
-        playerEntryUploaded = uploaded;
-        PlayerPrefs.SetInt("PlayerEntryUploaded", playerEntryUploaded);
+    public int GetLapsAmount(string circuitName){
+        switch(circuitName){
+            case "Monza":
+                if (PlayerPrefs.HasKey("MonzaLaps")){
+                    return PlayerPrefs.GetInt("MonzaLaps");
+                }
+                else{
+                    Debug.Log("MonzaLaps not found");
+                    return 0;
+                }
+            default:
+                Debug.Log("Circuit name not found");
+                return 0;
+        }
     }
-    public void SetBestMonzaTimeUploaded(int uploaded){
-        bestMonzaTimeUploaded = uploaded;
-        PlayerPrefs.SetInt("BestMonzaTimeUploaded", bestMonzaTimeUploaded);
+
+    public float GetBestTime(string circuitName){
+        switch(circuitName){
+            case "Monza":
+                if (PlayerPrefs.HasKey("BestMonzaTime")){
+                    return PlayerPrefs.GetFloat("BestMonzaTime");
+                }
+                else{
+                    Debug.Log("BestMonzaTime not found");
+                    return 0;
+                }
+            default:
+                Debug.Log("Circuit name not found");
+                return 0;
+        }
+
     }
     public void SetPlayerName(string name){
-        playerName = name;
-        PlayerPrefs.SetString("PlayerName", playerName);
+        PlayerPrefs.SetString("PlayerName", name);
+    }
+    public string GetPlayerName(){
+        if (PlayerPrefs.HasKey("PlayerName")){;
+            return PlayerPrefs.GetString("PlayerName");
+        }
+        else{
+            Debug.Log("PlayerName not found");
+            return "no name";
+        }
+    }
+
+    public void SetCircuitUploadStatus(string circuitName, int status){
+        switch(circuitName){
+            case "Monza":
+                PlayerPrefs.SetInt("MonzaTimeUploaded", status);
+                break;
+        }
+    }
+
+
+    public bool IsPrefsSetted(string pref){
+        return PlayerPrefs.HasKey(pref);
     }
 
     //debuging methods
+
     public void ResetPrefs(){
-        playerName = "Player";
-        PlayerPrefs.SetString("PlayerName", playerName);
-        bestScore = 0;
-        PlayerPrefs.SetFloat("BestScore", bestScore);
-        bestMonzaTime = 0;
-        PlayerPrefs.SetFloat("BestMonzaTime", bestMonzaTime);
-        playerEntryUploaded = 0;
-        PlayerPrefs.SetInt("PlayerEntryUploaded", playerEntryUploaded);
+        PlayerPrefs.DeleteKey("PlayerName");
+        PlayerPrefs.DeleteKey("BestScore");
+        PlayerPrefs.DeleteKey("BestMonzaTime");
+        PlayerPrefs.DeleteKey("PlayerEntryUploaded");
     }
 
     public void ResetMonzaPrefs(){
+        PlayerPrefs.DeleteKey("BestMonzaTime");
+        PlayerPrefs.DeleteKey("MonzaPlayerName");
+        PlayerPrefs.DeleteKey("BestMonzaTimeUploaded");
+        PlayerPrefs.DeleteKey("MonzaLaps");
+    }
+
+    public void DeleteNamePrefs(){
+        PlayerPrefs.DeleteKey("PlayerName");
+        Debug.Log("Player Name prefs deleted");
+    }
+
+    public void DeleteMonzaPrefs(){
         bestMonzaTime = 0;
-        PlayerPrefs.SetFloat("BestMonzaTime", bestMonzaTime);
-        monzaPlayerName = "Player";
-        PlayerPrefs.SetString("MonzaPlayerName", monzaPlayerName);
-        bestMonzaTimeUploaded = 0;
-        PlayerPrefs.SetInt("BestMonzaTimeUploaded", bestMonzaTimeUploaded);
+        PlayerPrefs.DeleteKey("BestMonzaTime");
+        monzaPlayerName = "";
+        PlayerPrefs.DeleteKey("MonzaPlayerName");
+        PlayerPrefs.DeleteKey("BestMonzaTimeUploaded");
         monzaLaps = 0;
-        PlayerPrefs.SetInt("MonzaLaps", monzaLaps);
+        PlayerPrefs.DeleteKey("MonzaLaps");
+        Debug.Log("Monza prefs deleted");
     }
 }

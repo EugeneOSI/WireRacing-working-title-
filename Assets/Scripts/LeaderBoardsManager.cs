@@ -17,7 +17,7 @@ public class LeaderBoardsManager : MonoBehaviour
     }
 
 
-    void LoadEntries(string leaderboardName){
+    public void LoadEntries(string leaderboardName){
         switch(leaderboardName){
             case "Monza":
                 Leaderboards.WireRacer_TimeTrial_Monza.GetEntries(monzaLeaderBoard.OnEntriesLoaded, (error) => {

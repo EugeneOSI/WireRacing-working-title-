@@ -100,11 +100,11 @@ private void GameOverSequence(){
             uiController.SwitchScreenActive(uiController.gameOverMenu);
             float currentScore = scoreManager.mainScore;
             uiController.SetText(uiController.currentScore, currentScore.ToString());
-            if (currentScore > PrefsManager.Instance.bestScore&&PrefsManager.Instance.playerEntryUploaded == 0){
+            if (currentScore > PrefsManager.Instance.bestScore&&!PrefsManager.Instance.IsPrefsSetted("BestScore")){
                 PrefsManager.Instance.SaveBestScore(currentScore); 
                 leaderboarManager.LoadEntries();
             }
-            else if (currentScore > PrefsManager.Instance.bestScore&&PrefsManager.Instance.playerEntryUploaded == 1){
+            else if (currentScore > PrefsManager.Instance.bestScore&&PrefsManager.Instance.IsPrefsSetted("BestScore")){
                 PrefsManager.Instance.SaveBestScore(currentScore);
                 leaderboarManager.UpdatePlayerEntry();
             }

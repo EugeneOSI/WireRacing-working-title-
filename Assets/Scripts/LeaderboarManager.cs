@@ -65,7 +65,7 @@ private void OnEntriesLoaded(Dan.Models.Entry[] entries)
     scrollRect.normalizedPosition = new Vector2(0, 1);
     uiController.ActivateUI(uiController.loadingPanel, false);
 
-    if (PrefsManager.Instance.playerEntryUploaded == 0){
+    if (!PrefsManager.Instance.IsPrefsSetted("BestScore")){
         uiController.ActivateUI(uiController.inputField, true);
         uiController.SwitchButtonInteractable(uiController.submitScoreButton);
     }
@@ -79,7 +79,6 @@ public void UploadPlayerEntry(){
     string name = playerNameInput.text;
     Leaderboards.WireRacer.UploadNewEntry(name, (int)PrefsManager.Instance.bestScore, (success) => {
         if (success){
-            PrefsManager.Instance.SetPlayerEntryUploaded(1);
             PrefsManager.Instance.SetPlayerName(name);
             uiController.ActivateUI(uiController.inputField, false);
             uiController.ActivateUI(uiController.underBoardInformation, true);

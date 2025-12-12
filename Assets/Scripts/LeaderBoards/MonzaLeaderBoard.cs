@@ -14,7 +14,8 @@ public class MonzaLeaderBoard : MonoBehaviour
     public int playerPosition {get; private set;}
     [SerializeField] private TMP_InputField playerNameInput;
 
-    public static event Action EntriesLoaded;
+    public static event Action MonzaEntriesLoaded;
+    public static event Action MonzaUploadingEntry;
 
     public StatusCode statusCode;
 
@@ -23,7 +24,6 @@ public class MonzaLeaderBoard : MonoBehaviour
     void Start()
     {
         statusCode = StatusCode.NotFound;
-        EntriesLoaded += ClearLeaderBoard;
     }
 
     // Update is called once per frame
@@ -35,26 +35,13 @@ public class MonzaLeaderBoard : MonoBehaviour
 
 public void OnEntriesLoaded(Dan.Models.Entry[] entries)
 {
-    EntriesLoaded?.Invoke();
+
+    ClearLeaderBoard();
     FillLeaderBoard(entries);
-
-    
-    mainMenuUIController.SetText(mainMenuUIController.playerPosition, "#" + playerPosition);
-    mainMenuUIController.SetText(mainMenuUIController.bestMonzaTime, FormatTime(PrefsManager.Instance.bestMonzaTime, "lap"));
-    mainMenuUIController.SetText(mainMenuUIController.monzalaps, PrefsManager.Instance.monzaLaps.ToString());
-    mainMenuUIController.SetText(mainMenuUIController.playerName, PrefsManager.Instance.playerName);
-
+    MonzaEntriesLoaded?.Invoke();
     Canvas.ForceUpdateCanvases();
     scrollRect.normalizedPosition = new Vector2(0, 1);
-    mainMenuUIController.ActivateUI(mainMenuUIController.loadingPanel, false);
 
-    if (PrefsManager.Instance.bestMonzaTimeUploaded == 0){
-        mainMenuUIController.ActivateUI(mainMenuUIController.inputField, true);
-        mainMenuUIController.SwitchButtonInteractable(mainMenuUIController.submitScoreButton);
-    }
-    else{
-        mainMenuUIController.ActivateUI(mainMenuUIController.underBoardInformation, true);
-    }
 }
 
 
@@ -71,7 +58,7 @@ private void FillLeaderBoard(Dan.Models.Entry[] entries){
     {
         GameObject entryObject = Instantiate(entryPrefab, entryParent);
         TextMeshProUGUI textObject = entryObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        textObject.text = $"{entry.Rank}. {entry.Username} - {FormatTime(entry.Score, "lap")}";
+        textObject.text = $"{entry.Rank}. {entry.Username} - {UIManager.Instance.FormatTime(entry.Score, "lap")}";
         entryObjects.Add(entryObject);
         bool isMine = entry.IsMine();
         
@@ -84,23 +71,25 @@ private void FillLeaderBoard(Dan.Models.Entry[] entries){
 }
 
 public void UploadPlayerEntry(){
-
-    mainMenuUIController.SwitchButtonInteractable(mainMenuUIController.submitScoreButton);
-    string name = playerNameInput.text;
-    Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)PrefsManager.Instance.bestMonzaTime, (success) => {
+    
+    string name;
+    if (!PrefsManager.Instance.IsPrefsSetted("PlayerName")){
+        name = playerNameInput.text;
+        PrefsManager.Instance.SetPlayerName(name);
+    }
+    else{
+        name = PrefsManager.Instance.GetPlayerName();
+    }
+    Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
         if (success){
-            PrefsManager.Instance.SetBestMonzaTimeUploaded(1);
-            PrefsManager.Instance.SetPlayerName(name);
-            mainMenuUIController.ActivateUI(mainMenuUIController.inputField, false);
-            mainMenuUIController.ActivateUI(mainMenuUIController.underBoardInformation, true);
-            mainMenuUIController.SetText(mainMenuUIController.playerName, PrefsManager.Instance.playerName);
-            //LoadEntries();
+            PrefsManager.Instance.SetCircuitUploadStatus("Monza", 1);
+            LeaderBoardsManager.Instance.LoadEntries("Monza");
         }}, HandleLeaderboardError);
 
     if (playerNameInput.text == ""){
         if (!mainMenuUIController.fieldAlert.gameObject.activeSelf){
-            mainMenuUIController.ActivateUI(mainMenuUIController.fieldAlert, true);
-            mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchButtonInteractableForSeconds(mainMenuUIController.submitScoreButton, 2));
+            //mainMenuUIController.ActivateUI(mainMenuUIController.fieldAlert, true);
+            //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchButtonInteractableForSeconds(mainMenuUIController.submitScoreButton, 2));
         }
     }
 }
@@ -118,16 +107,16 @@ public void DeletePlayerEntry(){
         if (success){
             Debug.Log("Entry deleted");
             //LoadEntries();
-            mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.deleteEntryText, 2));
-            mainMenuUIController.ActivateUI(mainMenuUIController.inputField, false);
-            mainMenuUIController.ActivateUI(mainMenuUIController.underBoardInformation, false);
+            //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.deleteEntryText, 2));
+            //mainMenuUIController.ActivateUI(mainMenuUIController.inputField, false);
+            //mainMenuUIController.ActivateUI(mainMenuUIController.underBoardInformation, false);
         }
     }, HandleLeaderboardError);
 }
 private void HandleLeaderboardError(string error)
 {
     Debug.LogError(error);
-    mainMenuUIController.SwitchButtonInteractable(mainMenuUIController.submitScoreButton);
+    //mainMenuUIController.SwitchButtonInteractable(mainMenuUIController.submitScoreButton);
     if (string.IsNullOrEmpty(error))
         return;
 
@@ -143,32 +132,32 @@ private void HandleLeaderboardError(string error)
         {
             case StatusCode.Conflict:       // 409
                 Debug.LogError(409);
-                mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Username already exists");
-                mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2)); 
+                //mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Username already exists");
+                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2)); 
                 break;
 
             case StatusCode.Forbidden:      // 403
                 Debug.LogError(403);
-                mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Forbidden name");
-                mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
+                //mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Forbidden name");
+                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
                 break;
 
             case StatusCode.FailedToConnect: // 0
                 Debug.LogError(0);
-                mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Failed to connect");
-                mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
+                ///mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Failed to connect");
+                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
                 break;
 
             case StatusCode.ServiceUnavailable: // 503
                 Debug.LogError(503);
-                mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Service unavailable");
-                mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
+                //mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Service unavailable");
+                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
                 break;
 
             case StatusCode.InternalServerError: // 500
                 Debug.LogError(500);
-                mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Internal server error");
-                mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
+                //mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Internal server error");
+                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
                 break;
 
             default:
@@ -177,23 +166,6 @@ private void HandleLeaderboardError(string error)
     }
 }
 
-    public string FormatTime(float time, string type)
-    {
-        int minutes = (int)(time / 60f);
-        float seconds = time - minutes * 60f;
-        string result = "";
-        switch (type){
-            case "lap":
-                if (time <= 0f) return "--:--.---";
-               result = string.Format("{0:00}:{1:00.000}", minutes, seconds);
-               break;
-            case "delta":
-            result = string.Format("{0:0.000}", time);
-             break;
-        }
-        return result;
-
-    }
 
 }
 
