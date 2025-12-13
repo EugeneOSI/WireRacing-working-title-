@@ -7,6 +7,7 @@ using TMPro;
 using System;
 public class MonzaLeaderBoard : MonoBehaviour
 {
+    public bool isUploading {get; set;}
     [SerializeField] private MainMenuUIController mainMenuUIController;
     [SerializeField] private GameObject entryPrefab;
     [SerializeField] private ScrollRect scrollRect;
@@ -15,7 +16,8 @@ public class MonzaLeaderBoard : MonoBehaviour
     [SerializeField] private TMP_InputField playerNameInput;
 
     public static event Action MonzaEntriesLoaded;
-    public static event Action MonzaUploadingEntry;
+    public static event Action EmptyFieldAlert;
+    public static event Action MonzaEntryDeleted;
 
     public StatusCode statusCode;
 
@@ -24,6 +26,7 @@ public class MonzaLeaderBoard : MonoBehaviour
     void Start()
     {
         statusCode = StatusCode.NotFound;
+        isUploading = false;
     }
 
     // Update is called once per frame
@@ -41,6 +44,7 @@ public void OnEntriesLoaded(Dan.Models.Entry[] entries)
     MonzaEntriesLoaded?.Invoke();
     Canvas.ForceUpdateCanvases();
     scrollRect.normalizedPosition = new Vector2(0, 1);
+    isUploading = true;
 
 }
 
@@ -73,97 +77,42 @@ private void FillLeaderBoard(Dan.Models.Entry[] entries){
 public void UploadPlayerEntry(){
     
     string name;
-    if (!PrefsManager.Instance.IsPrefsSetted("PlayerName")){
+    if (!PrefsManager.Instance.IsPrefsSetted("PlayerName")&&playerNameInput.text != ""){
         name = playerNameInput.text;
         PrefsManager.Instance.SetPlayerName(name);
     }
-    else{
+    else if (PrefsManager.Instance.IsPrefsSetted("PlayerName")&&playerNameInput.text != ""){
         name = PrefsManager.Instance.GetPlayerName();
+    }
+    else{
+        EmptyFieldAlert?.Invoke();
+        return;
     }
     Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
         if (success){
             PrefsManager.Instance.SetCircuitUploadStatus("Monza", 1);
             LeaderBoardsManager.Instance.LoadEntries("Monza");
-        }}, HandleLeaderboardError);
+        }}, LeaderBoardsManager.Instance.HandleLeaderboardError);
 
-    if (playerNameInput.text == ""){
-        if (!mainMenuUIController.fieldAlert.gameObject.activeSelf){
-            //mainMenuUIController.ActivateUI(mainMenuUIController.fieldAlert, true);
-            //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchButtonInteractableForSeconds(mainMenuUIController.submitScoreButton, 2));
-        }
-    }
 }
 public void UpdatePlayerEntry(){
     Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(PrefsManager.Instance.playerName, (int)PrefsManager.Instance.bestMonzaTime, (success) => {
         if (success){
             Debug.Log("Entry updated");
-            //LoadEntries();
+            LeaderBoardsManager.Instance.LoadEntries("Monza");
         }
-    }, HandleLeaderboardError);
+    }, LeaderBoardsManager.Instance.HandleLeaderboardError);
 }
 
 public void DeletePlayerEntry(){
     Leaderboards.WireRacer_TimeTrial_Monza.DeleteEntry((success) => {
         if (success){
             Debug.Log("Entry deleted");
-            //LoadEntries();
-            //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.deleteEntryText, 2));
-            //mainMenuUIController.ActivateUI(mainMenuUIController.inputField, false);
-            //mainMenuUIController.ActivateUI(mainMenuUIController.underBoardInformation, false);
+            MonzaEntryDeleted?.Invoke();
+            LeaderBoardsManager.Instance.LoadEntries("Monza");
+            
         }
-    }, HandleLeaderboardError);
-}
-private void HandleLeaderboardError(string error)
-{
-    Debug.LogError(error);
-    //mainMenuUIController.SwitchButtonInteractable(mainMenuUIController.submitScoreButton);
-    if (string.IsNullOrEmpty(error))
-        return;
-
-    var parts = error.Split(':');
-    if (parts.Length == 0)
-        return;
-
-    if (int.TryParse(parts[0], out int codeInt))
-    {
-        statusCode = (StatusCode)codeInt;
-
-        switch (statusCode)
-        {
-            case StatusCode.Conflict:       // 409
-                Debug.LogError(409);
-                //mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Username already exists");
-                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2)); 
-                break;
-
-            case StatusCode.Forbidden:      // 403
-                Debug.LogError(403);
-                //mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Forbidden name");
-                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
-                break;
-
-            case StatusCode.FailedToConnect: // 0
-                Debug.LogError(0);
-                ///mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Failed to connect");
-                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
-                break;
-
-            case StatusCode.ServiceUnavailable: // 503
-                Debug.LogError(503);
-                //mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Service unavailable");
-                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
-                break;
-
-            case StatusCode.InternalServerError: // 500
-                Debug.LogError(500);
-                //mainMenuUIController.SetText(mainMenuUIController.fieldAlert, "Internal server error");
-                //mainMenuUIController.StartCoroutine(mainMenuUIController.SwitchUIForSeconds(mainMenuUIController.fieldAlert, 2));
-                break;
-
-            default:
-                break;
-        }
-    }
+    }, LeaderBoardsManager.Instance.HandleLeaderboardError);
 }
 
 
