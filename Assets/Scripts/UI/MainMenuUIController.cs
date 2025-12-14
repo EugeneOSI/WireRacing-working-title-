@@ -33,6 +33,7 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] public GameObject editNameButton;
     [SerializeField] public GameObject cancelUpdateNameButton;
     [SerializeField] public GameObject monzaStartButton;
+    [SerializeField] public GameObject monzaInformationPanel;
 
 
 void Awake(){
@@ -42,7 +43,7 @@ void Awake(){
     LeaderBoardsManager.EnteryUploading += OnEntryUploading;
     MonzaLeaderBoard.MonzaEntriesLoaded += OnMonzaEntriesLoaded;
     MonzaLeaderBoard.EmptyFieldAlert += EmptyFieldAlert;
-    MonzaLeaderBoard.MonzaEntryDeleted += OnMonzaEntryDeleted;
+    LeaderBoardsManager.MonzaEntryDeleted += OnMonzaEntryDeleted;
     LeaderBoardsManager.OnLeaderboardError += OnLeaderboardError;
 }
 void OnDestroy(){
@@ -52,7 +53,7 @@ void OnDestroy(){
     LeaderBoardsManager.EntriesLoading -= CancelUpdateName;
     MonzaLeaderBoard.MonzaEntriesLoaded -= OnMonzaEntriesLoaded;
     MonzaLeaderBoard.EmptyFieldAlert -= EmptyFieldAlert;
-    MonzaLeaderBoard.MonzaEntryDeleted -= OnMonzaEntryDeleted;
+    LeaderBoardsManager.MonzaEntryDeleted -= OnMonzaEntryDeleted;
     LeaderBoardsManager.OnLeaderboardError -= OnLeaderboardError;
 }
 private void OnEntriesLoading(){
@@ -187,5 +188,27 @@ public void CancelUpdateName(){
         UIManager.Instance.SetVisibilty(submitScoreButton, true);
         submitScoreButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Submit best time";
     }}
+}
+
+public void OpenGameModeMenu(){
+    UIManager.Instance.SwitchVisibilty(gameModeMenu);
+}
+public void OpenTimeTrialMenu(){
+    UIManager.Instance.SwitchVisibilty(timeTrialMenu);
+}
+public void OpenOptionsMenu(){
+    UIManager.Instance.SwitchVisibilty(optionsMenu);
+}
+public void OpenMonzaInformation(){
+    UIManager.Instance.SwitchVisibilty(monzaInformationPanel);
+}
+public void StartEndlessMode(){
+    GameManager.Instance.LoadScene("EndlessMode");
+}
+public void StartTimeTrial(string trackSceneName){
+    GameManager.Instance.LoadScene(trackSceneName);
+}
+public void ExitGame(){
+    Application.Quit();
 }
 }

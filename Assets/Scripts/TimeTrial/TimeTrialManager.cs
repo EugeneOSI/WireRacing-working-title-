@@ -44,9 +44,6 @@ public class TimeTrialManager : MonoBehaviour
     [SerializeField] private TTUIController ttUIController;
     public bool IsPaused {get; set;}
 
-    public static event Action OnPauseEvent;
-    public static event Action OnUnpauseEvent;
-    public static event Action whilePausedEvent;
 
 
 
@@ -80,31 +77,8 @@ private void Start()
         }
         lapTimeText.text = FormatTime(CurrentLapTime,"lap");
 
-        
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            PauseGame();
-        }
-        if (IsPaused){
-            Time.timeScale = 0;
-        }
-        else{
-            Time.timeScale = 1;
-        }
     }
 
-    public void PauseGame(){
-            if(!IsPaused){
-                OnPauseEvent?.Invoke();
-                IsPaused = true;
-            }
-            else if(IsPaused&&ttUIController.ActiveScreens.Count < 2){
-                IsPaused = false;
-                OnUnpauseEvent?.Invoke();
-            }
-            else {
-                whilePausedEvent?.Invoke();
-            }
-        }
 
     void ResetArray(float[] arr, float value)
     {
@@ -276,5 +250,12 @@ void RegisterSector(int sectorIndex, float sectorTime)
         }
         sectorDeltaText.text = "--.---";
         totalDeltaText.text = "--.---";
+    }
+
+    public void ExitToMainMenu(){
+        GameManager.Instance.LoadScene("MainMenu");
+    }
+    public void ResumeGame(){
+        GameManager.Instance.PauseGame();
     }
 }

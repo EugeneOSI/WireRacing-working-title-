@@ -6,12 +6,14 @@ using Dan.Enums;
 public class LeaderBoardsManager : MonoBehaviour
 {
     public static LeaderBoardsManager Instance {get; private set;}
-    [SerializeField] MonzaLeaderBoard monzaLeaderBoard;
     public StatusCode statusCode;
 
     public static event Action EntriesLoading;
     public static event Action EnteryUploading;
+    public static event Action<Dan.Models.Entry[]> EntriesLoaded;
     public static event Action<string> OnLeaderboardError;
+    public static event Action MonzaEntryDeleted;
+    public Dan.Models.Entry[] entries {get; private set;}
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,27 +29,46 @@ public class LeaderBoardsManager : MonoBehaviour
     public void LoadEntries(string leaderboardName){        
         switch(leaderboardName){
             case "Monza":
-                if (!monzaLeaderBoard.isUploading){
                 EntriesLoading?.Invoke();
-                Leaderboards.WireRacer_TimeTrial_Monza.GetEntries(monzaLeaderBoard.OnEntriesLoaded, (error) => {
-                        Debug.LogError(error);
-                    });
-                }
+                Leaderboards.WireRacer_TimeTrial_Monza.GetEntries((success) => {
+                EntriesLoaded?.Invoke(success);
+                });
                 break;
         }
     }
 
-    public void UploadPlayerEntry(string leaderboardName, string name){
-       
+
+    public void UploadPlayerEntry(string leaderboardName, string name){   
         EnteryUploading?.Invoke();
         switch(leaderboardName){
             case "Monza":
             Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
         if (success){
             PrefsManager.Instance.SetCircuitUploadStatus("Monza", 1);
-            monzaLeaderBoard.isUploading = false;
             LoadEntries("Monza");
         }}, HandleLeaderboardError);
+        break;}
+    }
+
+    public void UpdatePlayerEntry(string leaderboardName){
+        switch(leaderboardName){
+            case "Monza":
+            Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(PrefsManager.Instance.GetPlayerName(), (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
+        if (success){
+            LoadEntries("Monza");
+        }}, HandleLeaderboardError);
+        break;}
+    }
+
+    public void DeletePlayerEntry(string leaderboardName){
+        switch(leaderboardName){
+            case "Monza":
+            Leaderboards.WireRacer_TimeTrial_Monza.DeleteEntry((success) => {
+                if (success){
+                    LoadEntries("Monza");
+                    MonzaEntryDeleted?.Invoke();
+                }
+            }, HandleLeaderboardError);
         break;}
     }
 

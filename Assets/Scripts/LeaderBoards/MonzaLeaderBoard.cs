@@ -17,7 +17,6 @@ public class MonzaLeaderBoard : MonoBehaviour
 
     public static event Action MonzaEntriesLoaded;
     public static event Action EmptyFieldAlert;
-    public static event Action MonzaEntryDeleted;
 
     public StatusCode statusCode;
 
@@ -27,6 +26,11 @@ public class MonzaLeaderBoard : MonoBehaviour
     {
         statusCode = StatusCode.NotFound;
         isUploading = false;
+        LeaderBoardsManager.EntriesLoaded += OnEntriesLoaded;
+    }
+    void OnDestroy()
+    {
+        LeaderBoardsManager.EntriesLoaded -= OnEntriesLoaded;
     }
 
     // Update is called once per frame
@@ -38,7 +42,6 @@ public class MonzaLeaderBoard : MonoBehaviour
 
 public void OnEntriesLoaded(Dan.Models.Entry[] entries)
 {
-
     ClearLeaderBoard();
     FillLeaderBoard(entries);
     MonzaEntriesLoaded?.Invoke();
@@ -47,7 +50,6 @@ public void OnEntriesLoaded(Dan.Models.Entry[] entries)
     isUploading = true;
 
 }
-
 
 
 private void ClearLeaderBoard(){
@@ -60,6 +62,7 @@ private void ClearLeaderBoard(){
 private void FillLeaderBoard(Dan.Models.Entry[] entries){
         foreach (Dan.Models.Entry entry in entries)
     {
+        //scrollRect.transform.SetParent(entryParent);
         GameObject entryObject = Instantiate(entryPrefab, entryParent);
         TextMeshProUGUI textObject = entryObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         textObject.text = $"{entry.Rank}. {entry.Username} - {UIManager.Instance.FormatTime(entry.Score, "lap")}";
@@ -89,25 +92,11 @@ public void UploadPlayerEntry(){
     LeaderBoardsManager.Instance.UploadPlayerEntry("Monza", PrefsManager.Instance.GetPlayerName());
 
 }
-public void UpdatePlayerEntry(){
-    Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(PrefsManager.Instance.GetPlayerName(), (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
-        if (success){
-            Debug.Log("Entry updated");
-            LeaderBoardsManager.Instance.LoadEntries("Monza");
-        }
-    }, LeaderBoardsManager.Instance.HandleLeaderboardError);
+
+public void OpenLeaderboard(){
+    LeaderBoardsManager.Instance.LoadEntries("Monza");
 }
 
-public void DeletePlayerEntry(){
-    Leaderboards.WireRacer_TimeTrial_Monza.DeleteEntry((success) => {
-        if (success){
-            Debug.Log("Entry deleted");
-            MonzaEntryDeleted?.Invoke();
-            LeaderBoardsManager.Instance.LoadEntries("Monza");
-            
-        }
-    }, LeaderBoardsManager.Instance.HandleLeaderboardError);
-}
 
 
 }

@@ -907,13 +907,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1177542972}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: SwitchVisibilty
-        m_Mode: 2
+      - m_Target: {fileID: 1534531334}
+        m_TargetAssemblyTypeName: MainMenuUIController, Assembly-CSharp
+        m_MethodName: OpenGameModeMenu
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 395729757}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: gameModeMenu
@@ -1193,13 +1193,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1177542972}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: SwitchVisibilty
-        m_Mode: 2
+      - m_Target: {fileID: 1534531334}
+        m_TargetAssemblyTypeName: MainMenuUIController, Assembly-CSharp
+        m_MethodName: OpenOptionsMenu
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1939922282}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: optionsMenu
@@ -1342,24 +1342,28 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1964443596}
+      objectReference: {fileID: 1891303277}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1891303277}
+      objectReference: {fileID: 1725901249}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1534531334}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DeletePlayerEntry
+      value: ResetMonzaPrefs
       objectReference: {fileID: 0}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ResetMonzaPrefs
+      value: DeletePlayerEntry
       objectReference: {fileID: 0}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
@@ -1367,15 +1371,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MonzaLeaderBoard, Assembly-CSharp
+      value: PrefsManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: PrefsManager, Assembly-CSharp
+      value: LeaderBoardsManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: MainMenuUIController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Monza
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124766560124270869, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7204154504382517705, guid: 2bb299098c124b848b0ab9ad2b2dce13, type: 3}
       propertyPath: m_Name
@@ -1473,18 +1485,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1964443596}
-        m_TargetAssemblyTypeName: MonzaLeaderBoard, Assembly-CSharp
-        m_MethodName: set_isUploading
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1725901249}
         m_TargetAssemblyTypeName: LeaderBoardsManager, Assembly-CSharp
         m_MethodName: LoadEntries
@@ -1619,8 +1619,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1534531334}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_TargetAssemblyTypeName: MainMenuUIController, Assembly-CSharp
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2155,6 +2155,7 @@ MonoBehaviour:
   editNameButton: {fileID: 383337633}
   cancelUpdateNameButton: {fileID: 668292557}
   monzaStartButton: {fileID: 1632116853}
+  monzaInformationPanel: {fileID: 1293715770}
 --- !u!1 &1612001140
 GameObject:
   m_ObjectHideFlags: 0
@@ -2472,7 +2473,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94d45348c6cd9b0419027f551ddd5c80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeaderBoardsManager
-  monzaLeaderBoard: {fileID: 1964443596}
   statusCode: 0
 --- !u!4 &1725901250
 Transform:
@@ -3288,27 +3288,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5485232282831890001, guid: cbca5fe71f727844fb1f432f0af3b3c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5485232282831890001, guid: cbca5fe71f727844fb1f432f0af3b3c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1177542972}
+      objectReference: {fileID: 1534531334}
     - target: {fileID: 5485232282831890001, guid: cbca5fe71f727844fb1f432f0af3b3c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchVisibilty
+      value: OpenOptionsMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5485232282831890001, guid: cbca5fe71f727844fb1f432f0af3b3c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
+      value: MainMenuUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5485232282831890001, guid: cbca5fe71f727844fb1f432f0af3b3c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1939922282}
+      objectReference: {fileID: 0}
     - target: {fileID: 5485232282831890001, guid: cbca5fe71f727844fb1f432f0af3b3c1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6469807844046520614, guid: cbca5fe71f727844fb1f432f0af3b3c1, type: 3}
       propertyPath: m_Name
@@ -3345,39 +3345,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5856425906545149765, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5856425906545149765, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1177542972}
+      objectReference: {fileID: 1534531334}
     - target: {fileID: 5856425906545149765, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchVisibilty
+      value: OpenTimeTrialMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5856425906545149765, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
+      value: MainMenuUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5856425906545149765, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 523587278}
+      objectReference: {fileID: 0}
     - target: {fileID: 5856425906545149765, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6990109691642252934, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6990109691642252934, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 56950746}
+      objectReference: {fileID: 1534531334}
     - target: {fileID: 6990109691642252934, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadScene
+      value: StartEndlessMode
       objectReference: {fileID: 0}
     - target: {fileID: 6990109691642252934, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: MainMenuUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7868167035377323908, guid: 05fb44c7a817126419a22e94dcf0d514, type: 3}
       propertyPath: m_Pivot.x
@@ -3494,39 +3498,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1725901249}
+      objectReference: {fileID: 1964443596}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1177542972}
+      objectReference: {fileID: 1534531334}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadEntries
+      value: OpenLeaderboard
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SwitchVisibilty
+      value: OpenMonzaInformation
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LeaderBoardsManager, Assembly-CSharp
+      value: MonzaLeaderBoard, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UIManager, Assembly-CSharp
+      value: MainMenuUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -3539,7 +3543,7 @@ PrefabInstance:
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1293715770}
+      objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
       value: TimeTrial_Monza
@@ -3550,7 +3554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.GameObject, UnityEngine
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3534848296875618337, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_IsActive
@@ -3599,14 +3603,14 @@ PrefabInstance:
     - target: {fileID: 7048633823225627689, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 56950746}
+      objectReference: {fileID: 1534531334}
     - target: {fileID: 7048633823225627689, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadScene
+      value: StartTimeTrial
       objectReference: {fileID: 0}
     - target: {fileID: 7048633823225627689, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: MainMenuUIController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7273512019943880823, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_AnchoredPosition.y

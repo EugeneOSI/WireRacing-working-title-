@@ -4,6 +4,7 @@ public class TTUIController : MonoBehaviour
 {
     [SerializeField] private TimeTrialManager timeTrialManager;
     [SerializeField] public GameObject pauseMenu;
+    [SerializeField] public GameObject optionsMenu;
 
     public List<GameObject> ActiveScreens = new List<GameObject>();
     
@@ -11,9 +12,12 @@ public class TTUIController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        TimeTrialManager.OnPauseEvent += OnPauseEvent;
-        TimeTrialManager.OnUnpauseEvent += DeactivateActiveScreen;
-        TimeTrialManager.whilePausedEvent += DeactivateActiveScreen;
+        GameManager.OnPauseEvent += OnPauseEvent;
+
+    }
+    void OnDestroy()
+    {
+        GameManager.OnPauseEvent -= OnPauseEvent;
     }
 
     // Update is called once per frame
@@ -28,7 +32,7 @@ public class TTUIController : MonoBehaviour
         }*/
     }
 
-    public void SwitchVisibilty(GameObject ui){
+    /*public void SwitchVisibilty(GameObject ui){
         ui.SetActive(!ui.activeSelf);
         if (ui.activeSelf)
         {
@@ -45,9 +49,12 @@ public class TTUIController : MonoBehaviour
     {
             SwitchVisibilty(ActiveScreens[ActiveScreens.Count - 1]);
     }
-    }
+    }*/
 
     public void OnPauseEvent(){
-        SwitchVisibilty(pauseMenu);
+        UIManager.Instance.SwitchVisibilty(pauseMenu);
+    }
+    public void OpenOptionsMenu(){
+        UIManager.Instance.SwitchVisibilty(optionsMenu);
     }
 }

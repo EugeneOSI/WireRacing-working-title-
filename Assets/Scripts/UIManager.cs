@@ -17,6 +17,14 @@ public class UIManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         GameManager.LoadSceneEvent += OnLoadScene;
+        GameManager.OnUnpauseEvent += DeactivateActiveScreen;
+        GameManager.whilePausedEvent += DeactivateActiveScreen;
+    }
+    void OnDestroy()
+    {
+        GameManager.LoadSceneEvent -= OnLoadScene;
+        GameManager.OnUnpauseEvent -= DeactivateActiveScreen;
+        GameManager.whilePausedEvent -= DeactivateActiveScreen;
     }
 
     void Update(){
@@ -39,6 +47,7 @@ public class UIManager : MonoBehaviour
             ActiveScreens.Remove(ui);
         }
     }
+    
     public IEnumerator SwitchVisibiltyForSeconds(GameObject ui, float seconds){
         SwitchVisibilty(ui);
         yield return new WaitForSeconds(seconds);
