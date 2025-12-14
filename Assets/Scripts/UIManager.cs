@@ -16,16 +16,17 @@ public class UIManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        GameManager.LoadSceneEvent += OnLoadScene;
     }
 
     void Update(){
-                if (Input.GetKeyDown(KeyCode.Escape))
+            /*if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (ActiveScreens.Count > 0)
             {
                 SwitchVisibilty(ActiveScreens[ActiveScreens.Count - 1]);
             }
-        }
+        }*/
     }
     public void SwitchVisibilty(GameObject ui){
         ui.SetActive(!ui.activeSelf);
@@ -84,6 +85,9 @@ public class UIManager : MonoBehaviour
         }
         return result;
 
+    }
+    public void OnLoadScene(){
+        ActiveScreens.Clear();
     }
 }
 

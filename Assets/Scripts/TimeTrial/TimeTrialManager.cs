@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class TimeTrialManager : MonoBehaviour
 {
@@ -40,7 +41,12 @@ public class TimeTrialManager : MonoBehaviour
     [Header("Game Objects")]
     private PlayerTimeTrial player;
     [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private TTUIController ttUIController;
     public bool IsPaused {get; set;}
+
+    public static event Action OnPauseEvent;
+    public static event Action OnUnpauseEvent;
+    public static event Action whilePausedEvent;
 
 
 
@@ -74,18 +80,31 @@ private void Start()
         }
         lapTimeText.text = FormatTime(CurrentLapTime,"lap");
 
+        
         if (Input.GetKeyDown(KeyCode.Escape)){
-        IsPaused = !IsPaused;
-            }
+            PauseGame();
+        }
         if (IsPaused){
             Time.timeScale = 0;
-            pauseMenu.SetActive(true);
         }
         else{
             Time.timeScale = 1;
-            pauseMenu.SetActive(false);
         }
     }
+
+    public void PauseGame(){
+            if(!IsPaused){
+                OnPauseEvent?.Invoke();
+                IsPaused = true;
+            }
+            else if(IsPaused&&ttUIController.ActiveScreens.Count < 2){
+                IsPaused = false;
+                OnUnpauseEvent?.Invoke();
+            }
+            else {
+                whilePausedEvent?.Invoke();
+            }
+        }
 
     void ResetArray(float[] arr, float value)
     {

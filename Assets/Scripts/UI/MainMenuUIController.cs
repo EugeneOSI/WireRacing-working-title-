@@ -32,11 +32,14 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] public GameObject reloadButton;
     [SerializeField] public GameObject editNameButton;
     [SerializeField] public GameObject cancelUpdateNameButton;
+    [SerializeField] public GameObject monzaStartButton;
 
 
 void Awake(){
     
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
+    LeaderBoardsManager.EntriesLoading += CancelUpdateName;
+    LeaderBoardsManager.EnteryUploading += OnEntryUploading;
     MonzaLeaderBoard.MonzaEntriesLoaded += OnMonzaEntriesLoaded;
     MonzaLeaderBoard.EmptyFieldAlert += EmptyFieldAlert;
     MonzaLeaderBoard.MonzaEntryDeleted += OnMonzaEntryDeleted;
@@ -45,6 +48,8 @@ void Awake(){
 void OnDestroy(){
     
     LeaderBoardsManager.EntriesLoading -= OnEntriesLoading;
+    LeaderBoardsManager.EnteryUploading -= OnEntryUploading;
+    LeaderBoardsManager.EntriesLoading -= CancelUpdateName;
     MonzaLeaderBoard.MonzaEntriesLoaded -= OnMonzaEntriesLoaded;
     MonzaLeaderBoard.EmptyFieldAlert -= EmptyFieldAlert;
     MonzaLeaderBoard.MonzaEntryDeleted -= OnMonzaEntryDeleted;
@@ -54,27 +59,40 @@ private void OnEntriesLoading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
     UIManager.Instance.SetButtonInteractable(reloadButton, false);
+    UIManager.Instance.SetButtonInteractable(cancelUpdateNameButton, false);
+    UIManager.Instance.SetButtonInteractable(monzaStartButton, false);
+}
+private void OnEntryUploading(){
+    UIManager.Instance.SetVisibilty(loadingPanel, true);
+    UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
+    UIManager.Instance.SetButtonInteractable(reloadButton, false);
+    UIManager.Instance.SetButtonInteractable(cancelUpdateNameButton, false);
+    UIManager.Instance.SetButtonInteractable(monzaStartButton, false);
 }
 private void OnMonzaEntriesLoaded(){
     Debug.Log("Monza entries loaded");
+    UIManager.Instance.SetButtonInteractable(cancelUpdateNameButton, true);
+    UIManager.Instance.SetButtonInteractable(monzaStartButton, true);
     UIManager.Instance.SetText(bestMonzaTime, UIManager.Instance.FormatTime(PrefsManager.Instance.GetBestTime("Monza"), "lap"));
     UIManager.Instance.SetText(monzalaps, PrefsManager.Instance.GetLapsAmount("Monza").ToString());
     UIManager.Instance.SetVisibilty(loadingPanel, false);
     UIManager.Instance.SetButtonInteractable(reloadButton, true);
-    /*if (!PrefsManager.Instance.IsPrefsSetted("BestMonzaTime")){
-        UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
-    }*/
 
     if (!PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded") && !PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(inputField, true);
         UIManager.Instance.SetVisibilty(submitScoreButton, true);
+        if (!PrefsManager.Instance.IsPrefsSetted("BestMonzaTime")){
+        UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
+        }
+       else{
         UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
+       }
 
         UIManager.Instance.SetVisibilty(playerName, false);
         UIManager.Instance.SetVisibilty(editNameButton, false);
         UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
 
-        Debug.Log("No player name found and best monza time uploaded is 0");
+        Debug.Log("No player name found and best monza time not uploaded");
     }
     if (!PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded") && PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(submitScoreButton, true);
@@ -84,7 +102,7 @@ private void OnMonzaEntriesLoaded(){
         UIManager.Instance.SetText(playerName, "Your name: "+PrefsManager.Instance.GetPlayerName());
 
         UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
-        Debug.Log("Player name found and best monza time uploaded is 0");
+        Debug.Log("Player name found and best monza time not uploaded");
     }
     if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded") && PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(playerName, true);
@@ -96,7 +114,7 @@ private void OnMonzaEntriesLoaded(){
 
         UIManager.Instance.SetVisibilty(inputField, false);
         UIManager.Instance.SetVisibilty(submitScoreButton, false);
-        Debug.Log("Player name found and best monza time uploaded is not 0");
+        Debug.Log("Player name found and best monza time uploaded");
     }
 }
 public void EmptyFieldAlert(){
@@ -147,17 +165,27 @@ public void ShowEditNamePanel(){
     UIManager.Instance.SetVisibilty(inputField, true);
     UIManager.Instance.SetText(inputFieldDesciption, "Enter your new name");
     UIManager.Instance.SetVisibilty(submitScoreButton, true);
+    UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
     submitScoreButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Update name";
     UIManager.Instance.SetVisibilty(cancelUpdateNameButton, true);
 
 }
 public void CancelUpdateName(){
+    if (PrefsManager.Instance.IsPrefsSetted("PlayerName")){
     UIManager.Instance.SetVisibilty(editNameButton, true);
     UIManager.Instance.SetVisibilty(playerName, true);
-    UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, true);
     
     UIManager.Instance.SetVisibilty(inputField, false);
-    UIManager.Instance.SetVisibilty(submitScoreButton, false);
     UIManager.Instance.SetVisibilty(cancelUpdateNameButton, false);
+
+    if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){
+        UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, true);
+        UIManager.Instance.SetVisibilty(submitScoreButton, false);
+    }
+    if (!PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){
+        UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
+        UIManager.Instance.SetVisibilty(submitScoreButton, true);
+        submitScoreButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Submit best time";
+    }}
 }
 }

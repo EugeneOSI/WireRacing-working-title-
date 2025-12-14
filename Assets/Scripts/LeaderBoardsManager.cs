@@ -10,6 +10,7 @@ public class LeaderBoardsManager : MonoBehaviour
     public StatusCode statusCode;
 
     public static event Action EntriesLoading;
+    public static event Action EnteryUploading;
     public static event Action<string> OnLeaderboardError;
     void Awake()
     {
@@ -34,6 +35,20 @@ public class LeaderBoardsManager : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void UploadPlayerEntry(string leaderboardName, string name){
+       
+        EnteryUploading?.Invoke();
+        switch(leaderboardName){
+            case "Monza":
+            Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
+        if (success){
+            PrefsManager.Instance.SetCircuitUploadStatus("Monza", 1);
+            monzaLeaderBoard.isUploading = false;
+            LoadEntries("Monza");
+        }}, HandleLeaderboardError);
+        break;}
     }
 
     public void HandleLeaderboardError(string error)

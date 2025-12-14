@@ -76,27 +76,21 @@ private void FillLeaderBoard(Dan.Models.Entry[] entries){
 
 public void UploadPlayerEntry(){
     
-    string name;
-    if (!PrefsManager.Instance.IsPrefsSetted("PlayerName")&&playerNameInput.text != ""){
-        name = playerNameInput.text;
-        PrefsManager.Instance.SetPlayerName(name);
-    }
-    else if (PrefsManager.Instance.IsPrefsSetted("PlayerName")&&playerNameInput.text != ""){
-        name = PrefsManager.Instance.GetPlayerName();
-    }
-    else{
+    
+    if (playerNameInput.text == ""){
         EmptyFieldAlert?.Invoke();
         return;
     }
-    Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
-        if (success){
-            PrefsManager.Instance.SetCircuitUploadStatus("Monza", 1);
-            LeaderBoardsManager.Instance.LoadEntries("Monza");
-        }}, LeaderBoardsManager.Instance.HandleLeaderboardError);
+    else{
+    string name;
+    name = playerNameInput.text;
+    PrefsManager.Instance.SetPlayerName(name);
+    }
+    LeaderBoardsManager.Instance.UploadPlayerEntry("Monza", PrefsManager.Instance.GetPlayerName());
 
 }
 public void UpdatePlayerEntry(){
-    Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(PrefsManager.Instance.playerName, (int)PrefsManager.Instance.bestMonzaTime, (success) => {
+    Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(PrefsManager.Instance.GetPlayerName(), (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
         if (success){
             Debug.Log("Entry updated");
             LeaderBoardsManager.Instance.LoadEntries("Monza");
