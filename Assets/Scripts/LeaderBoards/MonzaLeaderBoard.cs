@@ -8,7 +8,6 @@ using System;
 public class MonzaLeaderBoard : MonoBehaviour
 {
     public bool isUploading {get; set;}
-    [SerializeField] private MainMenuUIController mainMenuUIController;
     [SerializeField] private GameObject entryPrefab;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform entryParent;

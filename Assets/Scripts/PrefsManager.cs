@@ -6,8 +6,6 @@ public class PrefsManager : MonoBehaviour
     public static PrefsManager Instance {get; private set;}
     public string playerName {get; private set;}
     public float bestScore {get; private set;}
-    public float bestMonzaTime {get; private set;}
-    public int monzaLaps {get; private set;}
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -76,13 +74,30 @@ public class PrefsManager : MonoBehaviour
     }
 
     public void SaveBestTime(float time, string circuitName){
-        bestMonzaTime = time;
         switch(circuitName){
             case "Monza":
-                PlayerPrefs.SetFloat("BestMonzaTime", bestMonzaTime);
+                PlayerPrefs.SetFloat("BestMonzaTime", time);
                 break;
         }
     }
+    
+        public float GetBestTime(string circuitName){
+        switch(circuitName){
+            case "Monza":
+                if (PlayerPrefs.HasKey("BestMonzaTime")){
+                    return PlayerPrefs.GetFloat("BestMonzaTime");
+                }
+                else{
+                    Debug.Log("BestMonzaTime not found");
+                    return 0;
+                }
+            default:
+                Debug.Log("Circuit name not found");
+                return 0;
+        }
+
+    }
+
     public void SaveLapsAmount (string circuitName, int laps){
         switch(circuitName){
             case "Monza":
@@ -106,22 +121,7 @@ public class PrefsManager : MonoBehaviour
         }
     }
 
-    public float GetBestTime(string circuitName){
-        switch(circuitName){
-            case "Monza":
-                if (PlayerPrefs.HasKey("BestMonzaTime")){
-                    return PlayerPrefs.GetFloat("BestMonzaTime");
-                }
-                else{
-                    Debug.Log("BestMonzaTime not found");
-                    return 0;
-                }
-            default:
-                Debug.Log("Circuit name not found");
-                return 0;
-        }
 
-    }
     public void SetPlayerName(string name){
         PlayerPrefs.SetString("PlayerName", name);
     }

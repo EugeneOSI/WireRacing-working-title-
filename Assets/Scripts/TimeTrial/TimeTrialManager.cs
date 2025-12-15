@@ -64,8 +64,8 @@ public class TimeTrialManager : MonoBehaviour
 
 private void Start()
 {
-    if (PrefsManager.Instance.bestMonzaTime > 0f){
-        bestLapTime = PrefsManager.Instance.bestMonzaTime;
+    if (PrefsManager.Instance.GetLapsAmount("Monza") > 0f){
+        bestLapTime = PrefsManager.Instance.GetBestTime("Monza");
         bestLapTimeText.text = FormatTime(bestLapTime,"lap");
     }
 }
@@ -123,7 +123,7 @@ private void Start()
 void FinishLap()
 {
     float now = Time.time;
-    PrefsManager.Instance.SaveLapsAmount("Monza", PrefsManager.Instance.monzaLaps + 1);
+    PrefsManager.Instance.SaveLapsAmount("Monza", PrefsManager.Instance.GetLapsAmount("Monza") + 1);
 
 
     int lastIndex = sectorCount - 1;
@@ -141,25 +141,27 @@ void FinishLap()
 
     if (!lapValid)
     {
+        previousLapTime = lapTime;
         Debug.Log($"Lap {currentLapIndex} INVALID, time = {FormatTime(lapTime,"lap")}");
         return;
     }
-
+    
     previousLapTime = lapTime;
     currentLapSectors.CopyTo(previousLapSectors, 0);
 
     if (lapValid&& (bestLapTime < 0f || lapTime < bestLapTime)){
-        bestLapTime = lapTime;
+    bestLapTime = lapTime;
     bestLapTimeText.text = FormatTime(bestLapTime,"lap");
-    
     PrefsManager.Instance.SaveBestTime(bestLapTime, "Monza");
-    }
+    if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){     
+    Debug.Log("Best time updated");
+    LeaderBoardsManager.Instance.UpdatePlayerEntry("Monza");}
 
     Debug.Log($"Lap {currentLapIndex} FINISHED: {FormatTime(lapTime,"lap")}   Best: {FormatTime(bestLapTime,"lap")}");
 
     lapTimeText.text = FormatTime(lapTime,"lap");
     previousLapTimeText.text = FormatTime(previousLapTime,"lap");
-}
+}}
 
 
     // Вызывается из триггера сектора

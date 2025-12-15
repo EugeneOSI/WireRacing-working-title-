@@ -53,7 +53,7 @@ public class LeaderBoardsManager : MonoBehaviour
     public void UpdatePlayerEntry(string leaderboardName){
         switch(leaderboardName){
             case "Monza":
-            Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(PrefsManager.Instance.GetPlayerName(), (int)PrefsManager.Instance.GetBestTime("Monza"), (success) => {
+            Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(PrefsManager.Instance.GetPlayerName(), (int)(PrefsManager.Instance.GetBestTime("Monza")), (success) => {
         if (success){
             LoadEntries("Monza");
         }}, HandleLeaderboardError);
