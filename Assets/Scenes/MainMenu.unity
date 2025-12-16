@@ -1480,6 +1480,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1964443596}
+        m_TargetAssemblyTypeName: MonzaLeaderBoard, Assembly-CSharp
+        m_MethodName: set_isLoaded
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1725901249}
         m_TargetAssemblyTypeName: LeaderBoardsManager, Assembly-CSharp
         m_MethodName: LoadEntries
@@ -3525,7 +3537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenLeaderboard
+      value: LoadLeaderboard
       objectReference: {fileID: 0}
     - target: {fileID: 3280022860946227054, guid: 59d7d72c34c36b044b9203c5bbec8f56, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName

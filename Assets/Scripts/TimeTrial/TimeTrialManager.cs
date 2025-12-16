@@ -7,6 +7,7 @@ using System;
 
 public class TimeTrialManager : MonoBehaviour
 {
+    [SerializeField] private MonzaLeaderBoard monzaLeaderBoard;
     public static TimeTrialManager Instance { get; private set; }
 
     [Header("Settings")]
@@ -64,10 +65,12 @@ public class TimeTrialManager : MonoBehaviour
 
 private void Start()
 {
-    if (PrefsManager.Instance.GetLapsAmount("Monza") > 0f){
+    if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){
         bestLapTime = PrefsManager.Instance.GetBestTime("Monza");
         bestLapTimeText.text = FormatTime(bestLapTime,"lap");
     }
+    StartCoroutine(LoadLeaderboard());
+    
 }
     void Update()
     {
@@ -149,13 +152,17 @@ void FinishLap()
     previousLapTime = lapTime;
     currentLapSectors.CopyTo(previousLapSectors, 0);
 
-    if (lapValid&& (bestLapTime < 0f || lapTime < bestLapTime)){
+    if (lapValid&& (bestLapTime < 0f || lapTime < PrefsManager.Instance.GetBestTime("Monza"))){
+    if (bestLapTime < 0f){
+        monzaLeaderBoard.isLoaded = false;
+        LeaderBoardsManager.Instance.LoadEntries("Monza");
+    }
     bestLapTime = lapTime;
     bestLapTimeText.text = FormatTime(bestLapTime,"lap");
     PrefsManager.Instance.SaveBestTime(bestLapTime, "Monza");
     if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){     
     Debug.Log("Best time updated");
-    LeaderBoardsManager.Instance.UpdatePlayerEntry("Monza");}
+        monzaLeaderBoard.UpdateLeaderboard();}
 
     Debug.Log($"Lap {currentLapIndex} FINISHED: {FormatTime(lapTime,"lap")}   Best: {FormatTime(bestLapTime,"lap")}");
 
@@ -260,4 +267,13 @@ void RegisterSector(int sectorIndex, float sectorTime)
     public void ResumeGame(){
         GameManager.Instance.PauseGame();
     }
+    IEnumerator LoadLeaderboard(){
+    monzaLeaderBoard.LoadLeaderboard();
+    yield return new WaitForSeconds(2f);
+    monzaLeaderBoard.isLoaded = false;
+    monzaLeaderBoard.LoadLeaderboard();
 }
+}
+
+
+

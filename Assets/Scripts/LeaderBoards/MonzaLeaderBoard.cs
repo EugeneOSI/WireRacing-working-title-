@@ -7,7 +7,7 @@ using TMPro;
 using System;
 public class MonzaLeaderBoard : MonoBehaviour
 {
-    public bool isUploading {get; set;}
+    public bool isLoaded {get; set;}
     [SerializeField] private GameObject entryPrefab;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform entryParent;
@@ -24,7 +24,7 @@ public class MonzaLeaderBoard : MonoBehaviour
     void Start()
     {
         statusCode = StatusCode.NotFound;
-        isUploading = false;
+        isLoaded = false;
         LeaderBoardsManager.EntriesLoaded += OnEntriesLoaded;
     }
     void OnDestroy()
@@ -41,12 +41,13 @@ public class MonzaLeaderBoard : MonoBehaviour
 
 public void OnEntriesLoaded(Dan.Models.Entry[] entries)
 {
+
     ClearLeaderBoard();
     FillLeaderBoard(entries);
     MonzaEntriesLoaded?.Invoke();
     Canvas.ForceUpdateCanvases();
     scrollRect.normalizedPosition = new Vector2(0, 1);
-    isUploading = true;
+    isLoaded = true;
 
 }
 
@@ -64,7 +65,8 @@ private void FillLeaderBoard(Dan.Models.Entry[] entries){
         //scrollRect.transform.SetParent(entryParent);
         GameObject entryObject = Instantiate(entryPrefab, entryParent);
         TextMeshProUGUI textObject = entryObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        textObject.text = $"{entry.Rank}. {entry.Username} - {UIManager.Instance.FormatTime(entry.Score, "lap")}";
+        float time = (float)entry.Score / 1000;
+        textObject.text = $"{entry.Rank}. {entry.Username} - {UIManager.Instance.FormatTime(time, "lap")}";
         entryObjects.Add(entryObject);
         bool isMine = entry.IsMine();
         
@@ -92,8 +94,14 @@ public void UploadPlayerEntry(){
 
 }
 
-public void OpenLeaderboard(){
-    LeaderBoardsManager.Instance.LoadEntries("Monza");
+public void LoadLeaderboard(){
+    if (!isLoaded){
+        LeaderBoardsManager.Instance.LoadEntries("Monza");
+    }
+}
+public void UpdateLeaderboard(){
+    isLoaded = false;
+    LeaderBoardsManager.Instance.UpdatePlayerEntry("Monza");
 }
 
 
