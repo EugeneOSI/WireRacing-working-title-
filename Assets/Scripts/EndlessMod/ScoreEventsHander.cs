@@ -56,7 +56,7 @@ public class ScoreEventsHander : MonoBehaviour
             if (hit.collider == null) continue;
 
             if (hit.collider.CompareTag("sand")){
-                sandDetected = true; Debug.Log("Sand Touched");}
+                sandDetected = true;} //Debug.Log("Sand Touched");}
             else if (hit.collider.CompareTag("Obstacle"))
                 obstacleDetected = true;
         }

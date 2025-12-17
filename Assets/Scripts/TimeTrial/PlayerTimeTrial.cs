@@ -35,11 +35,12 @@ public class PlayerTimeTrial : MonoBehaviour
     private ContactFilter2D contactFilter;
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     [SerializeField] private FollowCamera mainCamera;
-    private GameManager gameManager;
+    private TimeTrialManager timeTrialManager;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
     void Start()
     {
+        timeTrialManager = GameObject.Find("TimeTrialManager").GetComponent<TimeTrialManager>();
         contactFilter = new ContactFilter2D();
         contactFilter.layerMask = surfaceLayer;
         contactFilter.useLayerMask = true;
@@ -59,9 +60,9 @@ public class PlayerTimeTrial : MonoBehaviour
     if (playerRb == null)
         Debug.LogError("playerRb = null на " + name);
         transform.rotation = Quaternion.Euler(0, 0, 0);
-        playerSprite.transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg);
+        playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
-        if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
+        if (Input.GetMouseButtonDown(0)&&!timeTrialManager.IsPaused)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -166,13 +167,6 @@ public class PlayerTimeTrial : MonoBehaviour
 
     }
 
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("StartRaceZone"))
-        {
-            gameManager.GameStarted = true;
-        }
-    }
     void OnTriggerEnter2D(Collider2D collision)
     {
 

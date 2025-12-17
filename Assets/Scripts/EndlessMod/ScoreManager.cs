@@ -8,14 +8,14 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour
 {
     [Header("Main score")]
-    [SerializeField] private float mainScore;
-    [SerializeField] private TextMeshProUGUI scoreText;
+    public float mainScore { get; private set;}
 
     [Header("References")]
     [SerializeField] private Player player;
     [SerializeField] private ScoreEventsHander scoreEventsHander;
     [SerializeField] private Transform linesRoot;      // контейнер для строк (панель/вертикальный layout)
     [SerializeField] private GameObject bonusScorePrefab;
+    [SerializeField] private EM_UIController uiController;
 
     [Header("Multiplayer")]
     public int multiplayerScore { get; set; }
@@ -293,9 +293,9 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateMainScore()
     {
-        if (scoreText != null)
+        if (uiController.scoreText != null)
         {
-            scoreText.text = "Score: " + (int)mainScore;
+            UIManager.Instance.SetText(uiController.scoreText, "Score: " + (int)mainScore);
         }
     }
 
@@ -321,7 +321,7 @@ public class ScoreManager : MonoBehaviour
         }}
         if (!MultiplayerActive) {
             
-            if(!multiplayedScoreCollected){
+            if(!multiplayedScoreCollected&&player.isAlive){
                 
                 mainScore += multiplayerScore*multiplayerAmount;
                 multiplayerAmount = 1;

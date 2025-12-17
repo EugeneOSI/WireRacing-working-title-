@@ -48,7 +48,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -281,7 +281,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -323,7 +323,7 @@ GameObject:
   - component: {fileID: 389394389450505767}
   - component: {fileID: 591413200170553461}
   - component: {fileID: 5558518079592742631}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Open Sprite Shape (1)
   m_TagString: Barier
   m_Icon: {fileID: 0}
@@ -1230,7 +1230,7 @@ GameObject:
   - component: {fileID: 8146557747849949322}
   - component: {fileID: 4722543584384656223}
   - component: {fileID: 3738771929168594181}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Open Sprite Shape
   m_TagString: Barier
   m_Icon: {fileID: 0}

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class TimeTrialManager : MonoBehaviour
 {
+    [SerializeField] private MonzaLeaderBoard monzaLeaderBoard;
     public static TimeTrialManager Instance { get; private set; }
 
     [Header("Settings")]
@@ -39,6 +41,12 @@ public class TimeTrialManager : MonoBehaviour
 
     [Header("Game Objects")]
     private PlayerTimeTrial player;
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private TTUIController ttUIController;
+    public bool IsPaused {get; set;}
+
+
+
 
     private void Awake()
     {
@@ -55,6 +63,15 @@ public class TimeTrialManager : MonoBehaviour
         ResetArray(previousLapSectors, -1f);
     }
 
+private void Start()
+{
+    if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){
+        bestLapTime = PrefsManager.Instance.GetBestTime("Monza");
+        bestLapTimeText.text = FormatTime(bestLapTime,"lap");
+    }
+    StartCoroutine(LoadLeaderboard());
+    
+}
     void Update()
     {
         if (player.mistake)
@@ -62,7 +79,9 @@ public class TimeTrialManager : MonoBehaviour
             InvalidateCurrentLap("Mistake");
         }
         lapTimeText.text = FormatTime(CurrentLapTime,"lap");
+
     }
+
 
     void ResetArray(float[] arr, float value)
     {
@@ -107,6 +126,8 @@ public class TimeTrialManager : MonoBehaviour
 void FinishLap()
 {
     float now = Time.time;
+    PrefsManager.Instance.SaveLapsAmount("Monza", PrefsManager.Instance.GetLapsAmount("Monza") + 1);
+
 
     int lastIndex = sectorCount - 1;
 
@@ -123,22 +144,31 @@ void FinishLap()
 
     if (!lapValid)
     {
+        previousLapTime = lapTime;
         Debug.Log($"Lap {currentLapIndex} INVALID, time = {FormatTime(lapTime,"lap")}");
         return;
     }
-
+    
     previousLapTime = lapTime;
     currentLapSectors.CopyTo(previousLapSectors, 0);
 
-    if (lapValid&& (bestLapTime < 0f || lapTime < bestLapTime)){
-        bestLapTime = lapTime;
-    bestLapTimeText.text = FormatTime(bestLapTime,"lap");}
+    if (lapValid&& (bestLapTime < 0f || lapTime < PrefsManager.Instance.GetBestTime("Monza"))){
+    if (bestLapTime < 0f){
+        monzaLeaderBoard.isLoaded = false;
+        LeaderBoardsManager.Instance.LoadEntries("Monza");
+    }
+    bestLapTime = lapTime;
+    bestLapTimeText.text = FormatTime(bestLapTime,"lap");
+    PrefsManager.Instance.SaveBestTime(bestLapTime, "Monza");
+    if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){     
+    Debug.Log("Best time updated");
+        monzaLeaderBoard.UpdateLeaderboard();}
 
     Debug.Log($"Lap {currentLapIndex} FINISHED: {FormatTime(lapTime,"lap")}   Best: {FormatTime(bestLapTime,"lap")}");
 
     lapTimeText.text = FormatTime(lapTime,"lap");
     previousLapTimeText.text = FormatTime(previousLapTime,"lap");
-}
+}}
 
 
     // Вызывается из триггера сектора
@@ -230,4 +260,20 @@ void RegisterSector(int sectorIndex, float sectorTime)
         sectorDeltaText.text = "--.---";
         totalDeltaText.text = "--.---";
     }
+
+    public void ExitToMainMenu(){
+        GameManager.Instance.LoadScene("MainMenu");
+    }
+    public void ResumeGame(){
+        GameManager.Instance.PauseGame();
+    }
+    IEnumerator LoadLeaderboard(){
+    //monzaLeaderBoard.LoadLeaderboard();
+    yield return new WaitForSeconds(2f);
+    monzaLeaderBoard.isLoaded = false;
+    monzaLeaderBoard.LoadLeaderboard();
 }
+}
+
+
+

@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     private FollowCamera mainCamera;
 
-    private GameManager gameManager;
+    [SerializeField] private EM_GameManager gameManager;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
 
@@ -66,7 +66,6 @@ public class Player : MonoBehaviour
         powerUp.SetActive(false);
 
 
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerRb = GetComponent<Rigidbody2D>();
         lineRenderer = GetComponent<LineRenderer>();
         playerCol = GetComponent<Collider2D>();
@@ -79,7 +78,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
-        if (Input.GetMouseButtonDown(0) /*&& currentHooksAmount < maxHooksAmount*/)
+        if (Input.GetMouseButtonDown(0) && !gameManager.IsPaused && !gameManager.GameOver)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -87,7 +86,7 @@ public class Player : MonoBehaviour
         if (health <= 0)
         {
             isAlive = false;
-            Debug.Log("You Died");
+            //Debug.Log("You Died");
         }
 
         if (tmpHookPoint != null)
@@ -106,6 +105,12 @@ public class Player : MonoBehaviour
         if (tmpHookPoint != null && !hookIsMoving)
         {
             Move();
+        }
+        if (gameManager.GameOver)
+        {
+            maxVelocity = 0.001f;
+            float currentVelocity = playerRb.linearVelocity.magnitude;
+            playerRb.linearVelocity = playerRb.linearVelocity.normalized * Mathf.MoveTowards(currentVelocity, maxVelocity, Time.deltaTime * breakForce);
         }
     }
 
@@ -127,7 +132,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         float newAttractionForce = attractionForce;
-        if (!hitObstacle)
+        if (!hitObstacle&&!gameManager.GameOver)
         {
             if (withPowerUp)
             {
@@ -215,6 +220,13 @@ public class Player : MonoBehaviour
         }
     }
 
+    void DisableHook(){
+        if (tmpHookPoint != null){
+            Destroy(tmpHookPoint);
+            lineRenderer.enabled = false;
+        }
+    }
+
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("StartRaceZone"))
@@ -241,11 +253,16 @@ public class Player : MonoBehaviour
             }
             else{
                 health = 0;
+                DisableHook();
             }
         }
         if (collision.CompareTag("PowerUp")){
             Destroy(collision.gameObject);
             StartCoroutine(WithPowerUp());
+        }
+        if (collision.CompareTag("DeadZone")){
+            DisableHook();
+            health = 0;
         }
     }
 

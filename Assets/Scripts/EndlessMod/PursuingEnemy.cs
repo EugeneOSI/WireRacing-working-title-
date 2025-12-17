@@ -18,11 +18,10 @@ public class PursuingEnemy : MonoBehaviour
     bool freezed;
 
     [SerializeField] private Player player;
-    GameManager gameManager;
+    [SerializeField] private EM_GameManager gameManager;
 
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         splineContainer = firstSplineContainer;
         _spline = splineContainer.Spline;
         CalculateSplineLength();
@@ -91,6 +90,7 @@ public class PursuingEnemy : MonoBehaviour
     }
 
     void CheckConditions(){
+        if (!gameManager.GameOver){
         if (player.Velocity<9&&gameManager.GameStarted){
             currentSpeed = defaultSpeed+10;
         }
@@ -101,7 +101,11 @@ public class PursuingEnemy : MonoBehaviour
         if (!gameManager.GameStarted||freezed)
         {
             currentSpeed = 0;
-        }
+        }}
+        else{
+        if (Vector3.Distance(transform.position, player.transform.position) < 15){
+        currentSpeed = Mathf.MoveTowards(currentSpeed, 0, Time.deltaTime * 15);}
+    }
     }
 public void Freeze(){
     freezed = true;
