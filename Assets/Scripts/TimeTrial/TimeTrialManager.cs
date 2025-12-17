@@ -268,7 +268,7 @@ void RegisterSector(int sectorIndex, float sectorTime)
         GameManager.Instance.PauseGame();
     }
     IEnumerator LoadLeaderboard(){
-    monzaLeaderBoard.LoadLeaderboard();
+    //monzaLeaderBoard.LoadLeaderboard();
     yield return new WaitForSeconds(2f);
     monzaLeaderBoard.isLoaded = false;
     monzaLeaderBoard.LoadLeaderboard();

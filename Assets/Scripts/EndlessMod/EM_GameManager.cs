@@ -4,7 +4,8 @@ using System.Collections;
 using TMPro;
 using Dan.Main;
 using UnityEngine.UI;
-public class GameManagerEM : MonoBehaviour
+using System;
+public class EM_GameManager : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private SpawnManager spawnManager;
@@ -20,7 +21,12 @@ public class GameManagerEM : MonoBehaviour
 
     bool gameStarted;
 
-    [SerializeField] private LeaderboarManager leaderboarManager;
+    [SerializeField] private EMLeaderBoard emLeaderBoard;
+
+    public static event Action OnGameStart;
+    public static event Action OnLowHealth;
+    public static event Action OnNormalHealth;
+    public static event Action OnGameOver;
 
 
 
@@ -28,13 +34,16 @@ public class GameManagerEM : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        OnGameOver += GameOverSequence;
         GameOver = false;
         IsPaused = false;
         gameOverSequenceStarted = false;
         Time.timeScale = 1;
-        uiController.ActivateUI(uiController.ScoreUI, true);
-        uiController.ActivateUI(uiController.healthAlert, false);
-        uiController.ActivateUI(uiController.gameOverMenu, false); 
+        OnGameStart?.Invoke();
+    }
+
+    void OnDestroy(){
+        OnGameOver -= GameOverSequence;
     }
 
     // Update is called once per frame
@@ -43,37 +52,21 @@ public class GameManagerEM : MonoBehaviour
         time = Time.timeSinceLevelLoad;
         SetDifficulty();
         if (player.Health < 2){
-            uiController.ActivateUI(uiController.healthAlert, true);
+            OnNormalHealth = null;
+            OnLowHealth?.Invoke();
         }
-        else{uiController.ActivateUI(uiController.healthAlert, false);}
+        else{
+            OnLowHealth = null;
+            OnNormalHealth?.Invoke();}
         
         if (!player.isAlive && gameOverSequenceStarted == false)
         {
             GameOver = true;
             gameOverSequenceStarted = true;
-            GameOverSequence();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            PauseGame();
+            OnGameOver?.Invoke();
         }
     }
 
-public void PauseGame(){
-                if(!IsPaused){
-                uiController.SwitchScreenActive(uiController.pauseMenu);
-                IsPaused = true;
-                Time.timeScale = 0;
-            }
-            else if(IsPaused&&uiController.activeScreens.Count < 2){
-                uiController.DeactivateActiveScreen();
-                IsPaused = false;
-                Time.timeScale = 1;
-            
-            }
-            else if (IsPaused&&uiController.activeScreens.Count >= 2){
-                uiController.DeactivateActiveScreen();
-            } }
 float GetDifficulty(float t, float start, float max, float k)
 {
     return start + (max - start) * (1f - Mathf.Exp(-k * t));
@@ -90,29 +83,36 @@ public bool GameStarted{
     get {return gameStarted;}
     set {gameStarted = value;}}
 
-public void RestartGame(){
-SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-}
 
 private void GameOverSequence(){
 
-            uiController.SwitchScreenActive(uiController.ScoreUI);
-            uiController.SwitchScreenActive(uiController.gameOverMenu);
             float currentScore = scoreManager.mainScore;
-            uiController.SetText(uiController.currentScore, currentScore.ToString());
-            if (currentScore > PrefsManager.Instance.bestScore&&!PrefsManager.Instance.IsPrefsSetted("BestScore")){
+            if (currentScore > PrefsManager.Instance.GetBestScore()&&!PrefsManager.Instance.IsPrefsSetted("BestScoreUploaded")){
                 PrefsManager.Instance.SaveBestScore(currentScore); 
-                leaderboarManager.LoadEntries();
+                emLeaderBoard.LoadLeaderboard();
             }
-            else if (currentScore > PrefsManager.Instance.bestScore&&PrefsManager.Instance.IsPrefsSetted("BestScore")){
+            else if (currentScore > PrefsManager.Instance.bestScore&&PrefsManager.Instance.IsPrefsSetted("BestScoreUploaded")){
                 PrefsManager.Instance.SaveBestScore(currentScore);
-                leaderboarManager.UpdatePlayerEntry();
+                emLeaderBoard.UpdateLeaderboard();
             }
             else{
-                leaderboarManager.LoadEntries();
+                emLeaderBoard.LoadLeaderboard();
             }
-            uiController.SetText(uiController.bestScore, PrefsManager.Instance.bestScore.ToString());
 }
+
+    public void ExitToMainMenu(){
+        GameManager.Instance.LoadScene("MainMenu");
+    }
+    public void ResumeGame(){
+        GameManager.Instance.PauseGame();
+    }
+    public void RestartGame(){
+        GameManager.Instance.LoadScene("EndlessMode");
+    }
+
+    public void DeletePlayerEntry(){
+        PrefsManager.Instance.ResetEndlessModPrefs();
+    }
 
 }
 

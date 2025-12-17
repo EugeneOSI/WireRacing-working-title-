@@ -1,20 +1,20 @@
 using UnityEngine;
-using UnityEngine.UI;
 using Dan.Main;
 using Dan.Enums;
-using System.Collections.Generic;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
+using System.Collections;
 using System;
-public class MonzaLeaderBoard : MonoBehaviour
+public class EMLeaderBoard : MonoBehaviour
 {
-    public bool isLoaded {get; set;}
     [SerializeField] private GameObject entryPrefab;
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private Transform entryParent;
     public int playerPosition {get; private set;}
     [SerializeField] private TMP_InputField playerNameInput;
 
-    public static event Action MonzaEntriesLoaded;
+    public static event Action EndlessModEntriesLoaded;
     public static event Action EmptyFieldAlert;
 
     public StatusCode statusCode;
@@ -24,7 +24,6 @@ public class MonzaLeaderBoard : MonoBehaviour
     void Start()
     {
         statusCode = StatusCode.NotFound;
-        isLoaded = false;
         LeaderBoardsManager.EntriesLoaded += OnEntriesLoaded;
     }
     void OnDestroy()
@@ -32,22 +31,14 @@ public class MonzaLeaderBoard : MonoBehaviour
         LeaderBoardsManager.EntriesLoaded -= OnEntriesLoaded;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-
-public void OnEntriesLoaded(Dan.Models.Entry[] entries)
+    public void OnEntriesLoaded(Dan.Models.Entry[] entries)
 {
 
     ClearLeaderBoard();
     FillLeaderBoard(entries);
-    MonzaEntriesLoaded?.Invoke();
+    EndlessModEntriesLoaded?.Invoke();
     Canvas.ForceUpdateCanvases();
     scrollRect.normalizedPosition = new Vector2(0, 1);
-    isLoaded = true;
 
 }
 
@@ -59,14 +50,14 @@ private void ClearLeaderBoard(){
             }
                 entryObjects.Clear();}
 }
+
 private void FillLeaderBoard(Dan.Models.Entry[] entries){
         foreach (Dan.Models.Entry entry in entries)
     {
         //scrollRect.transform.SetParent(entryParent);
         GameObject entryObject = Instantiate(entryPrefab, entryParent);
         TextMeshProUGUI textObject = entryObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        float time = (float)entry.Score / 1000;
-        textObject.text = $"{entry.Rank}. {entry.Username} - {UIManager.Instance.FormatTime(time, "lap")}";
+        textObject.text = $"{entry.Rank}. {entry.Username} - {entry.Score}";
         entryObjects.Add(entryObject);
         bool isMine = entry.IsMine();
         
@@ -78,6 +69,7 @@ private void FillLeaderBoard(Dan.Models.Entry[] entries){
     }
 }
 
+    
 public void UploadPlayerEntry(){
     
     
@@ -93,7 +85,7 @@ public void UploadPlayerEntry(){
         name = playerNameInput.text;
         PrefsManager.Instance.SetPlayerName(name);
     }
-    LeaderBoardsManager.Instance.UploadPlayerEntry("Monza", PrefsManager.Instance.GetPlayerName());
+    LeaderBoardsManager.Instance.UploadPlayerEntry("EndlessMod", PrefsManager.Instance.GetPlayerName());
 
 }
 
@@ -101,23 +93,15 @@ public void UpdatePlayerName(){
     PrefsManager.Instance.SetPlayerName(playerNameInput.text);
 }
 
-
 public void LoadLeaderboard(){
-    if (!isLoaded){
-        LeaderBoardsManager.Instance.LoadEntries("Monza");
-    }
+        LeaderBoardsManager.Instance.LoadEntries("EndlessMod");
+    
 }
 public void UpdateLeaderboard(){
-    isLoaded = false;
-    LeaderBoardsManager.Instance.UpdatePlayerEntry("Monza");
-}
-
+    LeaderBoardsManager.Instance.UpdatePlayerEntry("EndlessMod");
+}  
 public void DeletePlayerEntry(){
-    LeaderBoardsManager.Instance.DeletePlayerEntry("Monza");
+    LeaderBoardsManager.Instance.DeletePlayerEntry("EndlessMod");
 }
-
-
-
 }
-
 

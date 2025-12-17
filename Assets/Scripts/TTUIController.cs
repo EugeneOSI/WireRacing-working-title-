@@ -4,7 +4,6 @@ using TMPro;
 public class TTUIController : MonoBehaviour
 {
     [SerializeField] private MonzaLeaderBoard monzaLeaderBoard;
-
     [SerializeField] private TimeTrialManager timeTrialManager;
     [SerializeField] public GameObject pauseMenu;
     [SerializeField] public GameObject optionsMenu;
@@ -17,10 +16,10 @@ public class TTUIController : MonoBehaviour
     [SerializeField] public GameObject monzaLeaderBoardPlace;
     [SerializeField] public GameObject inputFieldDesciption;
     [SerializeField] public GameObject fieldAlert;
+    [SerializeField] public GameObject updateNameButton;
 
     public List<GameObject> ActiveScreens = new List<GameObject>();
     
-    public bool IsPaused {get; set;}
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -31,6 +30,7 @@ public class TTUIController : MonoBehaviour
     MonzaLeaderBoard.MonzaEntriesLoaded += OnMonzaEntriesLoaded;
     MonzaLeaderBoard.EmptyFieldAlert += EmptyFieldAlert;
     LeaderBoardsManager.OnLeaderboardError += OnLeaderboardError;
+    LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
 
     }
     void OnDestroy()
@@ -42,6 +42,7 @@ public class TTUIController : MonoBehaviour
     MonzaLeaderBoard.MonzaEntriesLoaded -= OnMonzaEntriesLoaded;
     MonzaLeaderBoard.EmptyFieldAlert -= EmptyFieldAlert;
     LeaderBoardsManager.OnLeaderboardError -= OnLeaderboardError;
+    LeaderBoardsManager.EntriesLoading -= OnEntriesLoading;
     }
 
     // Update is called once per frame
@@ -86,6 +87,13 @@ private void OnMonzaEntriesLoaded(){
     if (!PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded") && PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(submitScoreButton, true);
         UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
+        if (!PrefsManager.Instance.IsPrefsSetted("BestMonzaTime")){
+        UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
+        }
+        else{
+        UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
+        }
+        UIManager.Instance.SetVisibilty(inputField, false);
         UIManager.Instance.SetVisibilty(playerName, true);
         UIManager.Instance.SetVisibilty(editNameButton, true);
         UIManager.Instance.SetText(playerName, "Your name: "+PrefsManager.Instance.GetPlayerName());
@@ -149,12 +157,17 @@ public void ShowEditNamePanel(){
     UIManager.Instance.SetVisibilty(editNameButton, false);
     UIManager.Instance.SetVisibilty(playerName, false);
     UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
+    UIManager.Instance.SetVisibilty(submitScoreButton, false);
     
     UIManager.Instance.SetVisibilty(inputField, true);
     UIManager.Instance.SetText(inputFieldDesciption, "Enter your new name");
-    UIManager.Instance.SetVisibilty(submitScoreButton, true);
-    UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
-    submitScoreButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Update name";
+    UIManager.Instance.SetVisibilty(updateNameButton, true);
+    if (!PrefsManager.Instance.IsPrefsSetted("BestMonzaTime")){
+    UIManager.Instance.SetButtonInteractable(updateNameButton, false);
+    }
+    else{
+    UIManager.Instance.SetButtonInteractable(updateNameButton, true);
+    }
     UIManager.Instance.SetVisibilty(cancelUpdateNameButton, true);
 
 }
@@ -165,6 +178,8 @@ public void CancelUpdateName(){
     
     UIManager.Instance.SetVisibilty(inputField, false);
     UIManager.Instance.SetVisibilty(cancelUpdateNameButton, false);
+    UIManager.Instance.SetVisibilty(updateNameButton, false);
+    
 
     if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){
         UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, true);
@@ -173,7 +188,6 @@ public void CancelUpdateName(){
     if (!PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){
         UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
         UIManager.Instance.SetVisibilty(submitScoreButton, true);
-        submitScoreButton.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Submit best time";
     }}
 }
 }

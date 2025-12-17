@@ -295,7 +295,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (uiController.scoreText != null)
         {
-            uiController.SetText(uiController.scoreText, "Score: " + (int)mainScore);
+            UIManager.Instance.SetText(uiController.scoreText, "Score: " + (int)mainScore);
         }
     }
 

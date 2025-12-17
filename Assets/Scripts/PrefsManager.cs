@@ -60,8 +60,7 @@ public class PrefsManager : MonoBehaviour
     }
 
     public void SaveBestScore(float score){
-        bestScore = score;
-        PlayerPrefs.SetFloat("BestScore", bestScore);
+        PlayerPrefs.SetFloat("BestScore", score);
     }
     public float GetBestScore(){
         if (IsPrefsSetted("BestScore")){
@@ -157,6 +156,9 @@ public class PrefsManager : MonoBehaviour
                     return 0;
         }
     }
+    public void SetBestScoreUploadStatus(int status){
+        PlayerPrefs.SetInt("BestScoreUploaded", status);
+    }
     public bool IsPrefsSetted(string pref){
         return PlayerPrefs.HasKey(pref);
     }
@@ -176,6 +178,12 @@ public class PrefsManager : MonoBehaviour
         PlayerPrefs.DeleteKey("MonzaLaps");
         PlayerPrefs.DeleteKey("PlayerName");
         PlayerPrefs.DeleteKey("MonzaTimeUploaded");
+    }
+    
+    public void ResetEndlessModPrefs(){
+        PlayerPrefs.DeleteKey("BestScore");
+        PlayerPrefs.DeleteKey("BestScoreUploaded");
+        PlayerPrefs.DeleteKey("PlayerName");
     }
 
     public void DeleteNamePrefs(){
