@@ -52,12 +52,11 @@ public class EM_GameManager : MonoBehaviour
         time = Time.timeSinceLevelLoad;
         SetDifficulty();
         if (player.Health < 2){
-            OnNormalHealth = null;
             OnLowHealth?.Invoke();
         }
         else{
-            OnLowHealth = null;
-            OnNormalHealth?.Invoke();}
+            OnNormalHealth?.Invoke();
+        }
         
         if (!player.isAlive && gameOverSequenceStarted == false)
         {

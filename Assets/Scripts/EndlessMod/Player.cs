@@ -35,6 +35,10 @@ public class Player : MonoBehaviour
     [Header("Surfaces")]
     public LayerMask surfaceLayer;
 
+    [Header("Sliders")]
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private Slider powerUpBar;
+
     [Header("Components")]
     private Rigidbody2D playerRb;
     private LineRenderer lineRenderer;
@@ -47,6 +51,11 @@ public class Player : MonoBehaviour
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
 
+    [Header("Coroutines")]
+    private Coroutine withPowerUpCoroutine;
+
+    
+
 
 
     void Start()
@@ -55,6 +64,8 @@ public class Player : MonoBehaviour
         contactFilter.layerMask = surfaceLayer;
         contactFilter.useLayerMask = true;
         contactFilter.useTriggers = true;
+
+        powerUpBar.gameObject.SetActive(false);
 
 
         hookIsMoving = false;
@@ -94,6 +105,13 @@ public class Player : MonoBehaviour
             HookPoint hookPoint = tmpHookPoint.GetComponent<HookPoint>();
             DrawWire();
             if (!hookPoint.moveStatus) hookIsMoving = false;
+        }
+
+        healthBar.value = health;
+
+        if (withPowerUp)
+        {
+            DigressPowerUp();
         }
     }
 
@@ -210,12 +228,10 @@ public class Player : MonoBehaviour
     }
     void CheckCurrentSpeed()
     {
-
-
-        if (Velocity >= 10 && startRace)
+        if (Velocity >= 20)
         {
             Debug.Log("Healing Player");
-            health += Mathf.MoveTowards(health, 4, Time.deltaTime * 1);
+            health = Mathf.MoveTowards(health, 4, Time.deltaTime * 0.5f);
             //timerSlider.value = health;
         }
     }
@@ -258,7 +274,13 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("PowerUp")){
             Destroy(collision.gameObject);
-            StartCoroutine(WithPowerUp());
+            if (withPowerUp){       
+            StopCoroutine(withPowerUpCoroutine);
+            withPowerUpCoroutine = null;
+            withPowerUpCoroutine = StartCoroutine(WithPowerUp());}
+            else{
+                withPowerUpCoroutine = StartCoroutine(WithPowerUp());
+            }
         }
         if (collision.CompareTag("DeadZone")){
             DisableHook();
@@ -308,6 +330,8 @@ public class Player : MonoBehaviour
     IEnumerator WithPowerUp()
     {
         withPowerUp = true;
+        powerUpBar.gameObject.SetActive(true);
+        powerUpBar.value = 5;
         powerUp.SetActive(true);
         if (health < 5)
         {
@@ -315,7 +339,15 @@ public class Player : MonoBehaviour
         }
         yield return new WaitForSeconds(5);
         withPowerUp = false;
+        powerUpBar.gameObject.SetActive(false);
         powerUp.SetActive(false);
+    }
+    void DigressPowerUp()
+    {
+        if (powerUpBar.value > 0)
+        {
+            powerUpBar.value-=Time.deltaTime;
+        }
     }
 
     public float Velocity
