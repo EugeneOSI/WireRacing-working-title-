@@ -1,0 +1,3757 @@
+fileFormatVersion: 2
+guid: 74b2e0c4ccf6fa942a192b0238d49d7e
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8400557131031612559
+    second: FlagPattern_0
+  - first:
+      213: 5684968756942643420
+    second: FlagPattern_1
+  - first:
+      213: -4322763826113609960
+    second: FlagPattern_2
+  - first:
+      213: 4914705991581476539
+    second: FlagPattern_3
+  - first:
+      213: -8605198064957073136
+    second: FlagPattern_4
+  - first:
+      213: 4859257821979635074
+    second: FlagPattern_5
+  - first:
+      213: -4174663912442281945
+    second: FlagPattern_6
+  - first:
+      213: 5839592266625612908
+    second: FlagPattern_7
+  - first:
+      213: 9196204991796053400
+    second: FlagPattern_8
+  - first:
+      213: -4614225559966236456
+    second: FlagPattern_9
+  - first:
+      213: -3331442639699890712
+    second: FlagPattern_10
+  - first:
+      213: -1510238163351402707
+    second: FlagPattern_11
+  - first:
+      213: -3980447800385025481
+    second: FlagPattern_12
+  - first:
+      213: -3741936823459976273
+    second: FlagPattern_13
+  - first:
+      213: -4440128813113638137
+    second: FlagPattern_14
+  - first:
+      213: -4285266205777854759
+    second: FlagPattern_15
+  - first:
+      213: 7119897442210448710
+    second: FlagPattern_16
+  - first:
+      213: 3638133235054358112
+    second: FlagPattern_17
+  - first:
+      213: -4221699088827337326
+    second: FlagPattern_18
+  - first:
+      213: -2867516382506392697
+    second: FlagPattern_19
+  - first:
+      213: -9018892718782996044
+    second: FlagPattern_20
+  - first:
+      213: 5093648890938076661
+    second: FlagPattern_21
+  - first:
+      213: 8746814423851681112
+    second: FlagPattern_22
+  - first:
+      213: 1853750426634882484
+    second: FlagPattern_23
+  - first:
+      213: 4088440736693079262
+    second: FlagPattern_24
+  - first:
+      213: 6003756418782695081
+    second: FlagPattern_25
+  - first:
+      213: -858746729520647173
+    second: FlagPattern_26
+  - first:
+      213: -307347707506723032
+    second: FlagPattern_27
+  - first:
+      213: -3975257305760562061
+    second: FlagPattern_28
+  - first:
+      213: 3224374181029787615
+    second: FlagPattern_29
+  - first:
+      213: 5718413422259544047
+    second: FlagPattern_30
+  - first:
+      213: -4543094760940558994
+    second: FlagPattern_31
+  - first:
+      213: -2137409643904386952
+    second: FlagPattern_32
+  - first:
+      213: 2190215490842972552
+    second: FlagPattern_33
+  - first:
+      213: 1973245492480696073
+    second: FlagPattern_34
+  - first:
+      213: 3187046216081454051
+    second: FlagPattern_35
+  - first:
+      213: 9063043210381215151
+    second: FlagPattern_36
+  - first:
+      213: 5025518772135026853
+    second: FlagPattern_37
+  - first:
+      213: -8218267216614322427
+    second: FlagPattern_38
+  - first:
+      213: -2218211385407898020
+    second: FlagPattern_39
+  - first:
+      213: -3789355369424569151
+    second: FlagPattern_40
+  - first:
+      213: -8452102795480891107
+    second: FlagPattern_41
+  - first:
+      213: -2369462852740836600
+    second: FlagPattern_42
+  - first:
+      213: -847960667992593058
+    second: FlagPattern_43
+  - first:
+      213: -2311733145348161678
+    second: FlagPattern_44
+  - first:
+      213: -9154410336213681213
+    second: FlagPattern_45
+  - first:
+      213: -5768511119329160649
+    second: FlagPattern_46
+  - first:
+      213: -8481041938439127144
+    second: FlagPattern_47
+  - first:
+      213: -6951685710153594831
+    second: FlagPattern_48
+  - first:
+      213: 1818221524224902143
+    second: FlagPattern_49
+  - first:
+      213: -7554746297660877966
+    second: FlagPattern_50
+  - first:
+      213: -1450858060144537829
+    second: FlagPattern_51
+  - first:
+      213: -153631343349640048
+    second: FlagPattern_52
+  - first:
+      213: -5962291150925013509
+    second: FlagPattern_53
+  - first:
+      213: 546743564531784283
+    second: FlagPattern_54
+  - first:
+      213: 5397328340861653239
+    second: FlagPattern_55
+  - first:
+      213: 8599085368676505749
+    second: FlagPattern_56
+  - first:
+      213: -659677816196087972
+    second: FlagPattern_57
+  - first:
+      213: -3425460709387568524
+    second: FlagPattern_58
+  - first:
+      213: 2363527656954991651
+    second: FlagPattern_59
+  - first:
+      213: 339544773948715614
+    second: FlagPattern_60
+  - first:
+      213: -6504707236520761973
+    second: FlagPattern_61
+  - first:
+      213: -5608548983319701924
+    second: FlagPattern_62
+  - first:
+      213: 3806758103293592374
+    second: FlagPattern_63
+  - first:
+      213: 5454288348851437221
+    second: FlagPattern_64
+  - first:
+      213: -8586027615364269644
+    second: FlagPattern_65
+  - first:
+      213: 548453947496884859
+    second: FlagPattern_66
+  - first:
+      213: 9046168474661149916
+    second: FlagPattern_67
+  - first:
+      213: 3558861449649553301
+    second: FlagPattern_68
+  - first:
+      213: -5052114228351157533
+    second: FlagPattern_69
+  - first:
+      213: 7067373679616097635
+    second: FlagPattern_70
+  - first:
+      213: -1910620023040067499
+    second: FlagPattern_71
+  - first:
+      213: 5873780982809108330
+    second: FlagPattern_72
+  - first:
+      213: 8165645113983512405
+    second: FlagPattern_73
+  - first:
+      213: 1857807097921543837
+    second: FlagPattern_74
+  - first:
+      213: 5882888499606106725
+    second: FlagPattern_75
+  - first:
+      213: 2394811109551185612
+    second: FlagPattern_76
+  - first:
+      213: 1705390869419985898
+    second: FlagPattern_77
+  - first:
+      213: 699479328029219805
+    second: FlagPattern_78
+  - first:
+      213: 5672549671798096365
+    second: FlagPattern_79
+  - first:
+      213: -6064780355596394270
+    second: FlagPattern_80
+  - first:
+      213: -965734292177654789
+    second: FlagPattern_81
+  - first:
+      213: -5708779147172061807
+    second: FlagPattern_82
+  - first:
+      213: -7383805779208313935
+    second: FlagPattern_83
+  - first:
+      213: -6143426345821489733
+    second: FlagPattern_84
+  - first:
+      213: 1236451278554861126
+    second: FlagPattern_85
+  - first:
+      213: 3123677566652403182
+    second: FlagPattern_86
+  - first:
+      213: -115046029112601649
+    second: FlagPattern_87
+  - first:
+      213: 7691528473573459395
+    second: FlagPattern_88
+  - first:
+      213: 519145230432001494
+    second: FlagPattern_89
+  - first:
+      213: -2517019610239351835
+    second: FlagPattern_90
+  - first:
+      213: 5253375803639144954
+    second: FlagPattern_91
+  - first:
+      213: -2615034702062292199
+    second: FlagPattern_92
+  - first:
+      213: -3549936635860528398
+    second: FlagPattern_93
+  - first:
+      213: -4156941712555220593
+    second: FlagPattern_94
+  - first:
+      213: 8135539853267098400
+    second: FlagPattern_95
+  - first:
+      213: 6925753388482691342
+    second: FlagPattern_96
+  - first:
+      213: 5431855121697016154
+    second: FlagPattern_97
+  - first:
+      213: 2511246124391305627
+    second: FlagPattern_98
+  - first:
+      213: 8891660389910306572
+    second: FlagPattern_99
+  - first:
+      213: -847937925579267647
+    second: FlagPattern_100
+  - first:
+      213: -8516355318953986687
+    second: FlagPattern_101
+  - first:
+      213: -8027124783792533987
+    second: FlagPattern_102
+  - first:
+      213: 5610269155664738635
+    second: FlagPattern_103
+  - first:
+      213: -1645477810845711391
+    second: FlagPattern_104
+  - first:
+      213: -1991759932910618869
+    second: FlagPattern_105
+  - first:
+      213: -4738937648413256141
+    second: FlagPattern_106
+  - first:
+      213: -9080952154731701765
+    second: FlagPattern_107
+  - first:
+      213: 669280000293906384
+    second: FlagPattern_108
+  - first:
+      213: 4528583861027897995
+    second: FlagPattern_109
+  - first:
+      213: 4196182923299965942
+    second: FlagPattern_110
+  - first:
+      213: 5144267256897342699
+    second: FlagPattern_111
+  - first:
+      213: -6538758904887582257
+    second: FlagPattern_112
+  - first:
+      213: -6123205615817889896
+    second: FlagPattern_113
+  - first:
+      213: -3856248086330259748
+    second: FlagPattern_114
+  - first:
+      213: -5753154974517781693
+    second: FlagPattern_115
+  - first:
+      213: 3700931496816853013
+    second: FlagPattern_116
+  - first:
+      213: -1919337441919492964
+    second: FlagPattern_117
+  - first:
+      213: -7399022830440069620
+    second: FlagPattern_118
+  - first:
+      213: 3874200105025303270
+    second: FlagPattern_119
+  - first:
+      213: -895426264488170656
+    second: FlagPattern_120
+  - first:
+      213: 6650810977825340471
+    second: FlagPattern_121
+  - first:
+      213: 8474219005650606894
+    second: FlagPattern_122
+  - first:
+      213: 8228237132198896739
+    second: FlagPattern_123
+  - first:
+      213: 6896154975504148314
+    second: FlagPattern_124
+  - first:
+      213: -1565601359214499597
+    second: FlagPattern_125
+  - first:
+      213: 5017631035532532804
+    second: FlagPattern_126
+  - first:
+      213: -6966202739108133907
+    second: FlagPattern_127
+  - first:
+      213: -8213671784696248084
+    second: FlagPattern_128
+  - first:
+      213: -8404101646783372335
+    second: FlagPattern_129
+  - first:
+      213: -8660204898290655797
+    second: FlagPattern_130
+  - first:
+      213: -7555645319438279105
+    second: FlagPattern_131
+  - first:
+      213: -25412084620168859
+    second: FlagPattern_132
+  - first:
+      213: -5998390295926460562
+    second: FlagPattern_133
+  - first:
+      213: 3011993761480846788
+    second: FlagPattern_134
+  - first:
+      213: -6142014238764124353
+    second: FlagPattern_135
+  - first:
+      213: -8902493539841990511
+    second: FlagPattern_136
+  - first:
+      213: -3331947425611268020
+    second: FlagPattern_137
+  - first:
+      213: 4088291779376960307
+    second: FlagPattern_138
+  - first:
+      213: 4962629062097506979
+    second: FlagPattern_139
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FlagPattern_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2111
+        width: 70
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8c838ed336c49470800000000000000
+      internalID: 8400557131031612559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_1
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 2134
+        width: 47
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd0a2c4d6f015ee40800000000000000
+      internalID: 5684968756942643420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_2
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 2115
+        width: 37
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81ff69004357204c0800000000000000
+      internalID: -4322763826113609960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_3
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 2134
+        width: 46
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb6a2b36f0b843440800000000000000
+      internalID: 4914705991581476539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_4
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 2134
+        width: 47
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 019da54c3f1349880800000000000000
+      internalID: -8605198064957073136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_5
+      rect:
+        serializedVersion: 2
+        x: 406
+        y: 2115
+        width: 37
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28d622f5e3d8f6340800000000000000
+      internalID: 4859257821979635074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_6
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 2134
+        width: 46
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7204c3a3a4d9016c0800000000000000
+      internalID: -4174663912442281945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_7
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 2134
+        width: 47
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6c765d1a366a0150800000000000000
+      internalID: 5839592266625612908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_8
+      rect:
+        serializedVersion: 2
+        x: 624
+        y: 2115
+        width: 37
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8958da967bb7f9f70800000000000000
+      internalID: 9196204991796053400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_9
+      rect:
+        serializedVersion: 2
+        x: 663
+        y: 2134
+        width: 46
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d04fa8ec4af6ffb0800000000000000
+      internalID: -4614225559966236456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_10
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 2138
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ed2917e19654c1d0800000000000000
+      internalID: -3331442639699890712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_11
+      rect:
+        serializedVersion: 2
+        x: 830
+        y: 2119
+        width: 37
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d27833b546e8a0be0800000000000000
+      internalID: -1510238163351402707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_12
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 2138
+        width: 40
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73ac01b90db92c8c0800000000000000
+      internalID: -3980447800385025481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_13
+      rect:
+        serializedVersion: 2
+        x: 1001
+        y: 2138
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fabe6b1e848f11cc0800000000000000
+      internalID: -3741936823459976273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_14
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 2119
+        width: 37
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70382698e5e7162c0800000000000000
+      internalID: -4440128813113638137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_15
+      rect:
+        serializedVersion: 2
+        x: 1090
+        y: 2138
+        width: 40
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9deff94171da784c0800000000000000
+      internalID: -4285266205777854759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_16
+      rect:
+        serializedVersion: 2
+        x: 1225
+        y: 2135
+        width: 45
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6458a283005fec260800000000000000
+      internalID: 7119897442210448710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_17
+      rect:
+        serializedVersion: 2
+        x: 1272
+        y: 2116
+        width: 37
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06e25f0d6ee3d7230800000000000000
+      internalID: 3638133235054358112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_18
+      rect:
+        serializedVersion: 2
+        x: 1312
+        y: 2135
+        width: 44
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2953bd5db038965c0800000000000000
+      internalID: -4221699088827337326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_19
+      rect:
+        serializedVersion: 2
+        x: 1433
+        y: 2139
+        width: 39
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 783e719fa098438d0800000000000000
+      internalID: -2867516382506392697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_20
+      rect:
+        serializedVersion: 2
+        x: 1478
+        y: 2120
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b1259d3bd476d280800000000000000
+      internalID: -9018892718782996044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_21
+      rect:
+        serializedVersion: 2
+        x: 1522
+        y: 2139
+        width: 39
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fd2de2dda640b640800000000000000
+      internalID: 5093648890938076661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_22
+      rect:
+        serializedVersion: 2
+        x: 1650
+        y: 2139
+        width: 39
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85541f9306de26970800000000000000
+      internalID: 8746814423851681112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_23
+      rect:
+        serializedVersion: 2
+        x: 1695
+        y: 2120
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bd0dc10138d9b910800000000000000
+      internalID: 1853750426634882484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_24
+      rect:
+        serializedVersion: 2
+        x: 1739
+        y: 2139
+        width: 39
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: edcc3d3403f0db830800000000000000
+      internalID: 4088440736693079262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_25
+      rect:
+        serializedVersion: 2
+        x: 1874
+        y: 2138
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ae838357a0a15350800000000000000
+      internalID: 6003756418782695081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_26
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 2119
+        width: 37
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf3b4ea366e1514f0800000000000000
+      internalID: -858746729520647173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_27
+      rect:
+        serializedVersion: 2
+        x: 1963
+        y: 2138
+        width: 40
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 827f78f63e41cbbf0800000000000000
+      internalID: -307347707506723032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_28
+      rect:
+        serializedVersion: 2
+        x: 2082
+        y: 2142
+        width: 36
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3748d5fca8c05d8c0800000000000000
+      internalID: -3975257305760562061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_29
+      rect:
+        serializedVersion: 2
+        x: 2126
+        y: 2123
+        width: 34
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd7b833fb374fbc20800000000000000
+      internalID: 3224374181029787615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1902
+        width: 73
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fef1b98c5b2eb5f40800000000000000
+      internalID: 5718413422259544047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_31
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1906
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e652331a26fa3f0c0800000000000000
+      internalID: -4543094760940558994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_32
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 1906
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 878b59bd0456652e0800000000000000
+      internalID: -2137409643904386952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_33
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 1906
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 881d0497265356e10800000000000000
+      internalID: 2190215490842972552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_34
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1910
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90fd3f91250626b10800000000000000
+      internalID: 1973245492480696073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_35
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 1910
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e3b948d5a9aa3c20800000000000000
+      internalID: 3187046216081454051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_36
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 1907
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa5c9c228c566cd70800000000000000
+      internalID: 9063043210381215151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_37
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 1911
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a06a2962ba3eb540800000000000000
+      internalID: 5025518772135026853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_38
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 1911
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50f077c3289d2fd80800000000000000
+      internalID: -8218267216614322427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_39
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 1910
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5ef8006f745731e0800000000000000
+      internalID: -2218211385407898020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_40
+      rect:
+        serializedVersion: 2
+        x: 2070
+        y: 1914
+        width: 90
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ccbabd4e51896bc0800000000000000
+      internalID: -3789355369424569151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_41
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1682
+        width: 74
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d118646e94914ba80800000000000000
+      internalID: -8452102795480891107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_42
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 1686
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80316e1e61afd1fd0800000000000000
+      internalID: -2369462852740836600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_43
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 1686
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5d6cc0e3407b34f0800000000000000
+      internalID: -847960667992593058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_44
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 1686
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27fb600d3f21befd0800000000000000
+      internalID: -2311733145348161678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_45
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 1690
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cbb1d52d4005f080800000000000000
+      internalID: -9154410336213681213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_46
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 1690
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7329e7923b122ffa0800000000000000
+      internalID: -5768511119329160649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_47
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 1687
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89f352e9a494d4a80800000000000000
+      internalID: -8481041938439127144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_48
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 1691
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 138c220ada6a68f90800000000000000
+      internalID: -6951685710153594831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_49
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 1691
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff3056ac7de9b3910800000000000000
+      internalID: 1818221524224902143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_50
+      rect:
+        serializedVersion: 2
+        x: 1865
+        y: 1690
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 273d9bfd446282790800000000000000
+      internalID: -7554746297660877966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_51
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 1694
+        width: 89
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1f829108448ddbe0800000000000000
+      internalID: -1450858060144537829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1466
+        width: 74
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09457417b113eddf0800000000000000
+      internalID: -153631343349640048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_53
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 1470
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfdd8ada9cfa14da0800000000000000
+      internalID: -5962291150925013509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_54
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 1470
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5ad52b006c669700800000000000000
+      internalID: 546743564531784283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_55
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 1470
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f0153d978927ea40800000000000000
+      internalID: 5397328340861653239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_56
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 1474
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 598d8393596165770800000000000000
+      internalID: 8599085368676505749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_57
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 1474
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5f3d63758a58d6f0800000000000000
+      internalID: -659677816196087972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_58
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 1471
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47a75e832a15670d0800000000000000
+      internalID: -3425460709387568524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_59
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 1475
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3241d99a1efecc020800000000000000
+      internalID: 2363527656954991651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_60
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 1475
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e52bd844c2e46b400800000000000000
+      internalID: 339544773948715614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_61
+      rect:
+        serializedVersion: 2
+        x: 1865
+        y: 1474
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8564475b33aab5a0800000000000000
+      internalID: -6504707236520761973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_62
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 1478
+        width: 89
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c56d9df3a6e6a22b0800000000000000
+      internalID: -5608548983319701924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_63
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1246
+        width: 75
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63387ac635254d430800000000000000
+      internalID: 3806758103293592374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_64
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 1250
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ae77dfea5681bb40800000000000000
+      internalID: 5454288348851437221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_65
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 1250
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b9b482ef5d48d880800000000000000
+      internalID: -8586027615364269644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_66
+      rect:
+        serializedVersion: 2
+        x: 570
+        y: 1250
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b7a663c95ff7c9700800000000000000
+      internalID: 548453947496884859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_67
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 1254
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cdcd38e8c427a8d70800000000000000
+      internalID: 9046168474661149916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_68
+      rect:
+        serializedVersion: 2
+        x: 993
+        y: 1254
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59f713ff1ad936130800000000000000
+      internalID: 3558861449649553301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_69
+      rect:
+        serializedVersion: 2
+        x: 1218
+        y: 1251
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3eabe6660e843e9b0800000000000000
+      internalID: -5052114228351157533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_70
+      rect:
+        serializedVersion: 2
+        x: 1424
+        y: 1255
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36d7674caea541260800000000000000
+      internalID: 7067373679616097635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_71
+      rect:
+        serializedVersion: 2
+        x: 1641
+        y: 1255
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 558b2f1463d1c75e0800000000000000
+      internalID: -1910620023040067499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_72
+      rect:
+        serializedVersion: 2
+        x: 1866
+        y: 1254
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6f18c8eeacd38150800000000000000
+      internalID: 5873780982809108330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_73
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 1258
+        width: 88
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55f24ecb7f2325170800000000000000
+      internalID: 8165645113983512405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_74
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1037
+        width: 73
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9e10d466b148c910800000000000000
+      internalID: 1857807097921543837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_75
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1041
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 562b048ebe734a150800000000000000
+      internalID: 5882888499606106725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_76
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 1041
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce15f014041c3120800000000000000
+      internalID: 2394811109551185612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_77
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 1041
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeb09fec5f3caa710800000000000000
+      internalID: 1705390869419985898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_78
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 1045
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddb19ea2ebc05b900800000000000000
+      internalID: 699479328029219805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_79
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 1045
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de1c84e3fd1f8be40800000000000000
+      internalID: 5672549671798096365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_80
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 1042
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e0e8ef266295dba0800000000000000
+      internalID: -6064780355596394270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_81
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 1046
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfb665727c50992f0800000000000000
+      internalID: -965734292177654789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_82
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 1046
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19dd6afac9756c0b0800000000000000
+      internalID: -5708779147172061807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_83
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 1045
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b3efcfc3c3778990800000000000000
+      internalID: -7383805779208313935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_84
+      rect:
+        serializedVersion: 2
+        x: 2070
+        y: 1049
+        width: 90
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb5b889a94a2ebaa0800000000000000
+      internalID: -6143426345821489733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_85
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 817
+        width: 74
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64e075803e1c82110800000000000000
+      internalID: 1236451278554861126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_86
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 821
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eed4c296238895b20800000000000000
+      internalID: 3123677566652403182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_87
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 821
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc39cedfe36476ef0800000000000000
+      internalID: -115046029112601649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_88
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 821
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c5062f256ccdba60800000000000000
+      internalID: 7691528473573459395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_89
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 825
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dddcb626df543700800000000000000
+      internalID: 519145230432001494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_90
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 825
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e3cdfe0000c11dd0800000000000000
+      internalID: -2517019610239351835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_91
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 822
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af12b87b57db7e840800000000000000
+      internalID: 5253375803639144954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_92
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 826
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 913f1442bc785bbd0800000000000000
+      internalID: -2615034702062292199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_93
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 826
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f2536420771cbec0800000000000000
+      internalID: -3549936635860528398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_94
+      rect:
+        serializedVersion: 2
+        x: 1865
+        y: 825
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f81642f69839f46c0800000000000000
+      internalID: -4156941712555220593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_95
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 829
+        width: 89
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02bd402846e37e070800000000000000
+      internalID: 8135539853267098400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_96
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 604
+        width: 73
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e01087a33083d1060800000000000000
+      internalID: 6925753388482691342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_97
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 608
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5903283473d16b40800000000000000
+      internalID: 5431855121697016154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_98
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 608
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b919be38b0db9d220800000000000000
+      internalID: 2511246124391305627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_99
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 608
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0fd30cb306856b70800000000000000
+      internalID: 8891660389910306572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_100
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 612
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1244203f48b34f0800000000000000
+      internalID: -847937925579267647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_101
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 612
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1853db085f3dfc980800000000000000
+      internalID: -8516355318953986687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_102
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 609
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1ecf46e98ce99090800000000000000
+      internalID: -8027124783792533987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_103
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 613
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b493ab5921eabdd40800000000000000
+      internalID: 5610269155664738635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_104
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 613
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e301ce26a61a29e0800000000000000
+      internalID: -1645477810845711391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_105
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 612
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b07b101d4e8db54e0800000000000000
+      internalID: -1991759932910618869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_106
+      rect:
+        serializedVersion: 2
+        x: 2070
+        y: 616
+        width: 90
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3365a951159eb3eb0800000000000000
+      internalID: -4738937648413256141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_107
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 384
+        width: 74
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf916e2d02af9f180800000000000000
+      internalID: -9080952154731701765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_108
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 388
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d7aac04d92c94900800000000000000
+      internalID: 669280000293906384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_109
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 388
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8282243703c8de30800000000000000
+      internalID: 4528583861027897995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_110
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 388
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6fbcadbe226db3a30800000000000000
+      internalID: 4196182923299965942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_111
+      rect:
+        serializedVersion: 2
+        x: 775
+        y: 392
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bec0a0d80db146740800000000000000
+      internalID: 5144267256897342699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_112
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 392
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc1e04a7b69a145a0800000000000000
+      internalID: -6538758904887582257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_113
+      rect:
+        serializedVersion: 2
+        x: 1217
+        y: 389
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8976f7e3fe0060ba0800000000000000
+      internalID: -6123205615817889896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_114
+      rect:
+        serializedVersion: 2
+        x: 1423
+        y: 393
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd64188fbcadb7ac0800000000000000
+      internalID: -3856248086330259748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_115
+      rect:
+        serializedVersion: 2
+        x: 1640
+        y: 393
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34b981e3800b820b0800000000000000
+      internalID: -5753154974517781693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_116
+      rect:
+        serializedVersion: 2
+        x: 1865
+        y: 392
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 510c2d586995c5330800000000000000
+      internalID: 3700931496816853013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_117
+      rect:
+        serializedVersion: 2
+        x: 2071
+        y: 396
+        width: 89
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9c184204c42d55e0800000000000000
+      internalID: -1919337441919492964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_118
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 175
+        width: 72
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c064d9affe3615990800000000000000
+      internalID: -7399022830440069620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_119
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 179
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e270d8187ce3c530800000000000000
+      internalID: 3874200105025303270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_120
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 179
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06ba0ae7e8ec293f0800000000000000
+      internalID: -895426264488170656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_121
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 179
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73c3c89c85d6c4c50800000000000000
+      internalID: 6650810977825340471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_122
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 183
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2b1bac89497a9570800000000000000
+      internalID: 8474219005650606894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_123
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 183
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 364e460a312903270800000000000000
+      internalID: 8228237132198896739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_124
+      rect:
+        serializedVersion: 2
+        x: 1215
+        y: 180
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a57a7fea96014bf50800000000000000
+      internalID: 6896154975504148314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_125
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 184
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f8a624dbddd54ae0800000000000000
+      internalID: -1565601359214499597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_126
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 184
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44c54ee97d432a540800000000000000
+      internalID: 5017631035532532804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_127
+      rect:
+        serializedVersion: 2
+        x: 1863
+        y: 183
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de34b1e6483135f90800000000000000
+      internalID: -6966202739108133907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_128
+      rect:
+        serializedVersion: 2
+        x: 2069
+        y: 187
+        width: 91
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce8088b970d230e80800000000000000
+      internalID: -8213671784696248084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_129
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 73
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d3a33f3412ae5b80800000000000000
+      internalID: -8404101646783372335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_130
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 0
+        width: 146
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcd994b5785c0d780800000000000000
+      internalID: -8660204898290655797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_131
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 0
+        width: 146
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3ed90e0d94f42790800000000000000
+      internalID: -7555645319438279105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_132
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 0
+        width: 146
+        height: 51
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 561763bf7d7b5aff0800000000000000
+      internalID: -25412084620168859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_133
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 0
+        width: 146
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6f27238ecf61cca0800000000000000
+      internalID: -5998390295926460562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_134
+      rect:
+        serializedVersion: 2
+        x: 991
+        y: 0
+        width: 146
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cd22ca2e50ccc920800000000000000
+      internalID: 3011993761480846788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_135
+      rect:
+        serializedVersion: 2
+        x: 1216
+        y: 0
+        width: 146
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f37b215779e23caa0800000000000000
+      internalID: -6142014238764124353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_136
+      rect:
+        serializedVersion: 2
+        x: 1422
+        y: 0
+        width: 146
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 190228efa4df37480800000000000000
+      internalID: -8902493539841990511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_137
+      rect:
+        serializedVersion: 2
+        x: 1639
+        y: 0
+        width: 146
+        height: 56
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c40c926487b82c1d0800000000000000
+      internalID: -3331947425611268020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_138
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 0
+        width: 146
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 333d9ef66b78cb830800000000000000
+      internalID: 4088291779376960307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FlagPattern_139
+      rect:
+        serializedVersion: 2
+        x: 2070
+        y: 0
+        width: 90
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a21a5eb6dcced440800000000000000
+      internalID: 4962629062097506979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      FlagPattern_0: 8400557131031612559
+      FlagPattern_1: 5684968756942643420
+      FlagPattern_10: -3331442639699890712
+      FlagPattern_100: -847937925579267647
+      FlagPattern_101: -8516355318953986687
+      FlagPattern_102: -8027124783792533987
+      FlagPattern_103: 5610269155664738635
+      FlagPattern_104: -1645477810845711391
+      FlagPattern_105: -1991759932910618869
+      FlagPattern_106: -4738937648413256141
+      FlagPattern_107: -9080952154731701765
+      FlagPattern_108: 669280000293906384
+      FlagPattern_109: 4528583861027897995
+      FlagPattern_11: -1510238163351402707
+      FlagPattern_110: 4196182923299965942
+      FlagPattern_111: 5144267256897342699
+      FlagPattern_112: -6538758904887582257
+      FlagPattern_113: -6123205615817889896
+      FlagPattern_114: -3856248086330259748
+      FlagPattern_115: -5753154974517781693
+      FlagPattern_116: 3700931496816853013
+      FlagPattern_117: -1919337441919492964
+      FlagPattern_118: -7399022830440069620
+      FlagPattern_119: 3874200105025303270
+      FlagPattern_12: -3980447800385025481
+      FlagPattern_120: -895426264488170656
+      FlagPattern_121: 6650810977825340471
+      FlagPattern_122: 8474219005650606894
+      FlagPattern_123: 8228237132198896739
+      FlagPattern_124: 6896154975504148314
+      FlagPattern_125: -1565601359214499597
+      FlagPattern_126: 5017631035532532804
+      FlagPattern_127: -6966202739108133907
+      FlagPattern_128: -8213671784696248084
+      FlagPattern_129: -8404101646783372335
+      FlagPattern_13: -3741936823459976273
+      FlagPattern_130: -8660204898290655797
+      FlagPattern_131: -7555645319438279105
+      FlagPattern_132: -25412084620168859
+      FlagPattern_133: -5998390295926460562
+      FlagPattern_134: 3011993761480846788
+      FlagPattern_135: -6142014238764124353
+      FlagPattern_136: -8902493539841990511
+      FlagPattern_137: -3331947425611268020
+      FlagPattern_138: 4088291779376960307
+      FlagPattern_139: 4962629062097506979
+      FlagPattern_14: -4440128813113638137
+      FlagPattern_15: -4285266205777854759
+      FlagPattern_16: 7119897442210448710
+      FlagPattern_17: 3638133235054358112
+      FlagPattern_18: -4221699088827337326
+      FlagPattern_19: -2867516382506392697
+      FlagPattern_2: -4322763826113609960
+      FlagPattern_20: -9018892718782996044
+      FlagPattern_21: 5093648890938076661
+      FlagPattern_22: 8746814423851681112
+      FlagPattern_23: 1853750426634882484
+      FlagPattern_24: 4088440736693079262
+      FlagPattern_25: 6003756418782695081
+      FlagPattern_26: -858746729520647173
+      FlagPattern_27: -307347707506723032
+      FlagPattern_28: -3975257305760562061
+      FlagPattern_29: 3224374181029787615
+      FlagPattern_3: 4914705991581476539
+      FlagPattern_30: 5718413422259544047
+      FlagPattern_31: -4543094760940558994
+      FlagPattern_32: -2137409643904386952
+      FlagPattern_33: 2190215490842972552
+      FlagPattern_34: 1973245492480696073
+      FlagPattern_35: 3187046216081454051
+      FlagPattern_36: 9063043210381215151
+      FlagPattern_37: 5025518772135026853
+      FlagPattern_38: -8218267216614322427
+      FlagPattern_39: -2218211385407898020
+      FlagPattern_4: -8605198064957073136
+      FlagPattern_40: -3789355369424569151
+      FlagPattern_41: -8452102795480891107
+      FlagPattern_42: -2369462852740836600
+      FlagPattern_43: -847960667992593058
+      FlagPattern_44: -2311733145348161678
+      FlagPattern_45: -9154410336213681213
+      FlagPattern_46: -5768511119329160649
+      FlagPattern_47: -8481041938439127144
+      FlagPattern_48: -6951685710153594831
+      FlagPattern_49: 1818221524224902143
+      FlagPattern_5: 4859257821979635074
+      FlagPattern_50: -7554746297660877966
+      FlagPattern_51: -1450858060144537829
+      FlagPattern_52: -153631343349640048
+      FlagPattern_53: -5962291150925013509
+      FlagPattern_54: 546743564531784283
+      FlagPattern_55: 5397328340861653239
+      FlagPattern_56: 8599085368676505749
+      FlagPattern_57: -659677816196087972
+      FlagPattern_58: -3425460709387568524
+      FlagPattern_59: 2363527656954991651
+      FlagPattern_6: -4174663912442281945
+      FlagPattern_60: 339544773948715614
+      FlagPattern_61: -6504707236520761973
+      FlagPattern_62: -5608548983319701924
+      FlagPattern_63: 3806758103293592374
+      FlagPattern_64: 5454288348851437221
+      FlagPattern_65: -8586027615364269644
+      FlagPattern_66: 548453947496884859
+      FlagPattern_67: 9046168474661149916
+      FlagPattern_68: 3558861449649553301
+      FlagPattern_69: -5052114228351157533
+      FlagPattern_7: 5839592266625612908
+      FlagPattern_70: 7067373679616097635
+      FlagPattern_71: -1910620023040067499
+      FlagPattern_72: 5873780982809108330
+      FlagPattern_73: 8165645113983512405
+      FlagPattern_74: 1857807097921543837
+      FlagPattern_75: 5882888499606106725
+      FlagPattern_76: 2394811109551185612
+      FlagPattern_77: 1705390869419985898
+      FlagPattern_78: 699479328029219805
+      FlagPattern_79: 5672549671798096365
+      FlagPattern_8: 9196204991796053400
+      FlagPattern_80: -6064780355596394270
+      FlagPattern_81: -965734292177654789
+      FlagPattern_82: -5708779147172061807
+      FlagPattern_83: -7383805779208313935
+      FlagPattern_84: -6143426345821489733
+      FlagPattern_85: 1236451278554861126
+      FlagPattern_86: 3123677566652403182
+      FlagPattern_87: -115046029112601649
+      FlagPattern_88: 7691528473573459395
+      FlagPattern_89: 519145230432001494
+      FlagPattern_9: -4614225559966236456
+      FlagPattern_90: -2517019610239351835
+      FlagPattern_91: 5253375803639144954
+      FlagPattern_92: -2615034702062292199
+      FlagPattern_93: -3549936635860528398
+      FlagPattern_94: -4156941712555220593
+      FlagPattern_95: 8135539853267098400
+      FlagPattern_96: 6925753388482691342
+      FlagPattern_97: 5431855121697016154
+      FlagPattern_98: 2511246124391305627
+      FlagPattern_99: 8891660389910306572
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
