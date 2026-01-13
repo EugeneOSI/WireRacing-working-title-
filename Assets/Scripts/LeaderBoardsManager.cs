@@ -28,7 +28,8 @@ public class LeaderBoardsManager : MonoBehaviour
     }
 
 
-    public void LoadEntries(string leaderboardName){        
+    public void LoadEntries(string leaderboardName){ 
+        EntriesLoading?.Invoke();
         switch(leaderboardName){
             case "Monza":
                 Leaderboards.WireRacer_TimeTrial_Monza.GetEntries((success) => {
@@ -45,11 +46,12 @@ public class LeaderBoardsManager : MonoBehaviour
 
 
     public void UploadPlayerEntry(string leaderboardName, string name){   
+        
         EnteryUploading?.Invoke();
         switch(leaderboardName){
             case "Monza":
-            float uploadTime = PrefsManager.Instance.GetBestTime("Monza") * 1000;
-            Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)uploadTime, (success) => {
+            float uploadTimeMonza = PrefsManager.Instance.GetBestTime("Monza") * 1000;
+            Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)uploadTimeMonza, (success) => {
         if (success){
             PrefsManager.Instance.SetCircuitUploadStatus("Monza", 1);
             LoadEntries("Monza");
@@ -63,10 +65,10 @@ public class LeaderBoardsManager : MonoBehaviour
             LoadEntries("EndlessMod");
         }}, HandleLeaderboardError);
         break;
-        }
-    }
+    }}
 
     public void UpdatePlayerEntry(string leaderboardName){
+        EntriesLoading?.Invoke();
         switch(leaderboardName){
             case "Monza":
             float uploadTime = PrefsManager.Instance.GetBestTime("Monza") * 1000;
