@@ -46,6 +46,11 @@ public class TimeTrialManager : MonoBehaviour
     public bool IsPaused {get; set;}
 
 
+    public static event Action BestTimeUpdated;
+    public static event Action InvalidLap;
+    public static event Action NewLapStarted;
+
+
 
 
     private void Awake()
@@ -79,6 +84,17 @@ private void Start()
             InvalidateCurrentLap("Mistake");
         }
         lapTimeText.text = FormatTime(CurrentLapTime,"lap");
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            RestartLap();
+        }
+
+        /*if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.Instance.PauseGame();
+            Debug.Log("Pause game");
+        }*/
 
     }
 
@@ -121,6 +137,7 @@ private void Start()
         currentSectorIndex = -1;
         lapTimeText.color = Color.white;
         StartCoroutine(ResetSectorsUI(2f));
+        NewLapStarted?.Invoke();
     }
 
 void FinishLap()
@@ -157,6 +174,7 @@ void FinishLap()
         monzaLeaderBoard.isLoaded = false;
         LeaderBoardsManager.Instance.LoadEntries("Monza");
     }
+    BestTimeUpdated?.Invoke();
     bestLapTime = lapTime;
     bestLapTimeText.text = FormatTime(bestLapTime,"lap");
     PrefsManager.Instance.SaveBestTime(bestLapTime, "Monza");
@@ -195,6 +213,7 @@ public void OnSectorCrossed(int sectorIndex)
         lapTimeText.color = Color.red;
         StartCoroutine(ResetSectorsUI(0.1f));
         // UI: показать сообщение, покрасить таймер в красный и т.п.
+        InvalidLap?.Invoke();
     }
 
 void RegisterSector(int sectorIndex, float sectorTime)
@@ -266,6 +285,10 @@ void RegisterSector(int sectorIndex, float sectorTime)
     }
     public void ResumeGame(){
         GameManager.Instance.PauseGame();
+    }
+
+    public void RestartLap(){
+        GameManager.Instance.LoadScene("TimeTrial_Monza");
     }
     IEnumerator LoadLeaderboard(){
     //monzaLeaderBoard.LoadLeaderboard();

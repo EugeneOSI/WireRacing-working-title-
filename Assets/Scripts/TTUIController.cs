@@ -12,11 +12,11 @@ public class TTUIController : MonoBehaviour
     [SerializeField] public GameObject cancelUpdateNameButton;
     [SerializeField] public GameObject inputField;
     [SerializeField] public GameObject playerName;
-    [SerializeField] public GameObject editNameButton;
     [SerializeField] public GameObject monzaLeaderBoardPlace;
-    [SerializeField] public GameObject inputFieldDesciption;
     [SerializeField] public GameObject fieldAlert;
-    [SerializeField] public GameObject updateNameButton;
+    [SerializeField] public GameObject BestTimeAlert;
+    [SerializeField] public GameObject InvalidLapAlert;
+
 
     public List<GameObject> ActiveScreens = new List<GameObject>();
     
@@ -31,7 +31,9 @@ public class TTUIController : MonoBehaviour
     MonzaLeaderBoard.EmptyFieldAlert += EmptyFieldAlert;
     LeaderBoardsManager.OnLeaderboardError += OnLeaderboardError;
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
-
+    TimeTrialManager.BestTimeUpdated += OnBestTimeUpdated;
+    TimeTrialManager.InvalidLap += OnInvalidLap;
+    TimeTrialManager.NewLapStarted += OnNewLapStarted;
     }
     void OnDestroy()
     {
@@ -43,6 +45,9 @@ public class TTUIController : MonoBehaviour
     MonzaLeaderBoard.EmptyFieldAlert -= EmptyFieldAlert;
     LeaderBoardsManager.OnLeaderboardError -= OnLeaderboardError;
     LeaderBoardsManager.EntriesLoading -= OnEntriesLoading;
+    TimeTrialManager.BestTimeUpdated -= OnBestTimeUpdated;
+    TimeTrialManager.InvalidLap -= OnInvalidLap;
+    TimeTrialManager.NewLapStarted -= OnNewLapStarted;
     }
 
     // Update is called once per frame
@@ -79,7 +84,6 @@ private void OnMonzaEntriesLoaded(){
        }
 
         UIManager.Instance.SetVisibilty(playerName, false);
-        UIManager.Instance.SetVisibilty(editNameButton, false);
         UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
 
         Debug.Log("No player name found and best monza time not uploaded");
@@ -95,7 +99,6 @@ private void OnMonzaEntriesLoaded(){
         }
         UIManager.Instance.SetVisibilty(inputField, false);
         UIManager.Instance.SetVisibilty(playerName, true);
-        UIManager.Instance.SetVisibilty(editNameButton, true);
         UIManager.Instance.SetText(playerName, "Your name: "+PrefsManager.Instance.GetPlayerName());
 
         UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
@@ -103,7 +106,6 @@ private void OnMonzaEntriesLoaded(){
     }
     if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded") && PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(playerName, true);
-        UIManager.Instance.SetVisibilty(editNameButton, true);
         UIManager.Instance.SetText(playerName, "Your name: " + PrefsManager.Instance.GetPlayerName());
 
         UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, true);
@@ -116,7 +118,6 @@ private void OnMonzaEntriesLoaded(){
 }
 
 public void EmptyFieldAlert(){
-    UIManager.Instance.StartCoroutine(UIManager.Instance.SwitchVisibiltyForSeconds(inputFieldDesciption, 2));
     UIManager.Instance.StartCoroutine(UIManager.Instance.SwitchVisibiltyForSeconds(fieldAlert, 2));
     UIManager.Instance.SetText(fieldAlert, "Field is empty");
 }
@@ -130,7 +131,6 @@ public void EmptyFieldAlert(){
     }
 
     public void OnLeaderboardError(string error){
-    UIManager.Instance.StartCoroutine(UIManager.Instance.SwitchVisibiltyForSeconds(inputFieldDesciption, 2));
     UIManager.Instance.StartCoroutine(UIManager.Instance.SwitchVisibiltyForSeconds(fieldAlert, 2));
     switch(error){
         case "409":
@@ -154,31 +154,24 @@ public void EmptyFieldAlert(){
     UIManager.Instance.SetButtonInteractable(submitScoreButton, true);}
 
 public void ShowEditNamePanel(){
-    UIManager.Instance.SetVisibilty(editNameButton, false);
     UIManager.Instance.SetVisibilty(playerName, false);
     UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
     UIManager.Instance.SetVisibilty(submitScoreButton, false);
     
     UIManager.Instance.SetVisibilty(inputField, true);
-    UIManager.Instance.SetText(inputFieldDesciption, "Enter your new name");
-    UIManager.Instance.SetVisibilty(updateNameButton, true);
     if (!PrefsManager.Instance.IsPrefsSetted("BestMonzaTime")){
-    UIManager.Instance.SetButtonInteractable(updateNameButton, false);
     }
     else{
-    UIManager.Instance.SetButtonInteractable(updateNameButton, true);
     }
     UIManager.Instance.SetVisibilty(cancelUpdateNameButton, true);
 
 }
 public void CancelUpdateName(){
     if (PrefsManager.Instance.IsPrefsSetted("PlayerName")){
-    UIManager.Instance.SetVisibilty(editNameButton, true);
     UIManager.Instance.SetVisibilty(playerName, true);
     
     UIManager.Instance.SetVisibilty(inputField, false);
     UIManager.Instance.SetVisibilty(cancelUpdateNameButton, false);
-    UIManager.Instance.SetVisibilty(updateNameButton, false);
     
 
     if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){
@@ -189,5 +182,18 @@ public void CancelUpdateName(){
         UIManager.Instance.SetVisibilty(monzaLeaderBoardPlace, false);
         UIManager.Instance.SetVisibilty(submitScoreButton, true);
     }}
+}
+
+public void OnBestTimeUpdated(){
+    UIManager.Instance.StartCoroutine(UIManager.Instance.SwitchVisibiltyForSeconds(BestTimeAlert, 2.6f));}
+public void OnInvalidLap(){
+    UIManager.Instance.SetVisibilty(InvalidLapAlert, true);
+    InvalidLapAlert.GetComponent<Animator>().SetBool("lapIsValid", false);
+}
+public void OnNewLapStarted(){
+    InvalidLapAlert.GetComponent<Animator>().SetBool("lapIsValid", true);
+    if (InvalidLapAlert.activeSelf){
+        UIManager.Instance.SwitchVisibilty(InvalidLapAlert);
+    }
 }
 }

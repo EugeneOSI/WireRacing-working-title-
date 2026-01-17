@@ -14,6 +14,7 @@ public class MainMenuUIController : MonoBehaviour
     
     
     [SerializeField] public GameObject optionsMenu;
+    [SerializeField] public GameObject creditsScreen;
     [SerializeField] private GameObject gameModeMenu;
     [SerializeField] private GameObject timeTrialMenu;
 
@@ -158,6 +159,9 @@ public void OpenOptionsMenu(){
 }
 public void OpenMonzaInformation(){
     UIManager.Instance.SwitchVisibilty(monzaInformationPanel);
+}
+public void OpenCreditsScreen(){
+    UIManager.Instance.SwitchVisibilty(creditsScreen);
 }
 public void StartEndlessMode(){
     GameManager.Instance.LoadScene("EndlessMode");
