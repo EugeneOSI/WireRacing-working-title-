@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
-
+using System;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -28,6 +28,7 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private float lineHeight = 40f;
 
     // состояние событий
+     [Header("boolean events")]
     public bool NearSandActive     { get; private set; }
     public bool NearObstacleActive { get; private set; }
     public bool HighSpeedActive    { get; private set; }
@@ -35,18 +36,29 @@ public class ScoreManager : MonoBehaviour
     public bool SmashObstacleActive { get; private set; }
     public bool MultiplayerActive { get; private set; }
     public bool multiplayedScoreCollected { get; private set; }
+    public bool multiplayerAmountShown { get; private set; }
+    public bool multiplayerSliderShown { get; private set; }
+    public bool multiplayerScoreShown { get; private set; }
+    public bool mainScoreToppedUp { get; private set; }
 
     // корутины
+     [Header("Coroutines")]
     private Coroutine _nearSandInCoroutine;
     private Coroutine _nearSandOutCoroutine;
     private Coroutine _highSpeedOutCoroutine;
     private Coroutine _nearObstacleInCoroutine;
 
+    [Header("Lists")]
     private readonly List<BonusScoreHander> _activeLines = new();
+
+     [Header("Animators")]
+    [SerializeField] private Animator multiplayerScoreAnimator;
+    [SerializeField] private Animator multiplayerAmountAnimator;
+    [SerializeField] private Animator multiplayerSliderAnimator;
+    [SerializeField] private Animator mainScoreAnimator;
 
     private void Awake()
     {
-        // подстраховка, если не проставлено в инспекторе
         if (player == null)
         {
             var pObj = GameObject.Find("Player");
@@ -103,7 +115,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (collectToMainScore)
         {
-            multiplayerScore += (int)bonusScore;
+            CollectMultiplayerScore(bonusScore);
         }
 
         UnregisterLine(line);
@@ -112,6 +124,11 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(line.gameObject);
         }
+    }
+
+    public void CollectMultiplayerScore(float bonusScore){
+        multiplayerScore += (int)bonusScore;
+        multiplayerScoreAnimator.SetTrigger("In");
     }
 
     // ---------- Логика событий ----------
@@ -151,7 +168,7 @@ public class ScoreManager : MonoBehaviour
             _nearSandOutCoroutine = StartCoroutine(SandExitAfterDelay(2f));
         }
 
-        // вернулись к краю — отменяем выход
+        // вернулись к краю - отменяем выход
         if (detected && _nearSandOutCoroutine != null)
         {
             StopCoroutine(_nearSandOutCoroutine);
@@ -304,11 +321,12 @@ public class ScoreManager : MonoBehaviour
         multiplayerAmountText.text = "X" + multiplayerAmount;
         multiplayerScoreText.text = "" + multiplayerScore;
         if (_activeLines.Count > 0){
+            if (multiplayerScore>0) {ShowMultiplayerAmount(); ShowMultiplayerScore(); ShowMultiplayerSlider(); mainScoreToppedUp = false;}
             MultiplayerActive = true;
             multiplayedScoreCollected = false;
             }
 
-        else {MultiplayerActive = false;}
+        else {MultiplayerActive = false; HideMultiplayerAmount(); HideMultiplayerScore(); HideMultiplayerSlider();}
         MultiplayerScoreHandler();
     }
 
@@ -322,12 +340,13 @@ public class ScoreManager : MonoBehaviour
         if (!MultiplayerActive) {
             
             if(!multiplayedScoreCollected&&player.isAlive){
-                
+                HideMultiplayerAmount();
                 mainScore += multiplayerScore*multiplayerAmount;
+                TopUpMainScore();
                 multiplayerAmount = 1;
                 multiplayerScore = 0;
                 multiplayerSlider.value = 0;
-                multiplayerSlider.maxValue = 1;
+                multiplayerSlider.maxValue = 0.6f;
                 multiplayedScoreCollected = true;
             }
         }
@@ -336,7 +355,8 @@ public class ScoreManager : MonoBehaviour
 
     private void IncreaseMultiplayer(){
         multiplayerAmount++;
-        MultiplayerSliderMaxValue(multiplayerSlider.maxValue+0.4f);
+        multiplayerAmountAnimator.SetTrigger("TopUp");
+        MultiplayerSliderMaxValue(multiplayerSlider.maxValue+0.8f);
     }
     private void MultiplayerSliderMaxValue(float amount)
     {
@@ -345,6 +365,53 @@ public class ScoreManager : MonoBehaviour
     private void IncreaseMultiplayerSlider()
     {
         multiplayerSlider.value += 0.2f;
+        if (multiplayerScore>0) multiplayerSliderAnimator.SetTrigger("In");
+        
     }
 
+    private void ShowMultiplayerAmount(){
+        if (!multiplayerAmountShown){
+        multiplayerAmountAnimator.SetTrigger("In");
+        multiplayerAmountShown = true;
+        }
+    }
+
+    private void HideMultiplayerAmount(){
+        if (multiplayerAmountShown){
+        multiplayerAmountAnimator.SetTrigger("Out");
+        multiplayerAmountShown = false;
+        }
+    }
+
+    private void ShowMultiplayerScore(){
+        if (!multiplayerScoreShown){
+        multiplayerScoreAnimator.SetTrigger("In");
+        multiplayerScoreShown = true;
+        }
+    }
+    private void HideMultiplayerScore(){
+        if (multiplayerScoreShown){
+        multiplayerScoreAnimator.SetTrigger("Out");
+        multiplayerScoreShown = false;
+        }
+    }
+    private void ShowMultiplayerSlider(){
+        if (!multiplayerSliderShown){
+        multiplayerSliderAnimator.SetTrigger("In");
+        multiplayerSliderShown = true;
+        }
+    }
+    private void HideMultiplayerSlider(){
+        if (multiplayerSliderShown){
+        multiplayerSliderAnimator.SetTrigger("Out");
+        multiplayerSliderShown = false;
+        }
+    }
+
+    private void TopUpMainScore(){
+        if (!mainScoreToppedUp){
+        mainScoreAnimator.SetTrigger("TopUp");
+        mainScoreToppedUp = true;
+        }
+    }
 }

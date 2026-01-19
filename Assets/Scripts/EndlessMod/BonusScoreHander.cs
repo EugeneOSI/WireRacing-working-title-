@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public enum BonusType { nearSand, nearObstacle, highSpeed, tookPowerUp, smashObstacle }
 
@@ -28,6 +29,8 @@ public class BonusScoreHander : MonoBehaviour
     private float _smashObstacleExtraTime = 2f;  
 
     private bool _finished = false;
+    private bool _collected = false;
+
 
     /// <summary>
     /// Вызывается сразу после Instantiate из ScoreManager.
@@ -118,6 +121,11 @@ public class BonusScoreHander : MonoBehaviour
 
     private void HandleNearObstacle()
     {
+        if (!_collected)
+        {
+            _collected = true;
+            _manager.CollectMultiplayerScore(30f);
+        }
         if (description != null)
             description.text = "CLOSE!";
 
@@ -137,7 +145,7 @@ public class BonusScoreHander : MonoBehaviour
             if (_obstacleExtraTime <= 0f)
             {
                 StopOutTimerIfRunning();
-                _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
+                _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: false));
             }
         }
     }
@@ -174,6 +182,12 @@ public class BonusScoreHander : MonoBehaviour
     }
 
     private void HandleTookPowerUp(){
+                if (!_collected)
+        {
+            _collected = true;
+            _manager.CollectMultiplayerScore(10f);
+        }
+        
         if (description != null)
             description.text = "POWER-UP";
 
@@ -190,12 +204,18 @@ public class BonusScoreHander : MonoBehaviour
                 animator.SetBool("event", false);
                 }
 
-                _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
+                _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: false));
             }
         
     }
 
     private void HandleSmashObstacle(){
+        
+        if (!_collected)
+        {
+            _collected = true;
+            _manager.CollectMultiplayerScore(10f);
+        }
         if (description != null)
         description.text = "SMASH!";
 

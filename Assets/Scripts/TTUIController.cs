@@ -9,7 +9,6 @@ public class TTUIController : MonoBehaviour
     [SerializeField] public GameObject optionsMenu;
     [SerializeField] public GameObject loadingPanel;
     [SerializeField] public GameObject submitScoreButton;
-    [SerializeField] public GameObject cancelUpdateNameButton;
     [SerializeField] public GameObject inputField;
     [SerializeField] public GameObject playerName;
     [SerializeField] public GameObject monzaLeaderBoardPlace;
@@ -59,16 +58,13 @@ public class TTUIController : MonoBehaviour
     private void OnEntriesLoading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
-    UIManager.Instance.SetButtonInteractable(cancelUpdateNameButton, false);
 }
     private void OnEntryUploading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
-    UIManager.Instance.SetButtonInteractable(cancelUpdateNameButton, false);
 }
 private void OnMonzaEntriesLoaded(){
     Debug.Log("Monza entries loaded");
-    UIManager.Instance.SetButtonInteractable(cancelUpdateNameButton, true);
     //UIManager.Instance.SetText(bestMonzaTime, UIManager.Instance.FormatTime(PrefsManager.Instance.GetBestTime("Monza"), "lap"));
     //UIManager.Instance.SetText(monzalaps, PrefsManager.Instance.GetLapsAmount("Monza").ToString());
     UIManager.Instance.SetVisibilty(loadingPanel, false);
@@ -163,7 +159,6 @@ public void ShowEditNamePanel(){
     }
     else{
     }
-    UIManager.Instance.SetVisibilty(cancelUpdateNameButton, true);
 
 }
 public void CancelUpdateName(){
@@ -171,7 +166,6 @@ public void CancelUpdateName(){
     UIManager.Instance.SetVisibilty(playerName, true);
     
     UIManager.Instance.SetVisibilty(inputField, false);
-    UIManager.Instance.SetVisibilty(cancelUpdateNameButton, false);
     
 
     if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){
