@@ -73,6 +73,7 @@ public class Player : MonoBehaviour
         isAlive = true;
         hitObstacle = false;
         withPowerUp = false;
+        onTrack = true;
 
         powerUp.SetActive(false);
 
@@ -118,7 +119,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        GetSurfaceBehavior();
+        //GetSurfaceBehavior();
 
         if (tmpHookPoint != null && !hookIsMoving)
         {
@@ -249,6 +250,10 @@ public class Player : MonoBehaviour
         {
             gameManager.GameStarted = true;
         }
+        if (collision.CompareTag("sand"))
+        {
+            onTrack = true;
+        }
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -261,6 +266,7 @@ public class Player : MonoBehaviour
             if (!withPowerUp)
             {
                 mainCamera.Shake(1f, 0.05f);
+                onTrack = false;
             }
         }
         if (collision.CompareTag("Enemy")){
@@ -287,6 +293,7 @@ public class Player : MonoBehaviour
             health = 0;
         }
     }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
