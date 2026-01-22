@@ -66,6 +66,12 @@ public class TimeTrialManager : MonoBehaviour
         currentLapSectors  = new float[sectorCount];
         previousLapSectors = new float[sectorCount];
         ResetArray(previousLapSectors, -1f);
+
+        SplineDirectionTracker.OnWrongDirection += () => InvalidateCurrentLap("Wrong Direction");
+    }
+    void OnDestroy()
+    {
+        SplineDirectionTracker.OnWrongDirection -= () => InvalidateCurrentLap("Wrong Direction");
     }
 
 private void Start()

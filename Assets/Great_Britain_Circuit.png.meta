@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: db07aab7d66235944bfb95becd0d2664
+guid: 3674e5a8b2945e54594ccd838a064398
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1315468610552489454
-    second: Comp 1 (0-00-00-00)_0
+      213: -2883335969814818418
+    second: Great_Britain_Circuit_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Comp 1 (0-00-00-00)_0
+      name: Great_Britain_Circuit_0
       rect:
         serializedVersion: 2
-        x: 337
-        y: 300
-        width: 3736
-        height: 1927
+        x: 154
+        y: 0
+        width: 1559
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ee5682d4bbb714210800000000000000
-      internalID: 1315468610552489454
+      spriteID: e81d41746355cf7d0800000000000000
+      internalID: -2883335969814818418
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Comp 1 (0-00-00-00)_0: 1315468610552489454
+      Great_Britain_Circuit_0: -2883335969814818418
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

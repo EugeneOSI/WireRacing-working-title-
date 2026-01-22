@@ -15,7 +15,7 @@ public class TTUIController : MonoBehaviour
     [SerializeField] public GameObject fieldAlert;
     [SerializeField] public GameObject BestTimeAlert;
     [SerializeField] public GameObject InvalidLapAlert;
-
+    [SerializeField] public GameObject WrongDirectionAlert;
 
     public List<GameObject> ActiveScreens = new List<GameObject>();
     
@@ -33,6 +33,8 @@ public class TTUIController : MonoBehaviour
     TimeTrialManager.BestTimeUpdated += OnBestTimeUpdated;
     TimeTrialManager.InvalidLap += OnInvalidLap;
     TimeTrialManager.NewLapStarted += OnNewLapStarted;
+    SplineDirectionTracker.OnWrongDirection += OnWrongDirection;
+    SplineDirectionTracker.OnCorrectDirection += OnCorrectDirection;
     }
     void OnDestroy()
     {
@@ -47,6 +49,8 @@ public class TTUIController : MonoBehaviour
     TimeTrialManager.BestTimeUpdated -= OnBestTimeUpdated;
     TimeTrialManager.InvalidLap -= OnInvalidLap;
     TimeTrialManager.NewLapStarted -= OnNewLapStarted;
+    SplineDirectionTracker.OnWrongDirection -= OnWrongDirection;
+    SplineDirectionTracker.OnCorrectDirection -= OnCorrectDirection;
     }
 
     // Update is called once per frame
@@ -189,5 +193,11 @@ public void OnNewLapStarted(){
     if (InvalidLapAlert.activeSelf){
         UIManager.Instance.SwitchVisibilty(InvalidLapAlert);
     }
+}
+public void OnWrongDirection(){
+    UIManager.Instance.SetVisibilty(WrongDirectionAlert, true);
+}
+public void OnCorrectDirection(){
+    UIManager.Instance.SetVisibilty(WrongDirectionAlert, false);
 }
 }

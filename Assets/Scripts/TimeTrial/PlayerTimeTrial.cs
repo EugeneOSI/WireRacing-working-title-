@@ -47,6 +47,7 @@ public class PlayerTimeTrial : MonoBehaviour
         contactFilter.useTriggers = true;
         hookIsMoving = false;
         mistake = false;
+        onTrack = true;
 
         
     }
@@ -62,7 +63,7 @@ public class PlayerTimeTrial : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
-        if (Input.GetMouseButtonDown(0)&&!timeTrialManager.IsPaused)
+        if (Input.GetMouseButtonDown(0)&&Time.timeScale != 0)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -77,7 +78,7 @@ public class PlayerTimeTrial : MonoBehaviour
     }
     void FixedUpdate()
     {
-        GetSurfaceBehavior();
+        //GetSurfaceBehavior();
 
         if (tmpHookPoint != null && !hookIsMoving)
         {
@@ -108,10 +109,8 @@ public class PlayerTimeTrial : MonoBehaviour
                 case false:
                     newAttractionForce = attractionForce / 2;
                     maxVelocity = limitedSpeed;
-                    onTrack = false;
                     break;
                 case true:
-                    onTrack = true;
                     maxVelocity = 1000;
                     break;
             }
@@ -174,8 +173,17 @@ public class PlayerTimeTrial : MonoBehaviour
         {
             mainCamera.Shake(1f, 0.05f);
             StartCoroutine(Mistake());
+            onTrack = false;
         }
 
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("sand"))
+        {
+            onTrack = true;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
