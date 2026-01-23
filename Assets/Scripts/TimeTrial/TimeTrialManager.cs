@@ -43,13 +43,14 @@ public class TimeTrialManager : MonoBehaviour
     private PlayerTimeTrial player;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private TTUIController ttUIController;
+    [SerializeField] private DirectionTracker directionTracker;
     public bool IsPaused {get; set;}
 
 
     public static event Action BestTimeUpdated;
     public static event Action InvalidLap;
     public static event Action NewLapStarted;
-
+    public static event Action CrossedFinishLineWrongSide;
 
 
 
@@ -67,11 +68,11 @@ public class TimeTrialManager : MonoBehaviour
         previousLapSectors = new float[sectorCount];
         ResetArray(previousLapSectors, -1f);
 
-        SplineDirectionTracker.OnWrongDirection += () => InvalidateCurrentLap("Wrong Direction");
+        DirectionMarker.onWrongDirection += () => InvalidateCurrentLap("Wrong Direction");
     }
     void OnDestroy()
     {
-        SplineDirectionTracker.OnWrongDirection -= () => InvalidateCurrentLap("Wrong Direction");
+        DirectionMarker.onWrongDirection -= () => InvalidateCurrentLap("Wrong Direction");
     }
 
 private void Start()
@@ -91,10 +92,10 @@ private void Start()
         }
         lapTimeText.text = FormatTime(CurrentLapTime,"lap");
 
-        if (Input.GetKeyDown(KeyCode.R))
+        /*if (Input.GetKeyDown(KeyCode.R))
         {
             RestartLap();
-        }
+        }*/
 
         /*if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -117,16 +118,21 @@ private void Start()
     // Вызывается из триггера старт/финиш
     public void OnStartFinishCrossed()
     {
+        if (directionTracker.correctDirection){
         if (!lapRunning)
         {
-            // Первый запуск/после остановки
+            Debug.Log("Запуск нового круга");
             StartNewLap();
         }
         else
         {
+            Debug.Log("Финиш круга");
             FinishLap();
             StartNewLap();
-        }
+        }}
+    else{
+        CrossedFinishLineWrongSide?.Invoke();
+    }
     }
 
     void StartNewLap()
@@ -148,12 +154,14 @@ private void Start()
 
 void FinishLap()
 {
+    Debug.Log("Начало метода финиша");
     float now = Time.time;
     PrefsManager.Instance.SaveLapsAmount("Monza", PrefsManager.Instance.GetLapsAmount("Monza") + 1);
 
 
     int lastIndex = sectorCount - 1;
 
+    Debug.Log("Проверка секторов");
     if (currentLapSectors != null &&
         lastIndex >= 0 && lastIndex < sectorCount &&
         currentLapSectors[lastIndex] <= 0f &&  
@@ -165,17 +173,19 @@ void FinishLap()
 
     float lapTime = now - lapStartTime;
 
+    Debug.Log("Проверка валидности круга");
     if (!lapValid)
     {
         previousLapTime = lapTime;
         Debug.Log($"Lap {currentLapIndex} INVALID, time = {FormatTime(lapTime,"lap")}");
         return;
     }
-    
+    Debug.Log("Круг валиден");
     previousLapTime = lapTime;
     currentLapSectors.CopyTo(previousLapSectors, 0);
-
+    Debug.Log("Проверка лучшего времени");
     if (lapValid&& (bestLapTime < 0f || lapTime < PrefsManager.Instance.GetBestTime("Monza"))){
+    Debug.Log("Лучшее время найдено");
     if (bestLapTime < 0f){
         monzaLeaderBoard.isLoaded = false;
         LeaderBoardsManager.Instance.LoadEntries("Monza");
@@ -187,12 +197,14 @@ void FinishLap()
     if (PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded")){     
     Debug.Log("Best time updated");
         monzaLeaderBoard.UpdateLeaderboard();}
-
+}
+    Debug.Log("Обновление UI");
     Debug.Log($"Lap {currentLapIndex} FINISHED: {FormatTime(lapTime,"lap")}   Best: {FormatTime(bestLapTime,"lap")}");
 
     lapTimeText.text = FormatTime(lapTime,"lap");
     previousLapTimeText.text = FormatTime(previousLapTime,"lap");
-}}
+    Debug.Log("Круг завершен: " + FormatTime(previousLapTime,"lap"));
+}
 
 
     // Вызывается из триггера сектора

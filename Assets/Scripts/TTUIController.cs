@@ -16,6 +16,7 @@ public class TTUIController : MonoBehaviour
     [SerializeField] public GameObject BestTimeAlert;
     [SerializeField] public GameObject InvalidLapAlert;
     [SerializeField] public GameObject WrongDirectionAlert;
+    [SerializeField] public GameObject bestMonzaTime;
 
     public List<GameObject> ActiveScreens = new List<GameObject>();
     
@@ -33,8 +34,8 @@ public class TTUIController : MonoBehaviour
     TimeTrialManager.BestTimeUpdated += OnBestTimeUpdated;
     TimeTrialManager.InvalidLap += OnInvalidLap;
     TimeTrialManager.NewLapStarted += OnNewLapStarted;
-    SplineDirectionTracker.OnWrongDirection += OnWrongDirection;
-    SplineDirectionTracker.OnCorrectDirection += OnCorrectDirection;
+    DirectionMarker.onWrongDirection += OnWrongDirection;
+    DirectionMarker.onCorrectDirection += OnCorrectDirection;
     }
     void OnDestroy()
     {
@@ -49,8 +50,8 @@ public class TTUIController : MonoBehaviour
     TimeTrialManager.BestTimeUpdated -= OnBestTimeUpdated;
     TimeTrialManager.InvalidLap -= OnInvalidLap;
     TimeTrialManager.NewLapStarted -= OnNewLapStarted;
-    SplineDirectionTracker.OnWrongDirection -= OnWrongDirection;
-    SplineDirectionTracker.OnCorrectDirection -= OnCorrectDirection;
+    DirectionMarker.onWrongDirection -= OnWrongDirection;
+    DirectionMarker.onCorrectDirection -= OnCorrectDirection;
     }
 
     // Update is called once per frame

@@ -54,7 +54,7 @@ void OnDestroy(){
 private void OnEntriesLoading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
-    UIManager.Instance.SetButtonInteractable(monzaStartButton, false);
+    //UIManager.Instance.SetButtonInteractable(monzaStartButton, false);
 }
 private void OnEntryUploading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);

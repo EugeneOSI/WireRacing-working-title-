@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using System;
 public class PlayerTimeTrial : MonoBehaviour
 {
     
@@ -18,15 +18,11 @@ public class PlayerTimeTrial : MonoBehaviour
     public float hookSpeed;
     public float limitedSpeed;
     public float attractionForce;
-    public float minSpeed;
     public float breakForce;
-    public float maxHooksAmount;
     private float maxVelocity;
-    private float currentSpeed;
+    private Vector2 startPosition;
 
 
-    [Header("Surfaces")]
-    public LayerMask surfaceLayer;
 
     [Header("Components")]
     [SerializeField] private Rigidbody2D playerRb;
@@ -35,14 +31,14 @@ public class PlayerTimeTrial : MonoBehaviour
     private ContactFilter2D contactFilter;
     private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     [SerializeField] private FollowCamera mainCamera;
-    private TimeTrialManager timeTrialManager;
 
     Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
+
+    public static event Action OnCrossedFirstMarker;
     void Start()
     {
-        timeTrialManager = GameObject.Find("TimeTrialManager").GetComponent<TimeTrialManager>();
+        startPosition = transform.position;
         contactFilter = new ContactFilter2D();
-        contactFilter.layerMask = surfaceLayer;
         contactFilter.useLayerMask = true;
         contactFilter.useTriggers = true;
         hookIsMoving = false;
@@ -55,11 +51,17 @@ public class PlayerTimeTrial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-           if (playerSprite == null)
-        Debug.LogError("playerSprite = null на " + name);
+        
+        if (Input.GetKeyDown(KeyCode.R)){
+            Destroy(tmpHookPoint);
+            playerRb.linearVelocity = Vector2.zero;
+            transform.position = startPosition;
+        }
+        /*if (playerSprite == null)
+        Debug.LogError("playerSprite = null на " + name);*/
 
-    if (playerRb == null)
-        Debug.LogError("playerRb = null на " + name);
+    /*if (playerRb == null)
+        Debug.LogError("playerRb = null на " + name);*/
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
@@ -174,6 +176,14 @@ public class PlayerTimeTrial : MonoBehaviour
             mainCamera.Shake(1f, 0.05f);
             StartCoroutine(Mistake());
             onTrack = false;
+        }
+        if (collision.gameObject.CompareTag("DirectionMarker"))
+        {
+            collision.gameObject.GetComponent<DirectionMarker>().SetPassed();
+        }
+        if (collision.gameObject.CompareTag("FirstDirectionMarker")){
+            collision.gameObject.GetComponent<DirectionMarker>().SetPassed();
+            OnCrossedFirstMarker?.Invoke();
         }
 
     }
