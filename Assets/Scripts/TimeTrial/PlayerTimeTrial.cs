@@ -21,6 +21,7 @@ public class PlayerTimeTrial : MonoBehaviour
     public float breakForce;
     private float maxVelocity;
     private Vector2 startPosition;
+    private Vector2 startCameraPosition;
 
 
 
@@ -29,15 +30,16 @@ public class PlayerTimeTrial : MonoBehaviour
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private Collider2D playerCol;
     private ContactFilter2D contactFilter;
-    private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     [SerializeField] private FollowCamera mainCamera;
+    [SerializeField] private DirectionTracker directionTracker;
+    [SerializeField] private TimeTrialManager timeTrialManager;
 
-    Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
 
     public static event Action OnCrossedFirstMarker;
     void Start()
     {
         startPosition = transform.position;
+        startCameraPosition = mainCamera.transform.position;
         contactFilter = new ContactFilter2D();
         contactFilter.useLayerMask = true;
         contactFilter.useTriggers = true;
@@ -56,12 +58,10 @@ public class PlayerTimeTrial : MonoBehaviour
             Destroy(tmpHookPoint);
             playerRb.linearVelocity = Vector2.zero;
             transform.position = startPosition;
+            directionTracker.expectedIndex = 37;
+            timeTrialManager.lapRunning = false;
+            mainCamera.transform.position = startCameraPosition;
         }
-        /*if (playerSprite == null)
-        Debug.LogError("playerSprite = null на " + name);*/
-
-    /*if (playerRb == null)
-        Debug.LogError("playerRb = null на " + name);*/
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
@@ -80,7 +80,6 @@ public class PlayerTimeTrial : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //GetSurfaceBehavior();
 
         if (tmpHookPoint != null && !hookIsMoving)
         {
@@ -136,37 +135,7 @@ public class PlayerTimeTrial : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, tmpHookPoint.transform.position);
     }
-    void GetSurfaceBehavior()
-    {
-        int numberOfHits = Physics2D.OverlapCollider(playerCol, contactFilter, surfaceCollidersHit);
 
-        float lastSurfaceZValue = -1000;
-        for (int i = 0; i < numberOfHits; i++)
-        {
-            Surface surface = surfaceCollidersHit[i].GetComponent<Surface>();
-            if (surface.transform.position.z > lastSurfaceZValue)
-            {
-                drivingSurface = surface.surfaceType;
-                lastSurfaceZValue = surface.transform.position.z;
-            }
-        }
-
-        if (numberOfHits == 0)
-        {
-            drivingSurface = Surface.SurfaceType.Road;
-        }
-
-        switch (drivingSurface)
-        {
-            case Surface.SurfaceType.Sand:
-                onTrack = false;
-                break;
-            case Surface.SurfaceType.Road:
-                onTrack = true;
-                break;
-        }
-
-    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -179,11 +148,11 @@ public class PlayerTimeTrial : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("DirectionMarker"))
         {
-            collision.gameObject.GetComponent<DirectionMarker>().SetPassed();
+            directionTracker.CheckMarkerIndex(collision.gameObject.GetComponent<DirectionMarker>().index);
         }
-        if (collision.gameObject.CompareTag("FirstDirectionMarker")){
-            collision.gameObject.GetComponent<DirectionMarker>().SetPassed();
-            OnCrossedFirstMarker?.Invoke();
+        if (collision.gameObject.CompareTag("LastDirectionMarker")){
+            directionTracker.CheckMarkerIndex(collision.gameObject.GetComponent<DirectionMarker>().index);
+            directionTracker.ResetIndex();
         }
 
     }

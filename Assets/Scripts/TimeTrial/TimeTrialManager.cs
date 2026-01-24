@@ -46,6 +46,8 @@ public class TimeTrialManager : MonoBehaviour
     [SerializeField] private DirectionTracker directionTracker;
     public bool IsPaused {get; set;}
 
+    // Сохраняем ссылку на делегат для корректной отписки
+    private Action onWrongDirectionHandler;
 
     public static event Action BestTimeUpdated;
     public static event Action InvalidLap;
@@ -68,12 +70,20 @@ public class TimeTrialManager : MonoBehaviour
         previousLapSectors = new float[sectorCount];
         ResetArray(previousLapSectors, -1f);
 
-        DirectionMarker.onWrongDirection += () => InvalidateCurrentLap("Wrong Direction");
+        // Сохраняем ссылку на делегат для корректной отписки
+        onWrongDirectionHandler = () => InvalidateCurrentLap("Wrong Direction");
+        DirectionTracker.onWrongDirection += onWrongDirectionHandler;
     }
-    void OnDestroy()
+
+    private void OnDestroy()
     {
-        DirectionMarker.onWrongDirection -= () => InvalidateCurrentLap("Wrong Direction");
+        if (onWrongDirectionHandler != null)
+        {
+            DirectionTracker.onWrongDirection -= onWrongDirectionHandler;
+        }
     }
+
+    
 
 private void Start()
 {

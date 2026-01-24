@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 5
 --- !u!61 &73860795
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 17
 --- !u!61 &74291075
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 16
 --- !u!61 &80129505
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 35
 --- !u!61 &116419388
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -820,7 +820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 13
 --- !u!61 &157040245
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 23
 --- !u!61 &188688049
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1004,7 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 26
 --- !u!61 &217360389
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1191,7 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 28
 --- !u!61 &267559245
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1922,7 +1922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 10
 --- !u!61 &378015873
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2397,7 +2397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 7
 --- !u!61 &465319379
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2888,7 +2888,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 3
 --- !u!61 &533918490
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3047,7 +3047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 32
 --- !u!61 &570504495
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3139,7 +3139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 25
 --- !u!61 &577682692
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3231,7 +3231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 22
 --- !u!61 &581057398
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3876,7 +3876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 29
 --- !u!61 &619796656
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5107,6 +5107,7 @@ MonoBehaviour:
   - {fileID: 116419387}
   - {fileID: 1794106520}
   - {fileID: 1289519528}
+  expectedIndex: 0
   correctDirection: 0
 --- !u!1 &657271798
 GameObject:
@@ -5153,7 +5154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 31
 --- !u!61 &657271801
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5383,7 +5384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 20
 --- !u!61 &673513925
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7253,7 +7254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 15
 --- !u!61 &887757251
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7701,7 +7702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 33
 --- !u!61 &937409560
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7793,7 +7794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 12
 --- !u!61 &944098013
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7885,7 +7886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 24
 --- !u!61 &948744442
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8101,7 +8102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 34
 --- !u!61 &1005470177
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8255,7 +8256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 4
 --- !u!61 &1012542025
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8777,7 +8778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 27
 --- !u!61 &1104042460
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -50647,7 +50648,7 @@ GameObject:
   - component: {fileID: 1179373832}
   m_Layer: 0
   m_Name: Marker
-  m_TagString: FirstDirectionMarker
+  m_TagString: DirectionMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50679,7 +50680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 0
+  index: 1
 --- !u!61 &1179373831
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -51225,7 +51226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 6
 --- !u!61 &1242951934
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -52376,7 +52377,7 @@ GameObject:
   - component: {fileID: 1289519530}
   m_Layer: 0
   m_Name: Marker (37)
-  m_TagString: DirectionMarker
+  m_TagString: LastDirectionMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52390,7 +52391,7 @@ Transform:
   m_GameObject: {fileID: 1289519526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.88, y: -0.9, z: 0}
+  m_LocalPosition: {x: -7.877, y: -0.9, z: 0}
   m_LocalScale: {x: 0.1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52408,7 +52409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 0
+  index: 37
 --- !u!61 &1289519529
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53498,7 +53499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 19
 --- !u!61 &1516062785
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53788,7 +53789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 11
 --- !u!61 &1552277518
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53982,9 +53983,10 @@ GameObject:
   - component: {fileID: 1591443451}
   - component: {fileID: 1591443453}
   - component: {fileID: 1591443452}
+  - component: {fileID: 1591443454}
   m_Layer: 0
   m_Name: StartFinish
-  m_TagString: Untagged
+  m_TagString: DirectionMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54062,6 +54064,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 17.98}
   m_EdgeRadius: 0
+--- !u!114 &1591443454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591443450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
+  index: 0
 --- !u!1 &1597167149
 GameObject:
   m_ObjectHideFlags: 0
@@ -54243,7 +54258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 14
 --- !u!61 &1642427484
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -55288,7 +55303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 8
 --- !u!61 &1749681517
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -56997,7 +57012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 18
 --- !u!61 &1771538856
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -57151,7 +57166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 36
 --- !u!61 &1794106521
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -58058,7 +58073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 30
 --- !u!61 &1854176895
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -59482,7 +59497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 21
 --- !u!61 &1970478230
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -59789,7 +59804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 2
 --- !u!61 &2049268289
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60310,7 +60325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498ed1e4777546142ac0ef0395e0daf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirectionMarker
-  passed: 1
+  index: 9
 --- !u!61 &2127500150
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -60857,6 +60872,14 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 2064748909}
+    - target: {fileID: 1691737995961986725, guid: 4b3f1c38613da6643b801025f0a8434a, type: 3}
+      propertyPath: directionTracker
+      value: 
+      objectReference: {fileID: 655059545}
+    - target: {fileID: 1691737995961986725, guid: 4b3f1c38613da6643b801025f0a8434a, type: 3}
+      propertyPath: timeTrialManager
+      value: 
+      objectReference: {fileID: 1896832954}
     - target: {fileID: 2440804464808082911, guid: 4b3f1c38613da6643b801025f0a8434a, type: 3}
       propertyPath: m_Size.x
       value: 1

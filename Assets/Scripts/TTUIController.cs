@@ -34,8 +34,8 @@ public class TTUIController : MonoBehaviour
     TimeTrialManager.BestTimeUpdated += OnBestTimeUpdated;
     TimeTrialManager.InvalidLap += OnInvalidLap;
     TimeTrialManager.NewLapStarted += OnNewLapStarted;
-    DirectionMarker.onWrongDirection += OnWrongDirection;
-    DirectionMarker.onCorrectDirection += OnCorrectDirection;
+    DirectionTracker.onWrongDirection += OnWrongDirection;
+    DirectionTracker.onCorrectDirection += OnCorrectDirection;
     }
     void OnDestroy()
     {
@@ -50,8 +50,8 @@ public class TTUIController : MonoBehaviour
     TimeTrialManager.BestTimeUpdated -= OnBestTimeUpdated;
     TimeTrialManager.InvalidLap -= OnInvalidLap;
     TimeTrialManager.NewLapStarted -= OnNewLapStarted;
-    DirectionMarker.onWrongDirection -= OnWrongDirection;
-    DirectionMarker.onCorrectDirection -= OnCorrectDirection;
+    DirectionTracker.onWrongDirection -= OnWrongDirection;
+    DirectionTracker.onCorrectDirection -= OnCorrectDirection;
     }
 
     // Update is called once per frame
