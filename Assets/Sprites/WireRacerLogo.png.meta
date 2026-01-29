@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ae0c6aeade8244f488da1298142980c5
+guid: b9f87e2be56e33f47bf6fb39b1000963
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1404028623067837608
-    second: Logo_0
+      213: -5192891432941609208
+    second: WireRacerLogo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Logo_0
+      name: WireRacerLogo_0
       rect:
         serializedVersion: 2
-        x: 52
-        y: 37
-        width: 1799
-        height: 727
+        x: 59
+        y: 50
+        width: 1758
+        height: 730
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8a47074089c1c7310800000000000000
-      internalID: 1404028623067837608
+      spriteID: 80f985e31c42fe7b0800000000000000
+      internalID: -5192891432941609208
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Logo_0: 1404028623067837608
+      WireRacerLogo_0: -5192891432941609208
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -73,7 +73,7 @@ float GetDifficulty(float t, float start, float max, float k)
 
 void SetDifficulty(){
     spawnManager.obstacleCount = (int)GetDifficulty(time, 8, 12, difficultyK);
-    pursuingEnemy.defaultSpeed = GetDifficulty(time, 15, 18, difficultyK);
+    pursuingEnemy.defaultSpeed = GetDifficulty(time, 18, 25, difficultyK);
     player.attractionForce = GetDifficulty(time, 25, 30, difficultyK);
 }
 
