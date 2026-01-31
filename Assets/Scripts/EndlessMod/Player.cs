@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Splines;
+using System;
 public class Player : MonoBehaviour
 {
     [Header("Game Objects")]
@@ -14,7 +15,6 @@ public class Player : MonoBehaviour
     [Header("States")]
     public bool isAlive;
     public bool onTrack;
-    private bool startRace;
     private bool hookIsMoving;
     public bool hitObstacle { get; private set; }
     public bool withPowerUp{ get; private set; }
@@ -54,6 +54,14 @@ public class Player : MonoBehaviour
     [Header("Coroutines")]
     private Coroutine withPowerUpCoroutine;
 
+    public static event Action<Vector2> BarierHit;
+    public static event Action<Transform> PowerUpHit;
+    public static event Action<Transform> ObstacleHit;
+    public static event Action<Transform> ObstacleSmash;
+    public static event Action PowerUpActive;
+    public static event Action PowerUpEnd;
+    public static event Action OutOnTrack;
+
     
 
 
@@ -69,7 +77,6 @@ public class Player : MonoBehaviour
 
 
         hookIsMoving = false;
-        startRace = false;
         isAlive = true;
         hitObstacle = false;
         withPowerUp = false;
@@ -196,7 +203,7 @@ public class Player : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, tmpHookPoint.transform.position);
     }
-    void GetSurfaceBehavior()
+    /*void GetSurfaceBehavior()
     {
         int numberOfHits = Physics2D.OverlapCollider(playerCol, contactFilter, surfaceCollidersHit);
 
@@ -226,12 +233,12 @@ public class Player : MonoBehaviour
                 break;
         }
 
-    }
+    }*/
     void CheckCurrentSpeed()
     {
         if (Velocity >= 20)
         {
-            Debug.Log("Healing Player");
+            //Debug.Log("Healing Player");
             health = Mathf.MoveTowards(health, 4, Time.deltaTime * 0.5f);
             //timerSlider.value = health;
         }
@@ -259,12 +266,13 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Obstacle"))
         {
-            StartCoroutine(HitObstacle());
+            StartCoroutine(HitObstacle(collision));
         }
         if (collision.CompareTag("sand"))
         {
             if (!withPowerUp)
             {
+                OutOnTrack?.Invoke();
                 mainCamera.Shake(1f, 0.05f);
                 onTrack = false;
             }
@@ -279,6 +287,8 @@ public class Player : MonoBehaviour
             }
         }
         if (collision.CompareTag("PowerUp")){
+            PowerUpHit?.Invoke(collision.transform);
+
             Destroy(collision.gameObject);
             if (withPowerUp){       
             StopCoroutine(withPowerUpCoroutine);
@@ -305,6 +315,7 @@ public class Player : MonoBehaviour
             playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 5, ForceMode2D.Impulse);
             if (!withPowerUp){
             health--;}
+            BarierHit?.Invoke(closestPoint);
         }
     }
 
@@ -319,15 +330,17 @@ public class Player : MonoBehaviour
     {
         get { return onTrack; }
     }
-    IEnumerator HitObstacle()
+    IEnumerator HitObstacle(Collider2D collision)
     {
         if (!withPowerUp){
+        ObstacleHit?.Invoke(collision.transform);
         mainCamera.Shake(0.5f, 0.3f);
         health--;
         hitObstacle = true;
         yield return new WaitForSeconds(2);
         hitObstacle = false;}
         else{
+            ObstacleSmash?.Invoke(collision.transform);
             mainCamera.Shake(0.2f, 0.1f);
             smashObstacle = true;
             yield return new WaitForSeconds(2);
@@ -336,6 +349,7 @@ public class Player : MonoBehaviour
     }
     IEnumerator WithPowerUp()
     {
+        PowerUpActive?.Invoke();
         withPowerUp = true;
         powerUpBar.gameObject.SetActive(true);
         powerUpBar.value = 5;
@@ -348,6 +362,7 @@ public class Player : MonoBehaviour
         withPowerUp = false;
         powerUpBar.gameObject.SetActive(false);
         powerUp.SetActive(false);
+        PowerUpEnd?.Invoke();
     }
     void DigressPowerUp()
     {
