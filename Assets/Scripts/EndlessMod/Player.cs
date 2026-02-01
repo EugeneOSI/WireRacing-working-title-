@@ -62,7 +62,8 @@ public class Player : MonoBehaviour
     public static event Action PowerUpEnd;
     public static event Action OutOnTrack;
 
-    
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem offRoadParticles;
 
 
 
@@ -260,6 +261,7 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("sand"))
         {
             onTrack = true;
+            offRoadParticles.Stop();
         }
     }
     void OnTriggerEnter2D(Collider2D collision)
@@ -270,6 +272,7 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("sand"))
         {
+            offRoadParticles.Play();
             if (!withPowerUp)
             {
                 OutOnTrack?.Invoke();
