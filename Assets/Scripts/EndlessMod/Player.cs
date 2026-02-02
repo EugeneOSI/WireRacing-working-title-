@@ -32,9 +32,6 @@ public class Player : MonoBehaviour
     private float currentSpeed;
 
 
-    [Header("Surfaces")]
-    public LayerMask surfaceLayer;
-
     [Header("Sliders")]
     [SerializeField] private Slider healthBar;
     [SerializeField] private Slider powerUpBar;
@@ -43,8 +40,6 @@ public class Player : MonoBehaviour
     private Rigidbody2D playerRb;
     private LineRenderer lineRenderer;
     private Collider2D playerCol;
-    private ContactFilter2D contactFilter;
-    private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     private FollowCamera mainCamera;
 
     [SerializeField] private EM_GameManager gameManager;
@@ -64,15 +59,15 @@ public class Player : MonoBehaviour
 
     [Header("Particles")]
     [SerializeField] private ParticleSystem offRoadParticles;
+    [SerializeField] private ParticleSystem healingParticles;
 
 
 
     void Start()
     {
-        contactFilter = new ContactFilter2D();
-        contactFilter.layerMask = surfaceLayer;
-        contactFilter.useLayerMask = true;
-        contactFilter.useTriggers = true;
+        
+        healingParticles.Stop();
+        offRoadParticles.Stop();
 
         powerUpBar.gameObject.SetActive(false);
 
@@ -82,7 +77,6 @@ public class Player : MonoBehaviour
         hitObstacle = false;
         withPowerUp = false;
         onTrack = true;
-
         powerUp.SetActive(false);
 
 
@@ -204,46 +198,25 @@ public class Player : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, tmpHookPoint.transform.position);
     }
-    /*void GetSurfaceBehavior()
-    {
-        int numberOfHits = Physics2D.OverlapCollider(playerCol, contactFilter, surfaceCollidersHit);
 
-        float lastSurfaceZValue = -1000;
-        for (int i = 0; i < numberOfHits; i++)
-        {
-            Surface surface = surfaceCollidersHit[i].GetComponent<Surface>();
-            if (surface.transform.position.z > lastSurfaceZValue)
-            {
-                drivingSurface = surface.surfaceType;
-                lastSurfaceZValue = surface.transform.position.z;
-            }
-        }
-
-        if (numberOfHits == 0)
-        {
-            drivingSurface = Surface.SurfaceType.Road;
-        }
-
-        switch (drivingSurface)
-        {
-            case Surface.SurfaceType.Sand:
-                onTrack = false;
-                break;
-            case Surface.SurfaceType.Road:
-                onTrack = true;
-                break;
-        }
-
-    }*/
     void CheckCurrentSpeed()
     {
-        if (Velocity >= 20)
+        if (Velocity >= 20 && health < 4)
         {
-            //Debug.Log("Healing Player");
+            if (!healingParticles.isPlaying)
+        {
+            healingParticles.Play();
+        }
             health = Mathf.MoveTowards(health, 4, Time.deltaTime * 0.5f);
-            //timerSlider.value = health;
+        }
+        else{
+             if (healingParticles.isPlaying)
+        {
+            healingParticles.Stop();
+        }
         }
     }
+
 
     void DisableHook(){
         if (tmpHookPoint != null){

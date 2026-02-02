@@ -7,9 +7,13 @@ public class Obstacles : MonoBehaviour
     Animator animator;
     bool exploded = false;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem circleParticles;
+
     void Start()
     {
         animator = GetComponent<Animator>();
+        circleParticles.Stop();
         Player.PowerUpActive += OnPowerUpActive;
         Player.PowerUpEnd += OnPowerUpEnd;
         Player.ObstacleHit += OnObstacleHit;
@@ -23,13 +27,16 @@ public class Obstacles : MonoBehaviour
     }
     void OnPowerUpActive()
     {
-        if (!exploded)
+        if (!exploded){
         animator.SetTrigger("PowerUp Active");
+        circleParticles.Play();
+        }
     }
     void OnPowerUpEnd()
     {
-        if (!exploded)
+        if (!exploded){
         animator.SetTrigger("PowerUp Unactive");
+        circleParticles.Stop();}
     }
     void OnObstacleHit(Transform obstacleTransform)
     {
