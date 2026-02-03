@@ -25,7 +25,7 @@ public class EM_UIController : MonoBehaviour
     [SerializeField] public GameObject bestScore;
     [SerializeField] public GameObject deleteEntryText;
     [SerializeField] public GameObject deleteEntryButton;
-    
+    [SerializeField] private Animator LowHpAlert;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -73,10 +73,10 @@ public class EM_UIController : MonoBehaviour
         }
     
     public void OnLowHealth(){
-        UIManager.Instance.SetVisibilty(healthAlert, true);
+        LowHpAlert.SetTrigger("Active");
     }
     public void OnNormalHealth(){
-        UIManager.Instance.SetVisibilty(healthAlert, false);
+        LowHpAlert.SetTrigger("Unactive");
     }
     public void OnGameOver(){
         UIManager.Instance.SetVisibilty(ScoreUI, false);

@@ -54,11 +54,13 @@ public class Player : MonoBehaviour
     public static event Action PowerUpEnd;
     public static event Action OutOnTrack;
 
-    [Header("Particles")]
+    [Header("VFX")]
     [SerializeField] private ParticleSystem offRoadParticles;
     [SerializeField] private ParticleSystem healingParticles;
     [SerializeField] private ParticleSystem powerUpParticles;
     [SerializeField] private GameObject stunEffect;
+    [SerializeField] private Animator powerUpHalo;
+
 
 
 
@@ -329,6 +331,7 @@ public class Player : MonoBehaviour
     {
         PowerUpActive?.Invoke();
         powerUpParticles.Play();
+        powerUpHalo.SetTrigger("Active");
         withPowerUp = true;
         powerUpBar.gameObject.SetActive(true);
         powerUpBar.value = 5;
@@ -342,6 +345,7 @@ public class Player : MonoBehaviour
         powerUpBar.gameObject.SetActive(false);
         powerUp.SetActive(false);
         powerUpParticles.Stop();
+        powerUpHalo.SetTrigger("Unactive");
         PowerUpEnd?.Invoke();
     }
     void DigressPowerUp()

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class VFXManager : MonoBehaviour
@@ -7,6 +8,7 @@ public class VFXManager : MonoBehaviour
     GameObject tmpVfx;
     [Header("References")] 
     [SerializeField] private Player player;
+    [SerializeField] private PursuingEnemy pursuingEnemy;
 
     [Header("VFX")]
     [SerializeField] private GameObject barierHitVFX;
@@ -19,7 +21,9 @@ public class VFXManager : MonoBehaviour
     [SerializeField] private GameObject freezedText;
     [SerializeField] private GameObject deadExplosion1;
     [SerializeField] private GameObject deadExplosion2;
-
+    [SerializeField] private Image enemyApproachingImage;
+    [SerializeField] private float distanceEffectStart = 15f;  // На этом расстоянии эффект появляется (alpha 0%)
+    [SerializeField] private float distanceEffectFull = 5f;    // На этом расстоянии эффект полностью виден (alpha 100%)
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -45,7 +49,16 @@ public class VFXManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (enemyApproachingImage == null) return;
+
+        float distance = Vector2.Distance(player.transform.position, pursuingEnemy.transform.position);
+        // InverseLerp: 0 при distanceEffectStart, 1 при distanceEffectFull
+        float alpha = Mathf.InverseLerp(distanceEffectStart, distanceEffectFull, distance);
+        alpha = Mathf.Clamp01(alpha);
+
+        Color color = enemyApproachingImage.color;
+        color.a = alpha;
+        enemyApproachingImage.color = color;
     }
 
     void OnBarierHit(Vector2 collisionPoint)
