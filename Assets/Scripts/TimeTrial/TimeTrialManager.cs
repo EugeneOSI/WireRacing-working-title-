@@ -46,7 +46,6 @@ public class TimeTrialManager : MonoBehaviour
     [SerializeField] private DirectionTracker directionTracker;
     public bool IsPaused {get; set;}
 
-    // Сохраняем ссылку на делегат для корректной отписки
     private Action onWrongDirectionHandler;
 
     public static event Action BestTimeUpdated;
@@ -70,7 +69,6 @@ public class TimeTrialManager : MonoBehaviour
         previousLapSectors = new float[sectorCount];
         ResetArray(previousLapSectors, -1f);
 
-        // Сохраняем ссылку на делегат для корректной отписки
         onWrongDirectionHandler = () => InvalidateCurrentLap("Wrong Direction");
         DirectionTracker.onWrongDirection += onWrongDirectionHandler;
     }
@@ -101,17 +99,6 @@ private void Start()
             InvalidateCurrentLap("Mistake");
         }
         lapTimeText.text = FormatTime(CurrentLapTime,"lap");
-
-        /*if (Input.GetKeyDown(KeyCode.R))
-        {
-            RestartLap();
-        }*/
-
-        /*if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            GameManager.Instance.PauseGame();
-            Debug.Log("Pause game");
-        }*/
 
     }
 

@@ -25,7 +25,6 @@ public class Player : MonoBehaviour
     public float hookSpeed;
     public float limitedSpeed;
     public float attractionForce;
-    public float minSpeed;
     public float breakForce;
     public float maxHooksAmount;
     private float maxVelocity;
@@ -44,8 +43,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private EM_GameManager gameManager;
 
-    Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
-
     [Header("Coroutines")]
     private Coroutine withPowerUpCoroutine;
 
@@ -60,6 +57,8 @@ public class Player : MonoBehaviour
     [Header("Particles")]
     [SerializeField] private ParticleSystem offRoadParticles;
     [SerializeField] private ParticleSystem healingParticles;
+    [SerializeField] private ParticleSystem powerUpParticles;
+    [SerializeField] private GameObject stunEffect;
 
 
 
@@ -68,7 +67,8 @@ public class Player : MonoBehaviour
         
         healingParticles.Stop();
         offRoadParticles.Stop();
-
+        powerUpParticles.Stop();
+        stunEffect.SetActive(false);
         powerUpBar.gameObject.SetActive(false);
 
 
@@ -309,11 +309,13 @@ public class Player : MonoBehaviour
     IEnumerator HitObstacle(Collider2D collision)
     {
         if (!withPowerUp){
+        stunEffect.SetActive(true);
         ObstacleHit?.Invoke(collision.transform);
         mainCamera.Shake(0.5f, 0.3f);
         health--;
         hitObstacle = true;
         yield return new WaitForSeconds(2);
+        stunEffect.SetActive(false);
         hitObstacle = false;}
         else{
             ObstacleSmash?.Invoke(collision.transform);
@@ -326,6 +328,7 @@ public class Player : MonoBehaviour
     IEnumerator WithPowerUp()
     {
         PowerUpActive?.Invoke();
+        powerUpParticles.Play();
         withPowerUp = true;
         powerUpBar.gameObject.SetActive(true);
         powerUpBar.value = 5;
@@ -338,6 +341,7 @@ public class Player : MonoBehaviour
         withPowerUp = false;
         powerUpBar.gameObject.SetActive(false);
         powerUp.SetActive(false);
+        powerUpParticles.Stop();
         PowerUpEnd?.Invoke();
     }
     void DigressPowerUp()

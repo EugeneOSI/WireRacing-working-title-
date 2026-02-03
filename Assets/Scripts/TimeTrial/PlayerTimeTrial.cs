@@ -34,10 +34,16 @@ public class PlayerTimeTrial : MonoBehaviour
     [SerializeField] private DirectionTracker directionTracker;
     [SerializeField] private TimeTrialManager timeTrialManager;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem offRoadParticles;
+
 
     public static event Action OnCrossedFirstMarker;
+    public static event Action<Vector2> BarierHitTT;
+    public static event Action OutOnTrackTT;
     void Start()
     {
+        offRoadParticles.Stop();
         startPosition = transform.position;
         startCameraPosition = mainCamera.transform.position;
         contactFilter = new ContactFilter2D();
@@ -142,7 +148,9 @@ public class PlayerTimeTrial : MonoBehaviour
 
         if (collision.CompareTag("sand"))
         {
+            offRoadParticles.Play();
             mainCamera.Shake(1f, 0.05f);
+            OutOnTrackTT?.Invoke();
             StartCoroutine(Mistake());
             onTrack = false;
         }
@@ -161,6 +169,7 @@ public class PlayerTimeTrial : MonoBehaviour
     {
         if (collision.CompareTag("sand"))
         {
+            offRoadParticles.Stop();
             onTrack = true;
         }
     }
@@ -173,6 +182,7 @@ public class PlayerTimeTrial : MonoBehaviour
             mainCamera.Shake(0.5f, 0.3f);
             Vector2 closestPoint = collision.contacts[0].point;
             playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 10, ForceMode2D.Impulse);
+            BarierHitTT?.Invoke(closestPoint);
         }
     }
 

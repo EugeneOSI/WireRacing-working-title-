@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Splines;
 using System.Collections;
-
+using System;
 
 public class PursuingEnemy : MonoBehaviour
 {
@@ -19,9 +19,16 @@ public class PursuingEnemy : MonoBehaviour
 
     [SerializeField] private Player player;
     [SerializeField] private EM_GameManager gameManager;
+    
+    public static event Action<Transform> EnemyFreezed;
+    public static event Action EnemyUnfreezed;
+
+    [Header("VFX")]
+    [SerializeField] private GameObject enemyFreezedIndicator;
 
     void Start()
     {
+        enemyFreezedIndicator.SetActive(false);
         splineContainer = firstSplineContainer;
         _spline = splineContainer.Spline;
         CalculateSplineLength();
@@ -109,11 +116,15 @@ public class PursuingEnemy : MonoBehaviour
     }
 public void Freeze(){
     freezed = true;
+    enemyFreezedIndicator.SetActive(true);
+    EnemyFreezed?.Invoke(transform);
     StartCoroutine(FreezeTimer());
 }
 
 IEnumerator FreezeTimer(){
     yield return new WaitForSeconds(3);
     freezed = false;
+    enemyFreezedIndicator.SetActive(false);
+
 }
 }
