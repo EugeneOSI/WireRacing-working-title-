@@ -57,13 +57,15 @@ public void PauseGame(){
         if (!isGamePaused){
             OnPauseEvent?.Invoke();
             isGamePaused = true;
+            Debug.Log("Игра поставлена на паузу");
             }
             else if(isGamePaused&&UIManager.Instance.ActiveScreens.Count < 2){
                 OnUnpauseEvent?.Invoke();
-                isGamePaused = false;
+                isGamePaused = false;Debug.Log("Игра поставлена на паузу");
             }
             else{
                 whilePausedEvent?.Invoke();
+                Debug.Log("Игра остается на паузе");
             }
             
 }

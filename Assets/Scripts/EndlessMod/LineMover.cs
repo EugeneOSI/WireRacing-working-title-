@@ -4,7 +4,7 @@ public class LineMover : MonoBehaviour
 {
     public float moveSpeed = 5f;
 
-    public float targetY;
+    public float targetY = .5f;
     private bool isActive = false;
     RectTransform rt;
 

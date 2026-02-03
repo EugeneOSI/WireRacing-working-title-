@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Splines;
+using System;
 public class Player : MonoBehaviour
 {
     [Header("Game Objects")]
@@ -14,7 +15,6 @@ public class Player : MonoBehaviour
     [Header("States")]
     public bool isAlive;
     public bool onTrack;
-    private bool startRace;
     private bool hookIsMoving;
     public bool hitObstacle { get; private set; }
     public bool withPowerUp{ get; private set; }
@@ -25,44 +25,60 @@ public class Player : MonoBehaviour
     public float hookSpeed;
     public float limitedSpeed;
     public float attractionForce;
-    public float minSpeed;
     public float breakForce;
     public float maxHooksAmount;
     private float maxVelocity;
     private float currentSpeed;
 
 
-    [Header("Surfaces")]
-    public LayerMask surfaceLayer;
+    [Header("Sliders")]
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private Slider powerUpBar;
 
     [Header("Components")]
     private Rigidbody2D playerRb;
     private LineRenderer lineRenderer;
     private Collider2D playerCol;
-    private ContactFilter2D contactFilter;
-    private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     private FollowCamera mainCamera;
 
     [SerializeField] private EM_GameManager gameManager;
 
-    Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
+    [Header("Coroutines")]
+    private Coroutine withPowerUpCoroutine;
+
+    public static event Action<Vector2> BarierHit;
+    public static event Action<Transform> PowerUpHit;
+    public static event Action<Transform> ObstacleHit;
+    public static event Action<Transform> ObstacleSmash;
+    public static event Action PowerUpActive;
+    public static event Action PowerUpEnd;
+    public static event Action OutOnTrack;
+
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem offRoadParticles;
+    [SerializeField] private ParticleSystem healingParticles;
+    [SerializeField] private ParticleSystem powerUpParticles;
+    [SerializeField] private GameObject stunEffect;
+    [SerializeField] private Animator powerUpHalo;
+
 
 
 
     void Start()
     {
-        contactFilter = new ContactFilter2D();
-        contactFilter.layerMask = surfaceLayer;
-        contactFilter.useLayerMask = true;
-        contactFilter.useTriggers = true;
+        
+        healingParticles.Stop();
+        offRoadParticles.Stop();
+        powerUpParticles.Stop();
+        stunEffect.SetActive(false);
+        powerUpBar.gameObject.SetActive(false);
 
 
         hookIsMoving = false;
-        startRace = false;
         isAlive = true;
         hitObstacle = false;
         withPowerUp = false;
-
+        onTrack = true;
         powerUp.SetActive(false);
 
 
@@ -95,12 +111,19 @@ public class Player : MonoBehaviour
             DrawWire();
             if (!hookPoint.moveStatus) hookIsMoving = false;
         }
+
+        healthBar.value = health;
+
+        if (withPowerUp)
+        {
+            DigressPowerUp();
+        }
     }
 
 
     void FixedUpdate()
     {
-        GetSurfaceBehavior();
+        //GetSurfaceBehavior();
 
         if (tmpHookPoint != null && !hookIsMoving)
         {
@@ -177,48 +200,25 @@ public class Player : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, tmpHookPoint.transform.position);
     }
-    void GetSurfaceBehavior()
-    {
-        int numberOfHits = Physics2D.OverlapCollider(playerCol, contactFilter, surfaceCollidersHit);
 
-        float lastSurfaceZValue = -1000;
-        for (int i = 0; i < numberOfHits; i++)
-        {
-            Surface surface = surfaceCollidersHit[i].GetComponent<Surface>();
-            if (surface.transform.position.z > lastSurfaceZValue)
-            {
-                drivingSurface = surface.surfaceType;
-                lastSurfaceZValue = surface.transform.position.z;
-            }
-        }
-
-        if (numberOfHits == 0)
-        {
-            drivingSurface = Surface.SurfaceType.Road;
-        }
-
-        switch (drivingSurface)
-        {
-            case Surface.SurfaceType.Sand:
-                onTrack = false;
-                break;
-            case Surface.SurfaceType.Road:
-                onTrack = true;
-                break;
-        }
-
-    }
     void CheckCurrentSpeed()
     {
-
-
-        if (Velocity >= 10 && startRace)
+        if (Velocity >= 20 && health < 4)
         {
-            Debug.Log("Healing Player");
-            health += Mathf.MoveTowards(health, 4, Time.deltaTime * 1);
-            //timerSlider.value = health;
+            if (!healingParticles.isPlaying)
+        {
+            healingParticles.Play();
+        }
+            health = Mathf.MoveTowards(health, 4, Time.deltaTime * 0.5f);
+        }
+        else{
+             if (healingParticles.isPlaying)
+        {
+            healingParticles.Stop();
+        }
         }
     }
+
 
     void DisableHook(){
         if (tmpHookPoint != null){
@@ -233,18 +233,26 @@ public class Player : MonoBehaviour
         {
             gameManager.GameStarted = true;
         }
+        if (collision.CompareTag("sand"))
+        {
+            onTrack = true;
+            offRoadParticles.Stop();
+        }
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Obstacle"))
         {
-            StartCoroutine(HitObstacle());
+            StartCoroutine(HitObstacle(collision));
         }
         if (collision.CompareTag("sand"))
         {
+            offRoadParticles.Play();
             if (!withPowerUp)
             {
+                OutOnTrack?.Invoke();
                 mainCamera.Shake(1f, 0.05f);
+                onTrack = false;
             }
         }
         if (collision.CompareTag("Enemy")){
@@ -257,14 +265,23 @@ public class Player : MonoBehaviour
             }
         }
         if (collision.CompareTag("PowerUp")){
+            PowerUpHit?.Invoke(collision.transform);
+
             Destroy(collision.gameObject);
-            StartCoroutine(WithPowerUp());
+            if (withPowerUp){       
+            StopCoroutine(withPowerUpCoroutine);
+            withPowerUpCoroutine = null;
+            withPowerUpCoroutine = StartCoroutine(WithPowerUp());}
+            else{
+                withPowerUpCoroutine = StartCoroutine(WithPowerUp());
+            }
         }
         if (collision.CompareTag("DeadZone")){
             DisableHook();
             health = 0;
         }
     }
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -276,6 +293,7 @@ public class Player : MonoBehaviour
             playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 5, ForceMode2D.Impulse);
             if (!withPowerUp){
             health--;}
+            BarierHit?.Invoke(closestPoint);
         }
     }
 
@@ -290,15 +308,19 @@ public class Player : MonoBehaviour
     {
         get { return onTrack; }
     }
-    IEnumerator HitObstacle()
+    IEnumerator HitObstacle(Collider2D collision)
     {
         if (!withPowerUp){
+        stunEffect.SetActive(true);
+        ObstacleHit?.Invoke(collision.transform);
         mainCamera.Shake(0.5f, 0.3f);
         health--;
         hitObstacle = true;
         yield return new WaitForSeconds(2);
+        stunEffect.SetActive(false);
         hitObstacle = false;}
         else{
+            ObstacleSmash?.Invoke(collision.transform);
             mainCamera.Shake(0.2f, 0.1f);
             smashObstacle = true;
             yield return new WaitForSeconds(2);
@@ -307,7 +329,12 @@ public class Player : MonoBehaviour
     }
     IEnumerator WithPowerUp()
     {
+        PowerUpActive?.Invoke();
+        powerUpParticles.Play();
+        powerUpHalo.SetTrigger("Active");
         withPowerUp = true;
+        powerUpBar.gameObject.SetActive(true);
+        powerUpBar.value = 5;
         powerUp.SetActive(true);
         if (health < 5)
         {
@@ -315,7 +342,18 @@ public class Player : MonoBehaviour
         }
         yield return new WaitForSeconds(5);
         withPowerUp = false;
+        powerUpBar.gameObject.SetActive(false);
         powerUp.SetActive(false);
+        powerUpParticles.Stop();
+        powerUpHalo.SetTrigger("Unactive");
+        PowerUpEnd?.Invoke();
+    }
+    void DigressPowerUp()
+    {
+        if (powerUpBar.value > 0)
+        {
+            powerUpBar.value-=Time.deltaTime;
+        }
     }
 
     public float Velocity

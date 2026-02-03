@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+using System;
 public class PlayerTimeTrial : MonoBehaviour
 {
     
@@ -18,35 +18,40 @@ public class PlayerTimeTrial : MonoBehaviour
     public float hookSpeed;
     public float limitedSpeed;
     public float attractionForce;
-    public float minSpeed;
     public float breakForce;
-    public float maxHooksAmount;
     private float maxVelocity;
-    private float currentSpeed;
+    private Vector2 startPosition;
+    private Vector2 startCameraPosition;
 
 
-    [Header("Surfaces")]
-    public LayerMask surfaceLayer;
 
     [Header("Components")]
     [SerializeField] private Rigidbody2D playerRb;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private Collider2D playerCol;
     private ContactFilter2D contactFilter;
-    private Collider2D[] surfaceCollidersHit = new Collider2D[10];
     [SerializeField] private FollowCamera mainCamera;
-    private TimeTrialManager timeTrialManager;
+    [SerializeField] private DirectionTracker directionTracker;
+    [SerializeField] private TimeTrialManager timeTrialManager;
 
-    Surface.SurfaceType drivingSurface = Surface.SurfaceType.Road;
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem offRoadParticles;
+
+
+    public static event Action OnCrossedFirstMarker;
+    public static event Action<Vector2> BarierHitTT;
+    public static event Action OutOnTrackTT;
     void Start()
     {
-        timeTrialManager = GameObject.Find("TimeTrialManager").GetComponent<TimeTrialManager>();
+        offRoadParticles.Stop();
+        startPosition = transform.position;
+        startCameraPosition = mainCamera.transform.position;
         contactFilter = new ContactFilter2D();
-        contactFilter.layerMask = surfaceLayer;
         contactFilter.useLayerMask = true;
         contactFilter.useTriggers = true;
         hookIsMoving = false;
         mistake = false;
+        onTrack = true;
 
         
     }
@@ -54,15 +59,19 @@ public class PlayerTimeTrial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-           if (playerSprite == null)
-        Debug.LogError("playerSprite = null на " + name);
-
-    if (playerRb == null)
-        Debug.LogError("playerRb = null на " + name);
+        
+        if (Input.GetKeyDown(KeyCode.R)){
+            Destroy(tmpHookPoint);
+            playerRb.linearVelocity = Vector2.zero;
+            transform.position = startPosition;
+            directionTracker.expectedIndex = 37;
+            timeTrialManager.lapRunning = false;
+            mainCamera.transform.position = startCameraPosition;
+        }
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
-        if (Input.GetMouseButtonDown(0)&&!timeTrialManager.IsPaused)
+        if (Input.GetMouseButtonDown(0)&&Time.timeScale != 0)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -77,7 +86,6 @@ public class PlayerTimeTrial : MonoBehaviour
     }
     void FixedUpdate()
     {
-        GetSurfaceBehavior();
 
         if (tmpHookPoint != null && !hookIsMoving)
         {
@@ -108,10 +116,8 @@ public class PlayerTimeTrial : MonoBehaviour
                 case false:
                     newAttractionForce = attractionForce / 2;
                     maxVelocity = limitedSpeed;
-                    onTrack = false;
                     break;
                 case true:
-                    onTrack = true;
                     maxVelocity = 1000;
                     break;
             }
@@ -135,47 +141,37 @@ public class PlayerTimeTrial : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, tmpHookPoint.transform.position);
     }
-    void GetSurfaceBehavior()
-    {
-        int numberOfHits = Physics2D.OverlapCollider(playerCol, contactFilter, surfaceCollidersHit);
 
-        float lastSurfaceZValue = -1000;
-        for (int i = 0; i < numberOfHits; i++)
-        {
-            Surface surface = surfaceCollidersHit[i].GetComponent<Surface>();
-            if (surface.transform.position.z > lastSurfaceZValue)
-            {
-                drivingSurface = surface.surfaceType;
-                lastSurfaceZValue = surface.transform.position.z;
-            }
-        }
-
-        if (numberOfHits == 0)
-        {
-            drivingSurface = Surface.SurfaceType.Road;
-        }
-
-        switch (drivingSurface)
-        {
-            case Surface.SurfaceType.Sand:
-                onTrack = false;
-                break;
-            case Surface.SurfaceType.Road:
-                onTrack = true;
-                break;
-        }
-
-    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
 
         if (collision.CompareTag("sand"))
         {
+            offRoadParticles.Play();
             mainCamera.Shake(1f, 0.05f);
+            OutOnTrackTT?.Invoke();
             StartCoroutine(Mistake());
+            onTrack = false;
+        }
+        if (collision.gameObject.CompareTag("DirectionMarker"))
+        {
+            directionTracker.CheckMarkerIndex(collision.gameObject.GetComponent<DirectionMarker>().index);
+        }
+        if (collision.gameObject.CompareTag("LastDirectionMarker")){
+            directionTracker.CheckMarkerIndex(collision.gameObject.GetComponent<DirectionMarker>().index);
+            directionTracker.ResetIndex();
         }
 
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("sand"))
+        {
+            offRoadParticles.Stop();
+            onTrack = true;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -186,6 +182,7 @@ public class PlayerTimeTrial : MonoBehaviour
             mainCamera.Shake(0.5f, 0.3f);
             Vector2 closestPoint = collision.contacts[0].point;
             playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 10, ForceMode2D.Impulse);
+            BarierHitTT?.Invoke(closestPoint);
         }
     }
 

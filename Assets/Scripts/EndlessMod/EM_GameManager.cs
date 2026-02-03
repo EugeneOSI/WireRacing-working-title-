@@ -52,12 +52,11 @@ public class EM_GameManager : MonoBehaviour
         time = Time.timeSinceLevelLoad;
         SetDifficulty();
         if (player.Health < 2){
-            OnNormalHealth = null;
             OnLowHealth?.Invoke();
         }
         else{
-            OnLowHealth = null;
-            OnNormalHealth?.Invoke();}
+            OnNormalHealth?.Invoke();
+        }
         
         if (!player.isAlive && gameOverSequenceStarted == false)
         {
@@ -74,7 +73,7 @@ float GetDifficulty(float t, float start, float max, float k)
 
 void SetDifficulty(){
     spawnManager.obstacleCount = (int)GetDifficulty(time, 8, 12, difficultyK);
-    pursuingEnemy.defaultSpeed = GetDifficulty(time, 15, 18, difficultyK);
+    pursuingEnemy.defaultSpeed = GetDifficulty(time, 15, 22, difficultyK);
     player.attractionForce = GetDifficulty(time, 25, 30, difficultyK);
 }
 
