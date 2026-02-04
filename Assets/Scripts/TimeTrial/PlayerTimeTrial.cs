@@ -28,7 +28,7 @@ public class PlayerTimeTrial : MonoBehaviour
     [Header("Components")]
     [SerializeField] private Rigidbody2D playerRb;
     [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private Collider2D playerCol;
+    [SerializeField] private TrailRenderer trailRenderer;
     private ContactFilter2D contactFilter;
     [SerializeField] private FollowCamera mainCamera;
     [SerializeField] private DirectionTracker directionTracker;
@@ -65,6 +65,7 @@ public class PlayerTimeTrial : MonoBehaviour
             playerRb.linearVelocity = Vector2.zero;
             transform.position = startPosition;
             directionTracker.expectedIndex = 37;
+            trailRenderer.Clear();
             timeTrialManager.lapRunning = false;
             mainCamera.transform.position = startCameraPosition;
         }
@@ -82,6 +83,9 @@ public class PlayerTimeTrial : MonoBehaviour
             HookPoint hookPoint = tmpHookPoint.GetComponent<HookPoint>();
             DrawWire();
             if (!hookPoint.moveStatus) hookIsMoving = false;
+        }
+        else {
+            ResetWirePosition();
         }
     }
     void FixedUpdate()

@@ -68,7 +68,7 @@ public class EM_UIController : MonoBehaviour
 
     public void OnGameStart(){
         UIManager.Instance.SetVisibilty(ScoreUI, true);
-        UIManager.Instance.SetVisibilty(healthAlert, false);
+        LowHpAlert.SetTrigger("Default");
         UIManager.Instance.SetVisibilty(gameOverMenu, false);
         }
     
@@ -80,7 +80,6 @@ public class EM_UIController : MonoBehaviour
     }
     public void OnGameOver(){
         UIManager.Instance.SetVisibilty(ScoreUI, false);
-        UIManager.Instance.SetVisibilty(healthAlert, false);
         UIManager.Instance.SetVisibilty(gameOverMenu, true);
         UIManager.Instance.SetText(currentScore, scoreManager.mainScore.ToString());
     }

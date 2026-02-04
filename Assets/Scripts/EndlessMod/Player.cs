@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public bool isAlive;
     public bool onTrack;
     private bool hookIsMoving;
+    private bool cutScene;
     public bool hitObstacle { get; private set; }
     public bool withPowerUp{ get; private set; }
     public bool smashObstacle{ get; private set; }
@@ -67,6 +68,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         
+        powerUpHalo.SetTrigger("Default");
         healingParticles.Stop();
         offRoadParticles.Stop();
         powerUpParticles.Stop();
@@ -86,6 +88,8 @@ public class Player : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         playerCol = GetComponent<Collider2D>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<FollowCamera>();
+
+        StartCoroutine(StartSpeed());
     }
 
     void Update()
@@ -94,7 +98,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
-        if (Input.GetMouseButtonDown(0) && !gameManager.IsPaused && !gameManager.GameOver)
+        if (Input.GetMouseButtonDown(0) && !gameManager.IsPaused && !gameManager.GameOver && !cutScene)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -102,8 +106,15 @@ public class Player : MonoBehaviour
         if (health <= 0)
         {
             isAlive = false;
+            Destroy(tmpHookPoint);
+            if (!offRoadParticles.isPlaying)
+            {
+                offRoadParticles.Play();
+                
+            }
             //Debug.Log("You Died");
         }
+
 
         if (tmpHookPoint != null)
         {
@@ -111,8 +122,17 @@ public class Player : MonoBehaviour
             DrawWire();
             if (!hookPoint.moveStatus) hookIsMoving = false;
         }
+        else {
+            ResetWirePosition();
+        }
 
         healthBar.value = health;
+            if (health >= 4){
+            healthBar.gameObject.SetActive(false);
+        }
+        else{
+            healthBar.gameObject.SetActive(true);
+        }
 
         if (withPowerUp)
         {
@@ -278,7 +298,7 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("DeadZone")){
             DisableHook();
-            health = 0;
+            health = -10;
         }
     }
 
@@ -364,6 +384,14 @@ public class Player : MonoBehaviour
     public float Health
     {
         get{ return health; }
+    }
+
+    IEnumerator StartSpeed()
+    {
+        cutScene = true;
+        yield return new WaitForSeconds(2.8f);
+        playerRb.linearVelocity = new Vector2(40, 0);
+        cutScene = false;
     }
     
 }
