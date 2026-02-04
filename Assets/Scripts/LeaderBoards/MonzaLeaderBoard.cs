@@ -15,7 +15,7 @@ public class MonzaLeaderBoard : MonoBehaviour
     [SerializeField] private TMP_InputField playerNameInput;
 
     public static event Action MonzaEntriesLoaded;
-    public static event Action EmptyFieldAlert;
+    public static event Action<String> InpudFieldAlert;
 
     public StatusCode statusCode;
 
@@ -62,7 +62,6 @@ private void ClearLeaderBoard(){
 private void FillLeaderBoard(Dan.Models.Entry[] entries){
         foreach (Dan.Models.Entry entry in entries)
     {
-        //scrollRect.transform.SetParent(entryParent);
         GameObject entryObject = Instantiate(entryPrefab, entryParent);
         TextMeshProUGUI textObject = entryObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         float time = (float)entry.Score / 1000;
@@ -86,7 +85,11 @@ public void UploadPlayerEntry(){
         name = PrefsManager.Instance.GetPlayerName();
     }
     else if(playerNameInput.text == ""){
-        EmptyFieldAlert?.Invoke();
+        InpudFieldAlert?.Invoke("Field is empty");
+        return;
+    }
+    else if (playerNameInput.text.Length > 6){
+        InpudFieldAlert?.Invoke("Name is too long");
         return;
     }
     else{
@@ -115,7 +118,6 @@ public void UpdateLeaderboard(){
 public void DeletePlayerEntry(){
     LeaderBoardsManager.Instance.DeletePlayerEntry("Monza");
 }
-
 
 
 }

@@ -306,9 +306,10 @@ void RegisterSector(int sectorIndex, float sectorTime)
         GameManager.Instance.LoadScene("TimeTrial_Monza");
     }
     IEnumerator LoadLeaderboard(){
-    //monzaLeaderBoard.LoadLeaderboard();
+    Debug.Log("Запуск загрузки лидеров");    
     yield return new WaitForSeconds(2f);
     monzaLeaderBoard.isLoaded = false;
+    Debug.Log("Начало загрузки лидеров");
     monzaLeaderBoard.LoadLeaderboard();
 }
 }

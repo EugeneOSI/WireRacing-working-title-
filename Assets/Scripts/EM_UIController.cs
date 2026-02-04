@@ -26,7 +26,7 @@ public class EM_UIController : MonoBehaviour
     [SerializeField] public GameObject deleteEntryText;
     [SerializeField] public GameObject deleteEntryButton;
     [SerializeField] private Animator LowHpAlert;
-
+    [SerializeField] public GameObject serviceUnavailablePanel;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,11 +38,13 @@ public class EM_UIController : MonoBehaviour
     LeaderBoardsManager.EntriesLoading += CancelUpdateName;
     LeaderBoardsManager.EnteryUploading += OnEntryUploading;
     EMLeaderBoard.EndlessModEntriesLoaded += OnEndlessModEntriesLoaded;
-    EMLeaderBoard.EmptyFieldAlert += EmptyFieldAlert;
+    EMLeaderBoard.InpudFieldAlert += InpudFieldAlert;
     LeaderBoardsManager.OnLeaderboardError += OnLeaderboardError;
     LeaderBoardsManager.EndlessModEntryDeleted += OnEndlessModEntryDeleted;
     EM_GameManager.OnGameOver += OnGameOver;
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
+
+    UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
     }
     void OnDestroy(){
         EM_GameManager.OnGameStart -= OnGameStart;
@@ -53,7 +55,7 @@ public class EM_UIController : MonoBehaviour
         LeaderBoardsManager.EntriesLoading -= CancelUpdateName;
         LeaderBoardsManager.EnteryUploading -= OnEntryUploading;
         EMLeaderBoard.EndlessModEntriesLoaded -= OnEndlessModEntriesLoaded;
-        EMLeaderBoard.EmptyFieldAlert -= EmptyFieldAlert;
+        EMLeaderBoard.InpudFieldAlert -= InpudFieldAlert;
         LeaderBoardsManager.OnLeaderboardError -= OnLeaderboardError;
         LeaderBoardsManager.EndlessModEntryDeleted -= OnEndlessModEntryDeleted;
         EM_GameManager.OnGameOver -= OnGameOver;
@@ -74,7 +76,7 @@ public class EM_UIController : MonoBehaviour
     
     public void OnLowHealth(){
         LowHpAlert.SetTrigger("Active");
-    }
+        }
     public void OnNormalHealth(){
         LowHpAlert.SetTrigger("Unactive");
     }
@@ -86,21 +88,25 @@ public class EM_UIController : MonoBehaviour
 
     private void OnEntriesLoading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
 }
 
     private void OnEntryUploading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
 }
 
 private void OnEndlessModEntriesLoaded(){
     UIManager.Instance.SetVisibilty(loadingPanel, false);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     UIManager.Instance.SetText(bestScore, PrefsManager.Instance.GetBestScore().ToString());
 
     if (!PrefsManager.Instance.IsPrefsSetted("BestScoreUploaded") && !PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(inputField, true);
         UIManager.Instance.SetVisibilty(submitScoreButton, true);
+        UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
         if (!PrefsManager.Instance.IsPrefsSetted("BestScore")||PrefsManager.Instance.GetBestScore() <= 0){
         UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
         }
@@ -151,9 +157,9 @@ private void OnEndlessModEntriesLoaded(){
     UIManager.Instance.SetVisibilty(submitScoreButton, false);
 }
 
-    public void EmptyFieldAlert(){
+    public void InpudFieldAlert(string alert){
     UIManager.Instance.StartCoroutine(UIManager.Instance.SwitchVisibiltyForSeconds(fieldAlert, 2));
-    UIManager.Instance.SetText(fieldAlert, "Field is empty");
+    UIManager.Instance.SetText(fieldAlert, alert);
 }
 
 
@@ -175,17 +181,27 @@ private void OnEndlessModEntriesLoaded(){
             break;
         case "0":
             UIManager.Instance.SetText(fieldAlert, "Failed to connect");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         case "503":
             UIManager.Instance.SetText(fieldAlert, "Service unavailable");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         case "500":
             UIManager.Instance.SetText(fieldAlert, "Internal server error");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
+            break;
+        case "Service unavailable":
+            UIManager.Instance.SetVisibilty(serviceUnavailablePanel, true);
+            UIManager.Instance.SetText(fieldAlert, "Service unavailable");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         default:
             break;
     }
-    UIManager.Instance.SetButtonInteractable(submitScoreButton, true);}
+    UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
+    UIManager.Instance.SetVisibilty(loadingPanel, false);
+    }
 
 public void ShowEditNamePanel(){
     UIManager.Instance.SetVisibilty(playerName, false);

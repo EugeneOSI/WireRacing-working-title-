@@ -17,6 +17,7 @@ public class TTUIController : MonoBehaviour
     [SerializeField] public GameObject InvalidLapAlert;
     [SerializeField] public GameObject WrongDirectionAlert;
     [SerializeField] public GameObject bestMonzaTime;
+    [SerializeField] public GameObject serviceUnavailablePanel;
 
     public List<GameObject> ActiveScreens = new List<GameObject>();
     
@@ -28,7 +29,7 @@ public class TTUIController : MonoBehaviour
     LeaderBoardsManager.EntriesLoading += CancelUpdateName;
     LeaderBoardsManager.EnteryUploading += OnEntryUploading;
     MonzaLeaderBoard.MonzaEntriesLoaded += OnMonzaEntriesLoaded;
-    MonzaLeaderBoard.EmptyFieldAlert += EmptyFieldAlert;
+    MonzaLeaderBoard.InpudFieldAlert += InpudFieldAlert;
     LeaderBoardsManager.OnLeaderboardError += OnLeaderboardError;
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
     TimeTrialManager.BestTimeUpdated += OnBestTimeUpdated;
@@ -36,6 +37,8 @@ public class TTUIController : MonoBehaviour
     TimeTrialManager.NewLapStarted += OnNewLapStarted;
     DirectionTracker.onWrongDirection += OnWrongDirection;
     DirectionTracker.onCorrectDirection += OnCorrectDirection;
+
+    UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
     }
     void OnDestroy()
     {
@@ -44,7 +47,7 @@ public class TTUIController : MonoBehaviour
     LeaderBoardsManager.EntriesLoading -= CancelUpdateName;
     LeaderBoardsManager.EnteryUploading -= OnEntryUploading;
     MonzaLeaderBoard.MonzaEntriesLoaded -= OnMonzaEntriesLoaded;
-    MonzaLeaderBoard.EmptyFieldAlert -= EmptyFieldAlert;
+    MonzaLeaderBoard.InpudFieldAlert -= InpudFieldAlert;
     LeaderBoardsManager.OnLeaderboardError -= OnLeaderboardError;
     LeaderBoardsManager.EntriesLoading -= OnEntriesLoading;
     TimeTrialManager.BestTimeUpdated -= OnBestTimeUpdated;
@@ -62,10 +65,12 @@ public class TTUIController : MonoBehaviour
 
     private void OnEntriesLoading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
 }
     private void OnEntryUploading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
 }
 private void OnMonzaEntriesLoaded(){
@@ -73,6 +78,7 @@ private void OnMonzaEntriesLoaded(){
     //UIManager.Instance.SetText(bestMonzaTime, UIManager.Instance.FormatTime(PrefsManager.Instance.GetBestTime("Monza"), "lap"));
     //UIManager.Instance.SetText(monzalaps, PrefsManager.Instance.GetLapsAmount("Monza").ToString());
     UIManager.Instance.SetVisibilty(loadingPanel, false);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
 
     if (!PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded") && !PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(inputField, true);
@@ -118,9 +124,9 @@ private void OnMonzaEntriesLoaded(){
     }
 }
 
-public void EmptyFieldAlert(){
+public void InpudFieldAlert(string alert){
     UIManager.Instance.StartCoroutine(UIManager.Instance.SwitchVisibiltyForSeconds(fieldAlert, 2));
-    UIManager.Instance.SetText(fieldAlert, "Field is empty");
+    UIManager.Instance.SetText(fieldAlert, alert);
 }
 
 
@@ -142,17 +148,27 @@ public void EmptyFieldAlert(){
             break;
         case "0":
             UIManager.Instance.SetText(fieldAlert, "Failed to connect");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         case "503":
             UIManager.Instance.SetText(fieldAlert, "Service unavailable");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         case "500":
             UIManager.Instance.SetText(fieldAlert, "Internal server error");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
+            break;
+        case "Service unavailable":
+            UIManager.Instance.SetVisibilty(serviceUnavailablePanel, true);
+            UIManager.Instance.SetText(fieldAlert, "Service unavailable");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         default:
             break;
     }
-    UIManager.Instance.SetButtonInteractable(submitScoreButton, true);}
+    UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
+    UIManager.Instance.SetVisibilty(loadingPanel, false);
+    }
 
 public void ShowEditNamePanel(){
     UIManager.Instance.SetVisibilty(playerName, false);

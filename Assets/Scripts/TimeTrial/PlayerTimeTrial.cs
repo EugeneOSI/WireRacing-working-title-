@@ -60,7 +60,7 @@ public class PlayerTimeTrial : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetKeyDown(KeyCode.R)){
+        if (Input.GetKeyDown(KeyCode.R)&&!GameManager.Instance.isGamePaused){
             Destroy(tmpHookPoint);
             playerRb.linearVelocity = Vector2.zero;
             transform.position = startPosition;
