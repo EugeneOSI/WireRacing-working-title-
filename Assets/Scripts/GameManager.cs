@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using System.Collections;
 
 public enum GameState {MainMenu, EndlessMode, TimeTrial}
 public class GameManager : MonoBehaviour
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour
     public static event Action OnPauseEvent;
     public static event Action OnUnpauseEvent;
     public static event Action whilePausedEvent;
+
+    [SerializeField] private Animator loadingScreen;
+    [SerializeField] private GameObject loadingScreenObject;
     void Awake()
     {
         currentGameState = GameState.MainMenu;
@@ -27,7 +31,8 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        loadingScreen.SetTrigger("Off");
+        loadingScreenObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -82,8 +87,15 @@ public void PauseGame(){
             currentGameState = GameState.TimeTrial;
             break;
         }
+        StartCoroutine(LoadSceneCoroutine(sceneName));
+    }
+
+    IEnumerator LoadSceneCoroutine(string sceneName){
+        loadingScreen.SetTrigger("In");
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);
         LoadSceneEvent?.Invoke();
+        loadingScreen.SetTrigger("Out");
     }
 
 }
