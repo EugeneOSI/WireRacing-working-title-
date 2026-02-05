@@ -14,6 +14,7 @@ public class EMLeaderBoard : MonoBehaviour
     public int playerPosition {get; private set;}
     [SerializeField] private TMP_InputField playerNameInput;
 
+
     public static event Action EndlessModEntriesLoaded;
     public static event Action<String> InpudFieldAlert;
 

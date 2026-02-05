@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public static event Action OnPauseEvent;
     public static event Action OnUnpauseEvent;
     public static event Action whilePausedEvent;
+    public static event Action OnSceneLoading;
 
     [SerializeField] private Animator loadingScreen;
     [SerializeField] private GameObject loadingScreenObject;
@@ -91,6 +92,7 @@ public void PauseGame(){
     }
 
     IEnumerator LoadSceneCoroutine(string sceneName){
+        OnSceneLoading?.Invoke();
         loadingScreen.SetTrigger("In");
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);

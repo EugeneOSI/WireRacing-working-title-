@@ -27,15 +27,6 @@ public class UIManager : MonoBehaviour
         GameManager.whilePausedEvent -= DeactivateActiveScreen;
     }
 
-    void Update(){
-            /*if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (ActiveScreens.Count > 0)
-            {
-                SwitchVisibilty(ActiveScreens[ActiveScreens.Count - 1]);
-            }
-        }*/
-    }
     public void SwitchVisibilty(GameObject ui){
         ui.SetActive(!ui.activeSelf);
         if (ui.activeSelf)

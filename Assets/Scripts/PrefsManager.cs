@@ -6,6 +6,8 @@ public class PrefsManager : MonoBehaviour
     public static PrefsManager Instance {get; private set;}
     public string playerName {get; private set;}
     public float bestScore {get; private set;}
+    public float musicVolume {get; set;}
+    public float soundsVolume {get; set;}
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,6 +28,9 @@ public class PrefsManager : MonoBehaviour
 
     void Start()
     {
+            musicVolume = 0.1f;
+            soundsVolume = 0.1f;
+            
         if (IsPrefsSetted("PlayerName")){
             Debug.Log("PlayerName: " + GetPlayerName());
         }

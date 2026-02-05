@@ -39,6 +39,7 @@ public class TTUIController : MonoBehaviour
     DirectionTracker.onCorrectDirection += OnCorrectDirection;
 
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     }
     void OnDestroy()
     {
@@ -78,7 +79,6 @@ private void OnMonzaEntriesLoaded(){
     //UIManager.Instance.SetText(bestMonzaTime, UIManager.Instance.FormatTime(PrefsManager.Instance.GetBestTime("Monza"), "lap"));
     //UIManager.Instance.SetText(monzalaps, PrefsManager.Instance.GetLapsAmount("Monza").ToString());
     UIManager.Instance.SetVisibilty(loadingPanel, false);
-    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
 
     if (!PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded") && !PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(inputField, true);

@@ -45,6 +45,7 @@ public class EM_UIController : MonoBehaviour
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
 
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     }
     void OnDestroy(){
         EM_GameManager.OnGameStart -= OnGameStart;
@@ -100,7 +101,6 @@ public class EM_UIController : MonoBehaviour
 
 private void OnEndlessModEntriesLoaded(){
     UIManager.Instance.SetVisibilty(loadingPanel, false);
-    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     UIManager.Instance.SetText(bestScore, PrefsManager.Instance.GetBestScore().ToString());
 
     if (!PrefsManager.Instance.IsPrefsSetted("BestScoreUploaded") && !PrefsManager.Instance.IsPrefsSetted("PlayerName")){

@@ -33,6 +33,7 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] public GameObject serviceUnavailablePanel;
 
 
+
 void Awake(){
     
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
@@ -43,6 +44,12 @@ void Awake(){
     LeaderBoardsManager.OnLeaderboardError += OnLeaderboardError;
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
 }
+
+void Start(){
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
+}
+
+
 void OnDestroy(){
     LeaderBoardsManager.EntriesLoading -= OnEntriesLoading;
     LeaderBoardsManager.EntriesLoading -= OnEntriesLoading;
@@ -70,7 +77,6 @@ private void OnMonzaEntriesLoaded(){
     UIManager.Instance.SetText(bestMonzaTime, UIManager.Instance.FormatTime(PrefsManager.Instance.GetBestTime("Monza"), "lap"));
     UIManager.Instance.SetText(monzalaps, PrefsManager.Instance.GetLapsAmount("Monza").ToString());
     UIManager.Instance.SetVisibilty(loadingPanel, false);
-    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
 
     if (!PrefsManager.Instance.IsPrefsSetted("MonzaTimeUploaded") && !PrefsManager.Instance.IsPrefsSetted("PlayerName")){
         UIManager.Instance.SetVisibilty(inputField, true);
@@ -149,13 +155,12 @@ public void OnLeaderboardError(string error){
             UIManager.Instance.SetText(fieldAlert, "Internal server error");
             UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
-        case "Service unavailable":
+        default:
             UIManager.Instance.SetVisibilty(serviceUnavailablePanel, true);
             UIManager.Instance.SetText(fieldAlert, "Service unavailable");
             UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
-        default:
-            break;
+
     }
     UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
     UIManager.Instance.SetVisibilty(loadingPanel, false);

@@ -100,9 +100,6 @@ public void UploadPlayerEntry(){
 
 }
 
-public void UpdatePlayerName(){
-    PrefsManager.Instance.SetPlayerName(playerNameInput.text);
-}
 
 
 public void LoadLeaderboard(){
