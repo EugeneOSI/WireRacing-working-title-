@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     public float maxHooksAmount;
     private float maxVelocity;
     private float currentSpeed;
-
+    
 
     [Header("Sliders")]
     [SerializeField] private Slider healthBar;
@@ -61,13 +61,24 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem powerUpParticles;
     [SerializeField] private GameObject stunEffect;
     [SerializeField] private Animator powerUpHalo;
-
-
+    [Header("Audio")]
+    [SerializeField] private AudioSource cameraAudioSource;
+    [SerializeField] private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip hookThrowSound;
+    [SerializeField] private AudioClip hoveringSound;
+    [Header("AudioPitch")]
+    [SerializeField] private float minPitch = 0.5f;
+    [SerializeField] private float maxPitch = 2f;
+    [SerializeField] private float maxSpeed = 50f;
+    [SerializeField] private float pitchLerpSpeed = 5f;
 
 
     void Start()
     {
         
+        playerAudioSource.clip = hoveringSound;
+        playerAudioSource.Play();
+
         powerUpHalo.SetTrigger("Default");
         healingParticles.Stop();
         offRoadParticles.Stop();
@@ -90,15 +101,30 @@ public class Player : MonoBehaviour
         mainCamera = GameObject.Find("Main Camera").GetComponent<FollowCamera>();
 
         StartCoroutine(StartSpeed());
+        
     }
 
     void Update()
     {
+        if (!GameManager.Instance.isGamePaused&&!gameManager.GameOver){
+        playerAudioSource.volume = PrefsManager.Instance.soundsVolume;
+
+        float speed = Velocity;
+        float t = Mathf.Clamp01(speed / maxSpeed);
+
+        float targetPitch = Mathf.Lerp(minPitch, maxPitch, t);
+        playerAudioSource.pitch = Mathf.Lerp(playerAudioSource.pitch, targetPitch, Time.deltaTime * pitchLerpSpeed);}
+        else{
+            playerAudioSource.volume = 0;
+        }
+
+
+
         CheckCurrentSpeed();
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
-        if (Input.GetMouseButtonDown(0) && !gameManager.IsPaused && !gameManager.GameOver && !cutScene)
+        if (Input.GetMouseButtonDown(0) && !GameManager.Instance.isGamePaused && !gameManager.GameOver && !cutScene)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -160,6 +186,7 @@ public class Player : MonoBehaviour
 
     void ThrowHookPoint()
     {
+        cameraAudioSource.PlayOneShot(hookThrowSound);
         Vector3 hookTargetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         hookTargetPos.z = 0;
 
@@ -246,6 +273,8 @@ public class Player : MonoBehaviour
             lineRenderer.enabled = false;
         }
     }
+
+
 
     void OnTriggerExit2D(Collider2D collision)
     {

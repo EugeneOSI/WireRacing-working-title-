@@ -12,10 +12,12 @@ public class EMMusicManager : MonoBehaviour
         void Awake()
     {
         GameManager.OnSceneLoading += OnSceneLoading;
+        EM_GameManager.OnGameOver += OnGameOver;
     }
     void OnDestroy()
     {
         GameManager.OnSceneLoading -= OnSceneLoading;
+        EM_GameManager.OnGameOver -= OnGameOver;
     }
     void Start()
     {
@@ -45,5 +47,8 @@ public class EMMusicManager : MonoBehaviour
         menuMusic.clip = musicTracks[Random.Range(0, musicTracks.Length)];
         menuMusic.Play();
         trackLength = menuMusic.clip.length;
+    }
+    void OnGameOver(){
+        menuMusic.Stop();
     }
 }

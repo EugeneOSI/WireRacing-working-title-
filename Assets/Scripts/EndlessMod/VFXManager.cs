@@ -34,6 +34,12 @@ public class VFXManager : MonoBehaviour
         Player.OutOnTrack += OnOutOnTrack;
         PursuingEnemy.EnemyFreezed += OnEnemyFreezed;
         EM_GameManager.OnGameOver += OnDead;
+
+        /*Color color = enemyApproachingImage.color;
+        color.a = 1f;
+        enemyApproachingImage.color = color;*/
+
+
     }
     void OnDestroy()
     {
@@ -52,7 +58,6 @@ public class VFXManager : MonoBehaviour
         if (enemyApproachingImage == null) return;
 
         float distance = Vector2.Distance(player.transform.position, pursuingEnemy.transform.position);
-        // InverseLerp: 0 при distanceEffectStart, 1 при distanceEffectFull
         float alpha = Mathf.InverseLerp(distanceEffectStart, distanceEffectFull, distance);
         alpha = Mathf.Clamp01(alpha);
 

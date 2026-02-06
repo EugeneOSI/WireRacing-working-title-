@@ -9,6 +9,9 @@ public class PursuingEnemy : MonoBehaviour
     private SplineContainer splineContainer;
     [SerializeField] private TrackGenarator trackGenarator;
     [SerializeField] private SplineContainer firstSplineContainer;
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip policeSirene;
     private Spline _spline;
     public float defaultSpeed;
     float currentSpeed;
@@ -16,6 +19,8 @@ public class PursuingEnemy : MonoBehaviour
     private float _splineLength;
 
     bool freezed;
+    bool gameOver = false;
+    bool paused = false;
 
     [SerializeField] private Player player;
     [SerializeField] private EM_GameManager gameManager;
@@ -28,15 +33,42 @@ public class PursuingEnemy : MonoBehaviour
 
     void Start()
     {
+        
+        audioSource.clip = policeSirene;
+        audioSource.Play();
+
         enemyFreezedIndicator.SetActive(false);
         splineContainer = firstSplineContainer;
         _spline = splineContainer.Spline;
         CalculateSplineLength();
+
+        GameManager.OnPauseEvent += OnPause;
+        GameManager.OnUnpauseEvent += OnUnpause;
+        EM_GameManager.OnGameOver += OnGameOver;
+    }
+    void OnDestroy()
+    {
+        GameManager.OnPauseEvent -= OnPause;
+        GameManager.OnUnpauseEvent -= OnUnpause;
+        EM_GameManager.OnGameOver -= OnGameOver;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameOver)
+        {
+            audioSource.volume = Mathf.Lerp(audioSource.volume, 0f, Time.deltaTime * 3f);
+        }
+        else if (paused)
+        {
+            audioSource.volume = 0;
+        }
+        else
+        {
+            audioSource.volume = PrefsManager.Instance.soundsVolume-0.3f;
+        }
+
         CheckConditions();
 
     if (splineContainer==null){
@@ -121,6 +153,15 @@ public void Freeze(){
     StartCoroutine(FreezeTimer());
 }
 
+void OnPause(){
+    paused = true;
+}
+void OnUnpause(){
+    paused = false;
+}
+void OnGameOver(){
+    gameOver = true;
+}
 IEnumerator FreezeTimer(){
     yield return new WaitForSeconds(3);
     freezed = false;

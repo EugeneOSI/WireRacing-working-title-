@@ -37,12 +37,26 @@ public class PlayerTimeTrial : MonoBehaviour
     [Header("Particles")]
     [SerializeField] private ParticleSystem offRoadParticles;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource cameraAudioSource;
+    [SerializeField] private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip hookThrowSound;
+    [SerializeField] private AudioClip hoveringSound;
+    [Header("AudioPitch")]
+    [SerializeField] private float minPitch = 0.5f;
+    [SerializeField] private float maxPitch = 2f;
+    [SerializeField] private float maxSpeed = 50f;
+    [SerializeField] private float pitchLerpSpeed = 5f;
+
 
     public static event Action OnCrossedFirstMarker;
     public static event Action<Vector2> BarierHitTT;
     public static event Action OutOnTrackTT;
     void Start()
     {
+        playerAudioSource.clip = hoveringSound;
+        playerAudioSource.Play();
+        
         offRoadParticles.Stop();
         startPosition = transform.position;
         startCameraPosition = mainCamera.transform.position;
@@ -59,6 +73,18 @@ public class PlayerTimeTrial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.isGamePaused){
+        playerAudioSource.volume = PrefsManager.Instance.soundsVolume;
+
+        float speed = Velocity;
+        float t = Mathf.Clamp01(speed / maxSpeed);
+
+        float targetPitch = Mathf.Lerp(minPitch, maxPitch, t);
+        playerAudioSource.pitch = Mathf.Lerp(playerAudioSource.pitch, targetPitch, Time.deltaTime * pitchLerpSpeed);}
+        else{
+            playerAudioSource.volume = 0;
+        }
+        
         
         if (Input.GetKeyDown(KeyCode.R)&&!GameManager.Instance.isGamePaused){
             Destroy(tmpHookPoint);
@@ -100,6 +126,7 @@ public class PlayerTimeTrial : MonoBehaviour
 
     void ThrowHookPoint()
     {
+        cameraAudioSource.PlayOneShot(hookThrowSound);
         Vector3 hookTargetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         hookTargetPos.z = 0;
 
@@ -187,6 +214,13 @@ public class PlayerTimeTrial : MonoBehaviour
             Vector2 closestPoint = collision.contacts[0].point;
             playerRb.AddForce((((Vector2)transform.position-closestPoint)+playerRb.linearVelocity/2).normalized * 10, ForceMode2D.Impulse);
             BarierHitTT?.Invoke(closestPoint);
+        }
+    }
+    public float Velocity
+    {
+        get
+        {
+            return playerRb.linearVelocity.magnitude;
         }
     }
 

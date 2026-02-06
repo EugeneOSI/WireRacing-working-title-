@@ -18,6 +18,7 @@ public class EM_GameManager : MonoBehaviour
     bool gameOverSequenceStarted = false;
     bool lowHealth = false;
     float time;
+    public float distance {get; private set;}
     const float difficultyK = 0.003f;
 
     bool gameStarted;

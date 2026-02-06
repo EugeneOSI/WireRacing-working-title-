@@ -11,6 +11,7 @@ public class OptionsMenu : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
+        
         musicVolumeSlider.value = PrefsManager.Instance.musicVolume;
         soundsVolumeSlider.value = PrefsManager.Instance.soundsVolume;
     }
