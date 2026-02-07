@@ -5,6 +5,7 @@ public class TTSoundManager : MonoBehaviour
     [SerializeField] private AudioSource audioSource;   
     [SerializeField] private AudioClip barierHitSound;
     [SerializeField] private AudioClip outOnTrackSound;
+    [SerializeField] private AudioClip bestTimeSound;
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -13,12 +14,14 @@ public class TTSoundManager : MonoBehaviour
         PlayerTimeTrial.OutOnTrackTT += OnOutOnTrack;
         GameManager.OnPauseEvent += OnPause;
         GameManager.OnUnpauseEvent += OnUnpause;
+        TimeTrialManager.BestTimeUpdated += OnBestTimeUpdated;
     }
     void OnDestroy(){
         PlayerTimeTrial.BarierHitTT -= OnBarierHit;
         PlayerTimeTrial.OutOnTrackTT -= OnOutOnTrack;
         GameManager.OnPauseEvent -= OnPause;
         GameManager.OnUnpauseEvent -= OnUnpause;
+        TimeTrialManager.BestTimeUpdated -= OnBestTimeUpdated;
     }
 
     // Update is called once per frame
@@ -41,5 +44,9 @@ public class TTSoundManager : MonoBehaviour
     void OnUnpause()
     {
         audioSource.volume = PrefsManager.Instance.soundsVolume;
+    }
+    void OnBestTimeUpdated()
+    {
+        audioSource.PlayOneShot(bestTimeSound);
     }
 }

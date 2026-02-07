@@ -12,6 +12,9 @@ public class EMSoundManager : MonoBehaviour
     [SerializeField] private AudioClip outOnTrackSound;
     [SerializeField] private AudioClip deadExplosion1;
     [SerializeField] private AudioClip deadExplosion2;
+    [SerializeField] private AudioClip multiplayerUpdateSound;
+    [SerializeField] private AudioClip multiplayerScoreUpdateSound;
+    [SerializeField] private AudioClip scoreUpdateSound;
 
 
     bool paused = false;
@@ -28,6 +31,9 @@ public class EMSoundManager : MonoBehaviour
         EM_GameManager.OnGameOver += OnDead;
         GameManager.OnPauseEvent += OnPause;
         GameManager.OnUnpauseEvent += OnUnpause;
+        ScoreManager.OnMultiplayerUpdated += OnMultiplayerUpdated;
+        ScoreManager.OnMultiplayerScoreUpdated += OnMultiplayerScoreUpdated;
+        ScoreManager.OnMainScoreUpdated += OnMainScoreUpdated;
     }
     void OnDestroy()
     {
@@ -40,6 +46,9 @@ public class EMSoundManager : MonoBehaviour
         EM_GameManager.OnGameOver -= OnDead;
         GameManager.OnPauseEvent -= OnPause;
         GameManager.OnUnpauseEvent -= OnUnpause;
+        ScoreManager.OnMultiplayerUpdated -= OnMultiplayerUpdated;
+        ScoreManager.OnMultiplayerScoreUpdated -= OnMultiplayerScoreUpdated;
+        ScoreManager.OnMainScoreUpdated -= OnMainScoreUpdated;
     }
 
     // Update is called once per frame
@@ -90,5 +99,17 @@ public class EMSoundManager : MonoBehaviour
     void OnUnpause()
     {
         audioSource.volume = PrefsManager.Instance.soundsVolume;
+    }
+    void OnMultiplayerUpdated()
+    {
+        audioSource.PlayOneShot(multiplayerUpdateSound);
+    }
+    void OnMainScoreUpdated()
+    {
+        audioSource.PlayOneShot(scoreUpdateSound);
+    }
+    void OnMultiplayerScoreUpdated()
+    {
+        audioSource.PlayOneShot(multiplayerScoreUpdateSound);
     }
 }
