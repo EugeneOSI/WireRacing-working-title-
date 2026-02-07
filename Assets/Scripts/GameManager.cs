@@ -1,18 +1,26 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using System.Collections;
 
 public enum GameState {MainMenu, EndlessMode, TimeTrial}
 public class GameManager : MonoBehaviour
 {
     
     public static GameManager Instance {get; private set;}
+    bool sceneLoading = false;
     public static event Action LoadSceneEvent;
     public GameState currentGameState {get; private set;}
     public bool isGamePaused {get; private set;}
     public static event Action OnPauseEvent;
     public static event Action OnUnpauseEvent;
     public static event Action whilePausedEvent;
+    public static event Action OnSceneLoading;
+
+    [SerializeField] private Animator loadingScreen;
+    [SerializeField] private GameObject loadingScreenObject;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip pauseSound;
     void Awake()
     {
         currentGameState = GameState.MainMenu;
@@ -27,23 +35,24 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        loadingScreen.SetTrigger("Off");
+        loadingScreenObject.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab)){
+        /*if (Input.GetKeyDown(KeyCode.Tab)){
             Debug.Log(currentGameState);
 
-        }
+        }*/
         if (isGamePaused){
             Time.timeScale = 0;
         }
         else{
             Time.timeScale = 1;
         }
-        if (Input.GetKeyDown(KeyCode.Escape)){
+        if (Input.GetKeyDown(KeyCode.Escape)&&!sceneLoading){
             if (currentGameState != GameState.MainMenu){
             PauseGame();}
             else {
@@ -57,15 +66,16 @@ public void PauseGame(){
         if (!isGamePaused){
             OnPauseEvent?.Invoke();
             isGamePaused = true;
-            Debug.Log("Игра поставлена на паузу");
+            audioSource.PlayOneShot(pauseSound);
             }
             else if(isGamePaused&&UIManager.Instance.ActiveScreens.Count < 2){
                 OnUnpauseEvent?.Invoke();
-                isGamePaused = false;Debug.Log("Игра поставлена на паузу");
+                isGamePaused = false;
+                audioSource.PlayOneShot(pauseSound);
             }
             else{
                 whilePausedEvent?.Invoke();
-                Debug.Log("Игра остается на паузе");
+                audioSource.PlayOneShot(pauseSound);
             }
             
 }
@@ -82,8 +92,18 @@ public void PauseGame(){
             currentGameState = GameState.TimeTrial;
             break;
         }
+        StartCoroutine(LoadSceneCoroutine(sceneName));
+    }
+
+    IEnumerator LoadSceneCoroutine(string sceneName){
+        sceneLoading = true;
+        OnSceneLoading?.Invoke();
+        loadingScreen.SetTrigger("In");
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneName);
         LoadSceneEvent?.Invoke();
+        loadingScreen.SetTrigger("Out");
+        sceneLoading = false;
     }
 
 }

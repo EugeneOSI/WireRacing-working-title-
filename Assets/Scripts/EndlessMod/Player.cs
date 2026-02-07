@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public bool isAlive;
     public bool onTrack;
     private bool hookIsMoving;
+    private bool cutScene;
     public bool hitObstacle { get; private set; }
     public bool withPowerUp{ get; private set; }
     public bool smashObstacle{ get; private set; }
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour
     public float maxHooksAmount;
     private float maxVelocity;
     private float currentSpeed;
-
+    
 
     [Header("Sliders")]
     [SerializeField] private Slider healthBar;
@@ -60,13 +61,25 @@ public class Player : MonoBehaviour
     [SerializeField] private ParticleSystem powerUpParticles;
     [SerializeField] private GameObject stunEffect;
     [SerializeField] private Animator powerUpHalo;
-
-
+    [Header("Audio")]
+    [SerializeField] private AudioSource cameraAudioSource;
+    [SerializeField] private AudioSource playerAudioSource;
+    [SerializeField] private AudioClip hookThrowSound;
+    [SerializeField] private AudioClip hoveringSound;
+    [Header("AudioPitch")]
+    [SerializeField] private float minPitch = 0.5f;
+    [SerializeField] private float maxPitch = 2f;
+    [SerializeField] private float maxSpeed = 50f;
+    [SerializeField] private float pitchLerpSpeed = 5f;
 
 
     void Start()
     {
         
+        playerAudioSource.clip = hoveringSound;
+        playerAudioSource.Play();
+
+        powerUpHalo.SetTrigger("Default");
         healingParticles.Stop();
         offRoadParticles.Stop();
         powerUpParticles.Stop();
@@ -86,15 +99,32 @@ public class Player : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         playerCol = GetComponent<Collider2D>();
         mainCamera = GameObject.Find("Main Camera").GetComponent<FollowCamera>();
+
+        StartCoroutine(StartSpeed());
+        
     }
 
     void Update()
     {
+        if (!GameManager.Instance.isGamePaused&&!gameManager.GameOver){
+        playerAudioSource.volume = PrefsManager.Instance.soundsVolume;
+
+        float speed = Velocity;
+        float t = Mathf.Clamp01(speed / maxSpeed);
+
+        float targetPitch = Mathf.Lerp(minPitch, maxPitch, t);
+        playerAudioSource.pitch = Mathf.Lerp(playerAudioSource.pitch, targetPitch, Time.deltaTime * pitchLerpSpeed);}
+        else{
+            playerAudioSource.volume = 0;
+        }
+
+
+
         CheckCurrentSpeed();
         transform.rotation = Quaternion.Euler(0, 0, 0);
         playerSprite.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Atan2(playerRb.linearVelocity.y, playerRb.linearVelocity.x) * Mathf.Rad2Deg)-90);
         
-        if (Input.GetMouseButtonDown(0) && !gameManager.IsPaused && !gameManager.GameOver)
+        if (Input.GetMouseButtonDown(0) && !GameManager.Instance.isGamePaused && !gameManager.GameOver && !cutScene)
         {
             ResetWirePosition();
             ThrowHookPoint();
@@ -102,8 +132,15 @@ public class Player : MonoBehaviour
         if (health <= 0)
         {
             isAlive = false;
+            Destroy(tmpHookPoint);
+            if (!offRoadParticles.isPlaying)
+            {
+                offRoadParticles.Play();
+                
+            }
             //Debug.Log("You Died");
         }
+
 
         if (tmpHookPoint != null)
         {
@@ -111,8 +148,17 @@ public class Player : MonoBehaviour
             DrawWire();
             if (!hookPoint.moveStatus) hookIsMoving = false;
         }
+        else {
+            ResetWirePosition();
+        }
 
         healthBar.value = health;
+            if (health >= 4){
+            healthBar.gameObject.SetActive(false);
+        }
+        else{
+            healthBar.gameObject.SetActive(true);
+        }
 
         if (withPowerUp)
         {
@@ -140,6 +186,7 @@ public class Player : MonoBehaviour
 
     void ThrowHookPoint()
     {
+        cameraAudioSource.PlayOneShot(hookThrowSound);
         Vector3 hookTargetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         hookTargetPos.z = 0;
 
@@ -227,6 +274,8 @@ public class Player : MonoBehaviour
         }
     }
 
+
+
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("StartRaceZone"))
@@ -278,7 +327,7 @@ public class Player : MonoBehaviour
         }
         if (collision.CompareTag("DeadZone")){
             DisableHook();
-            health = 0;
+            health = -10;
         }
     }
 
@@ -364,6 +413,14 @@ public class Player : MonoBehaviour
     public float Health
     {
         get{ return health; }
+    }
+
+    IEnumerator StartSpeed()
+    {
+        cutScene = true;
+        yield return new WaitForSeconds(2.8f);
+        playerRb.linearVelocity = new Vector2(40, 0);
+        cutScene = false;
     }
     
 }

@@ -16,7 +16,9 @@ public class EM_GameManager : MonoBehaviour
     public bool IsPaused {get; set;}
     public bool GameOver {get; private set;}
     bool gameOverSequenceStarted = false;
+    bool lowHealth = false;
     float time;
+    public float distance {get; private set;}
     const float difficultyK = 0.003f;
 
     bool gameStarted;
@@ -52,10 +54,15 @@ public class EM_GameManager : MonoBehaviour
         time = Time.timeSinceLevelLoad;
         SetDifficulty();
         if (player.Health < 2){
-            OnLowHealth?.Invoke();
+            if (!lowHealth){
+
+            OnLowHealth?.Invoke();}
+            lowHealth = true;
         }
         else{
-            OnNormalHealth?.Invoke();
+            if (lowHealth){
+            OnNormalHealth?.Invoke();}
+            lowHealth = false;
         }
         
         if (!player.isAlive && gameOverSequenceStarted == false)

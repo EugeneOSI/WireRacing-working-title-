@@ -14,8 +14,9 @@ public class EMLeaderBoard : MonoBehaviour
     public int playerPosition {get; private set;}
     [SerializeField] private TMP_InputField playerNameInput;
 
+
     public static event Action EndlessModEntriesLoaded;
-    public static event Action EmptyFieldAlert;
+    public static event Action<String> InpudFieldAlert;
 
     public StatusCode statusCode;
 
@@ -78,7 +79,11 @@ public void UploadPlayerEntry(){
         name = PrefsManager.Instance.GetPlayerName();
     }
     else if(playerNameInput.text == ""){
-        EmptyFieldAlert?.Invoke();
+        InpudFieldAlert?.Invoke("Field is empty");
+        return;
+    }
+    else if (playerNameInput.text.Length > 6){
+        InpudFieldAlert?.Invoke("Name is too long");
         return;
     }
     else{

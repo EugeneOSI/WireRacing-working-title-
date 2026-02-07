@@ -57,6 +57,10 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Animator multiplayerSliderAnimator;
     [SerializeField] private Animator mainScoreAnimator;
 
+    public static event Action OnMultiplayerUpdated;
+    public static event Action OnMainScoreUpdated;
+    public static event Action OnMultiplayerScoreUpdated;
+
     private void Awake()
     {
         if (player == null)
@@ -69,6 +73,10 @@ public class ScoreManager : MonoBehaviour
         {
             scoreEventsHander = player.GetComponent<ScoreEventsHander>();
         }
+    }
+    private void Start(){
+        multiplayedScoreCollected = true;
+        multiplayerAmount = 1;
     }
 
     private void Update()
@@ -354,6 +362,8 @@ public class ScoreManager : MonoBehaviour
     }
 
     private void IncreaseMultiplayer(){
+        Debug.Log("MultiplayerScoreUpdated");
+        OnMultiplayerUpdated?.Invoke();
         multiplayerAmount++;
         multiplayerAmountAnimator.SetTrigger("TopUp");
         MultiplayerSliderMaxValue(multiplayerSlider.maxValue+0.8f);
@@ -366,11 +376,13 @@ public class ScoreManager : MonoBehaviour
     {
         multiplayerSlider.value += 0.2f;
         if (multiplayerScore>0) multiplayerSliderAnimator.SetTrigger("In");
+        OnMultiplayerScoreUpdated?.Invoke();
         
     }
 
     private void ShowMultiplayerAmount(){
         if (!multiplayerAmountShown){
+            OnMultiplayerUpdated?.Invoke();
         multiplayerAmountAnimator.SetTrigger("In");
         multiplayerAmountShown = true;
         }
@@ -410,6 +422,8 @@ public class ScoreManager : MonoBehaviour
 
     private void TopUpMainScore(){
         if (!mainScoreToppedUp){
+            Debug.Log("MainScoreUpdated");
+            OnMainScoreUpdated?.Invoke();
         mainScoreAnimator.SetTrigger("TopUp");
         mainScoreToppedUp = true;
         }

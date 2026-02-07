@@ -6,6 +6,8 @@ public class PrefsManager : MonoBehaviour
     public static PrefsManager Instance {get; private set;}
     public string playerName {get; private set;}
     public float bestScore {get; private set;}
+    public float musicVolume {get; set;}
+    public float soundsVolume {get; set;}
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,6 +28,9 @@ public class PrefsManager : MonoBehaviour
 
     void Start()
     {
+            musicVolume = 0.1f;
+            soundsVolume = 0.8f;
+            
         if (IsPrefsSetted("PlayerName")){
             Debug.Log("PlayerName: " + GetPlayerName());
         }
@@ -46,7 +51,7 @@ public class PrefsManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         if (Input.GetKeyDown(KeyCode.I)){
             DeleteNamePrefs();
@@ -57,7 +62,7 @@ public class PrefsManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)){
             SaveBestTime(10, "Monza");
         }
-    }
+    }*/
 
     public void SaveBestScore(float score){
         PlayerPrefs.SetFloat("BestScore", score);

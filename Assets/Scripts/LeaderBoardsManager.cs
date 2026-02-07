@@ -2,11 +2,13 @@ using UnityEngine;
 using Dan.Main;
 using System;
 using Dan.Enums;
+using System.Collections;
 
 public class LeaderBoardsManager : MonoBehaviour
 {
     public static LeaderBoardsManager Instance {get; private set;}
     public StatusCode statusCode;
+    private IEnumerator waitForLoading;
 
     public static event Action EntriesLoading;
     public static event Action EnteryUploading;
@@ -30,15 +32,19 @@ public class LeaderBoardsManager : MonoBehaviour
 
     public void LoadEntries(string leaderboardName){ 
         EntriesLoading?.Invoke();
+        waitForLoading = WaitForLoading(25);
+        StartCoroutine(waitForLoading);
         switch(leaderboardName){
             case "Monza":
                 Leaderboards.WireRacer_TimeTrial_Monza.GetEntries((success) => {
-                EntriesLoaded?.Invoke(success);
+                EntriesLoaded?.Invoke(success); 
+                StopCoroutine(waitForLoading);
                 });
                 break;
             case "EndlessMod":
                 Leaderboards.WireRacer.GetEntries((success) => {
-                EntriesLoaded?.Invoke(success);
+                EntriesLoaded?.Invoke(success); 
+                StopCoroutine(waitForLoading);
                 });
                 break;
         }
@@ -162,6 +168,11 @@ public class LeaderBoardsManager : MonoBehaviour
         }
         PrefsManager.Instance.DeleteNamePrefs();
     }
+}
+
+IEnumerator WaitForLoading(float delay){
+    yield return new WaitForSeconds(delay);
+    OnLeaderboardError?.Invoke("Service unavailable");
 }
 
     

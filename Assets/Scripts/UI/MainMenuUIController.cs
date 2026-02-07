@@ -30,6 +30,8 @@ public class MainMenuUIController : MonoBehaviour
     [SerializeField] public GameObject deleteEntryButton;
     [SerializeField] public GameObject monzaStartButton;
     [SerializeField] public GameObject monzaInformationPanel;
+    [SerializeField] public GameObject serviceUnavailablePanel;
+
 
 
 void Awake(){
@@ -37,27 +39,35 @@ void Awake(){
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
     LeaderBoardsManager.EnteryUploading += OnEntryUploading;
     MonzaLeaderBoard.MonzaEntriesLoaded += OnMonzaEntriesLoaded;
-    MonzaLeaderBoard.EmptyFieldAlert += EmptyFieldAlert;
+    MonzaLeaderBoard.InpudFieldAlert += InpudFieldAlert;
     LeaderBoardsManager.MonzaEntryDeleted += OnMonzaEntryDeleted;
     LeaderBoardsManager.OnLeaderboardError += OnLeaderboardError;
     LeaderBoardsManager.EntriesLoading += OnEntriesLoading;
 }
+
+void Start(){
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
+}
+
+
 void OnDestroy(){
     LeaderBoardsManager.EntriesLoading -= OnEntriesLoading;
     LeaderBoardsManager.EntriesLoading -= OnEntriesLoading;
     LeaderBoardsManager.EnteryUploading -= OnEntryUploading;
     MonzaLeaderBoard.MonzaEntriesLoaded -= OnMonzaEntriesLoaded;
-    MonzaLeaderBoard.EmptyFieldAlert -= EmptyFieldAlert;
+    MonzaLeaderBoard.InpudFieldAlert -= InpudFieldAlert;
     LeaderBoardsManager.MonzaEntryDeleted -= OnMonzaEntryDeleted;
     LeaderBoardsManager.OnLeaderboardError -= OnLeaderboardError;
 }
 private void OnEntriesLoading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
     //UIManager.Instance.SetButtonInteractable(monzaStartButton, false);
 }
 private void OnEntryUploading(){
     UIManager.Instance.SetVisibilty(loadingPanel, true);
+    UIManager.Instance.SetVisibilty(serviceUnavailablePanel, false);
     UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
     UIManager.Instance.SetButtonInteractable(monzaStartButton, false);
 }
@@ -111,9 +121,9 @@ private void OnMonzaEntriesLoaded(){
         Debug.Log("Player name found and best monza time uploaded");
     }
 }
-public void EmptyFieldAlert(){
+public void InpudFieldAlert(string alert){
     UIManager.Instance.StartCoroutine(UIManager.Instance.SwitchVisibiltyForSeconds(fieldAlert, 2));
-    UIManager.Instance.SetText(fieldAlert, "Field is empty");
+    UIManager.Instance.SetText(fieldAlert, alert);
 }
 
 public void OnMonzaEntryDeleted(){
@@ -135,17 +145,26 @@ public void OnLeaderboardError(string error){
             break;
         case "0":
             UIManager.Instance.SetText(fieldAlert, "Failed to connect");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         case "503":
             UIManager.Instance.SetText(fieldAlert, "Service unavailable");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         case "500":
             UIManager.Instance.SetText(fieldAlert, "Internal server error");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
         default:
+            UIManager.Instance.SetVisibilty(serviceUnavailablePanel, true);
+            UIManager.Instance.SetText(fieldAlert, "Service unavailable");
+            UIManager.Instance.SetButtonInteractable(submitScoreButton, false);
             break;
+
     }
-    UIManager.Instance.SetButtonInteractable(submitScoreButton, true);}
+    UIManager.Instance.SetButtonInteractable(submitScoreButton, true);
+    UIManager.Instance.SetVisibilty(loadingPanel, false);
+    }
 
 
 public void OpenGameModeMenu(){
