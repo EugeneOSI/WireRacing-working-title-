@@ -171,7 +171,7 @@ void FinishLap()
     float lapTime = now - lapStartTime;
 
     Debug.Log("Проверка валидности круга");
-    if (!lapValid)
+    if (!lapValid||lapTime < 15f)
     {
         previousLapTime = lapTime;
         Debug.Log($"Lap {currentLapIndex} INVALID, time = {FormatTime(lapTime,"lap")}");
@@ -181,7 +181,7 @@ void FinishLap()
     previousLapTime = lapTime;
     currentLapSectors.CopyTo(previousLapSectors, 0);
     Debug.Log("Проверка лучшего времени");
-    if (lapValid&& (bestLapTime < 0f || lapTime < PrefsManager.Instance.GetBestTime("Monza"))){
+    if (lapValid&& (lapTime > 15f  && lapTime < PrefsManager.Instance.GetBestTime("Monza"))){
     Debug.Log("Лучшее время найдено");
     if (bestLapTime < 0f){
         monzaLeaderBoard.isLoaded = false;
