@@ -9,6 +9,7 @@ public class LeaderBoardsManager : MonoBehaviour
     public static LeaderBoardsManager Instance {get; private set;}
     public StatusCode statusCode;
     private IEnumerator waitForLoading;
+    [SerializeField] private GameObject entriesDeletedMessage;
 
     public static event Action EntriesLoading;
     public static event Action EnteryUploading;
@@ -168,6 +169,18 @@ public class LeaderBoardsManager : MonoBehaviour
         }
         PrefsManager.Instance.DeleteNamePrefs();
     }
+}
+
+public void DeleteAllEntries(){
+    Leaderboards.WireRacer_TimeTrial_Monza.DeleteEntry((success) => {
+        if (success){
+            Leaderboards.WireRacer.DeleteEntry((success) => { 
+                if (success){
+                    UIManager.Instance.SetVisibilty(entriesDeletedMessage, true);
+                }
+            }, HandleLeaderboardError);
+        }
+    }, HandleLeaderboardError);
 }
 
 IEnumerator WaitForLoading(float delay){

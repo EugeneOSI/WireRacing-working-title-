@@ -174,7 +174,9 @@ public class PrefsManager : MonoBehaviour
         PlayerPrefs.DeleteKey("PlayerName");
         PlayerPrefs.DeleteKey("BestScore");
         PlayerPrefs.DeleteKey("BestMonzaTime");
-        PlayerPrefs.DeleteKey("PlayerEntryUploaded");
+        PlayerPrefs.DeleteKey("BestScoreUploaded");
+        PlayerPrefs.DeleteKey("MonzaTimeUploaded");
+        PlayerPrefs.DeleteKey("MonzaLaps");
     }
 
     public void ResetMonzaPrefs(){
