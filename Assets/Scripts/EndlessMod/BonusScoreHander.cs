@@ -31,10 +31,6 @@ public class BonusScoreHander : MonoBehaviour
     private bool _finished = false;
     private bool _collected = false;
 
-
-    /// <summary>
-    /// Вызывается сразу после Instantiate из ScoreManager.
-    /// </summary>
     public void Initialize(ScoreManager manager, ScoreEventsHander eventsHander, Player player, BonusType type)
     {
         _manager = manager;
@@ -81,31 +77,25 @@ public class BonusScoreHander : MonoBehaviour
             amount.text = ((int)_score).ToString();
         }
 
-        // фиксируем вращение
         transform.rotation = Quaternion.identity;
     }
 
-    // --------- Конкретная логика событий ---------
 
     private void HandleNearSand()
     {
         if (description != null)
             description.text = "ON THE EDGE!";
 
-        // пока реально рядом с кромкой — накапливаем очки
         if (_events.NearSand)
         {
             _score += _player.Velocity * Time.deltaTime * 2f;
         }
 
-        // ScoreManager сказал, что событие закончено (NearSandActive == false)
         if (!_manager.NearSandActive)
         {
             StopOutTimerIfRunning();
             _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
         }
-
-        // Ошибка: съехал с трассы или ударился
         if ((!_player.OnTrack || _player.hitObstacle)&&!_player.withPowerUp)
         {
             StopOutTimerIfRunning();
@@ -134,7 +124,6 @@ public class BonusScoreHander : MonoBehaviour
             _score += Time.deltaTime * 40f;
         }
 
-        // пока событие активно — сбрасываем "хвост" времени
         if (_manager.NearObstacleActive)
         {
             _obstacleExtraTime = 2f;
@@ -160,14 +149,12 @@ public class BonusScoreHander : MonoBehaviour
             _score += _player.Velocity * Time.deltaTime * 2f;
         }
 
-        // как только ScoreManager решил, что "фаза хайспида" закончилась
         if (!_manager.HighSpeedActive)
         {
             StopOutTimerIfRunning();
             _outTimerCoroutine = StartCoroutine(TimerAndFinish(0.3f, collect: true));
         }
 
-        // Ошибка: слетел с трассы или ударился
         if ((!_player.OnTrack || _player.hitObstacle)&&!_player.withPowerUp)
         {
             StopOutTimerIfRunning();
@@ -237,7 +224,6 @@ public class BonusScoreHander : MonoBehaviour
         
     }
 
-    // --------- Общие вспомогательные штуки ---------
 
     private void StopOutTimerIfRunning()
     {

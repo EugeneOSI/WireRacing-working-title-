@@ -10,7 +10,6 @@ public class EM_GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private SpawnManager spawnManager;
     [SerializeField] private PursuingEnemy pursuingEnemy;
-    [SerializeField] private EM_UIController uiController;
     [SerializeField] private ScoreManager scoreManager;
     
     public bool IsPaused {get; set;}

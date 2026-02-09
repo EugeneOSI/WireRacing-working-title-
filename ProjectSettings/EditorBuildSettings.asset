@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndlessMode.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TimeTrial_Monza.unity
     guid: efa6a0250acaa8b44a07741d0ee8186c
   m_configObjects:
