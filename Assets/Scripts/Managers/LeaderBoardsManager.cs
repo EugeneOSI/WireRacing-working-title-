@@ -37,7 +37,7 @@ public class LeaderBoardsManager : MonoBehaviour
         StartCoroutine(waitForLoading);
         switch(leaderboardName){
             case "Monza":
-                Leaderboards.WireRacer_TimeTrial_Monza.GetEntries((success) => {
+                Leaderboards.WireRacer.GetEntries((success) => {
                 EntriesLoaded?.Invoke(success); 
                 StopCoroutine(waitForLoading);
                 });
@@ -58,7 +58,7 @@ public class LeaderBoardsManager : MonoBehaviour
         switch(leaderboardName){
             case "Monza":
             float uploadTimeMonza = PrefsManager.Instance.GetBestTime("Monza") * 1000;
-            Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(name, (int)uploadTimeMonza, (success) => {
+            Leaderboards.WireRacer.UploadNewEntry(name, (int)uploadTimeMonza, (success) => {
         if (success){
             PrefsManager.Instance.SetCircuitUploadStatus("Monza", 1);
             LoadEntries("Monza");
@@ -71,7 +71,7 @@ public class LeaderBoardsManager : MonoBehaviour
             PrefsManager.Instance.SetBestScoreUploadStatus(1);
             LoadEntries("EndlessMod");
         }}, HandleLeaderboardError);
-        break;
+         break; 
     }}
 
     public void UpdatePlayerEntry(string leaderboardName){
@@ -79,7 +79,7 @@ public class LeaderBoardsManager : MonoBehaviour
         switch(leaderboardName){
             case "Monza":
             float uploadTime = PrefsManager.Instance.GetBestTime("Monza") * 1000;
-            Leaderboards.WireRacer_TimeTrial_Monza.UploadNewEntry(PrefsManager.Instance.GetPlayerName(), (int)uploadTime, (success) => {
+            Leaderboards.WireRacer.UploadNewEntry(PrefsManager.Instance.GetPlayerName(), (int)uploadTime, (success) => {
         if (success){
             LoadEntries("Monza");
         }}, HandleLeaderboardError);
@@ -96,7 +96,7 @@ public class LeaderBoardsManager : MonoBehaviour
     public void DeletePlayerEntry(string leaderboardName){
         switch(leaderboardName){
             case "Monza":
-            Leaderboards.WireRacer_TimeTrial_Monza.DeleteEntry((success) => {
+            Leaderboards.WireRacer.DeleteEntry((success) => {
                 if (success){
                     LoadEntries("Monza");
                     MonzaEntryDeleted?.Invoke();

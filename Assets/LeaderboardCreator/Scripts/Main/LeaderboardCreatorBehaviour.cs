@@ -12,9 +12,6 @@ namespace Dan.Main
 {
     public sealed class LeaderboardCreatorBehaviour : MonoBehaviour
     {
-        
-        public static string errorCode{get; set;}
-        
         [Serializable]
         private struct EntryResponse
         {
@@ -24,9 +21,8 @@ namespace Dan.Main
         internal static LeaderboardCreatorConfig Config =>
             Resources.Load<LeaderboardCreatorConfig>("LeaderboardCreatorConfig");
 
-        private static string GetError(UnityWebRequest request){
-            errorCode = request.responseCode.ToString();
-            return $"{request.responseCode}: {request.downloadHandler.text}";}
+        private static string GetError(UnityWebRequest request) =>
+            $"{request.responseCode}: {request.downloadHandler.text}";
         
         internal void Authorize(Action<string> callback)
         {
@@ -140,7 +136,6 @@ namespace Dan.Main
             var request = UnityWebRequest.Post(url, form);
             StartCoroutine(HandleRequest(request, callback, errorCallback));
         }
-
         
 #if UNITY_ANDROID
         private class ForceAcceptAll : CertificateHandler
@@ -180,7 +175,6 @@ namespace Dan.Main
                 message = $"{message}: {text}";
             LeaderboardCreator.LogError(message);
         }
-
         
         private static void SaveGuid(string guid)
         {
